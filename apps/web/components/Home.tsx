@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Bars3Icon,
   CalendarDaysIcon,
@@ -10,7 +8,7 @@ import bgPic from "../public/background.jpeg";
 import introPic from "../public/intro.png";
 import logoPic from "../public/naturechill-logo.png";
 import LocaleSwitcher from "./LocaleSwitcher";
-import { useDictionary } from "./lib/DictionaryContext";
+import { useTranslations } from "next-intl";
 
 export const Navbar: React.FC = () => {
   return (
@@ -53,7 +51,7 @@ export const Navbar: React.FC = () => {
 };
 
 export const Hero: React.FC = () => {
-  const { dictionary } = useDictionary();
+  const t = useTranslations();
   return (
     <div className="relative min-h-[65vh]">
       <div className="absolute w-full h-full z-0">
@@ -66,7 +64,7 @@ export const Hero: React.FC = () => {
       </div>
       <div className="flex justify-center py-24 px-12 text-center">
         <h1 className="uppercase text-3xl  font-bowlby drop-shadow-2xl tracking-[.25em]">
-          {dictionary.home.hero}
+          {t(`home.hero`)}
         </h1>
       </div>
     </div>
@@ -74,11 +72,11 @@ export const Hero: React.FC = () => {
 };
 
 export const Intro: React.FC = () => {
-  const { dictionary } = useDictionary();
+  const t = useTranslations();
   return (
     <div className="flex justify-center flex-col items-center py-3 px-6">
       <h2 className="py-4 max-w-[200px] text-center uppercase text-md drop-shadow-2xl tracking-[.20em] font-roboto-mono font-bold">
-        {dictionary.home.enjoy.title}
+        {t(`home.enjoy.title`)}
       </h2>
       <Image
         src={introPic}
@@ -88,9 +86,9 @@ export const Intro: React.FC = () => {
         className="object-cover brightness-75 rounded-[5px] drop-shadow-highlight aspect-[4/3]"
       />
       <div className="my-6 flex gap-4 flex-col font-roboto-mono text-md text-center">
-        <p className="drop-shadow-2xl">{dictionary.home.enjoy.content[0]}</p>
-        <p className="drop-shadow-2xl">{dictionary.home.enjoy.content[1]}</p>
-        <p className="drop-shadow-2xl">{dictionary.home.enjoy.content[2]}</p>
+        <p className="drop-shadow-2xl">{t(`home.enjoy.content.first`)}</p>
+        <p className="drop-shadow-2xl">{t(`home.enjoy.content.second`)}</p>
+        <p className="drop-shadow-2xl">{t(`home.enjoy.content.third`)}</p>
       </div>
     </div>
   );

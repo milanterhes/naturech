@@ -3,11 +3,11 @@
     "hero": "Erdei Éden Balfon",
     "enjoy": {
       "title": "Élvezze a természet luxusát",
-      "content": [
-        "Üdvözöljük a Nature & Chill Woodhouses-ban, a nyugalom menedékében, mely Magyarország festői északnyugati szélén, Balfon található. Luxus faházunk az elegancia és kényelem egyedülálló kombinációját kínálják.",
-        "A 2023-ban alapított ötletünk küldetése mindig is az volt, hogy nyugodt menedéket biztosítson a mindennapok zűrzavarából. Prémium szolgáltatásainkkal, mint például a privát szaunák és jakuzzik, és fenntartható luxusunk iránti elkötelezettségünkkel, igazán egyedi visszavonuló élményt teremtettünk.",
-        "Merüljön el a természetben és a nyugalomban, miközben élvezi egy luxussház kényelmét. Tapasztallja meg a faházak egyedi báját, a környező zöld területek nyugalmát, és a szolgáltatásainkat, amelyeket úgy terveztünk, hogy tartózkodása emlékezetes legyen."
-      ]
+      "content": {
+        "first": "Üdvözöljük a Nature & Chill Woodhouses-ban, a nyugalom menedékében, mely Magyarország festői északnyugati szélén, Balfon található. Luxus faházunk az elegancia és kényelem egyedülálló kombinációját kínálják.",
+        "second": "A 2023-ban alapított ötletünk küldetése mindig is az volt, hogy nyugodt menedéket biztosítson a mindennapok zűrzavarából. Prémium szolgáltatásainkkal, mint például a privát szaunák és jakuzzik, és fenntartható luxusunk iránti elkötelezettségünkkel, igazán egyedi visszavonuló élményt teremtettünk.",
+        "third": "Merüljön el a természetben és a nyugalomban, miközben élvezi egy luxussház kényelmét. Tapasztallja meg a faházak egyedi báját, a környező zöld területek nyugalmát, és a szolgáltatásainkat, amelyeket úgy terveztünk, hogy tartózkodása emlékezetes legyen."
+      }
     }
   }
 }

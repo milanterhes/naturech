@@ -1,6 +1,7 @@
 import "ui/styles.css";
 import { Bowlby_One_SC, Roboto_Mono } from "next/font/google";
 import { NextIntlProvider } from "next-intl";
+import { trpc } from "../utils/trpc";
 
 const bowlby = Bowlby_One_SC({
   weight: ["400"],
@@ -14,7 +15,7 @@ const robotoMono = Roboto_Mono({
   subsets: ["latin"],
 });
 
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   return (
     <NextIntlProvider messages={pageProps.messages} locale={pageProps.locale}>
       <main
@@ -25,3 +26,5 @@ export default function MyApp({ Component, pageProps }) {
     </NextIntlProvider>
   );
 }
+
+export default trpc.withTRPC(MyApp);

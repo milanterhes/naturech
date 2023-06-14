@@ -9,6 +9,7 @@ import introPic from "../public/intro.png";
 import logoPic from "../public/naturechill-logo.png";
 import LocaleSwitcher from "./LocaleSwitcher";
 import { useTranslations } from "next-intl";
+import Login from "./Auth";
 
 export const Navbar: React.FC = () => {
   return (
@@ -43,6 +44,7 @@ export const Navbar: React.FC = () => {
               </li>
             </ul>
             <LocaleSwitcher />
+            <Login />
           </div>
         </div>
       </div>

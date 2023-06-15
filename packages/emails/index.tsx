@@ -1,12 +1,14 @@
 import React from "react";
 import { Button } from "@react-email/button";
 import { Tailwind } from "@react-email/tailwind";
+import { Html } from "@react-email/html";
 
 export interface LoginEmailProps {
   link: string;
   intro: string;
   content: string;
   button: string;
+  lang: "en" | "de" | "hu";
 }
 
 export const LoginEmail = ({
@@ -14,6 +16,7 @@ export const LoginEmail = ({
   content,
   intro,
   link,
+  lang,
 }: LoginEmailProps) => {
   return (
     <Tailwind
@@ -30,14 +33,16 @@ export const LoginEmail = ({
         },
       }}
     >
-      <h1>{intro}</h1>
-      <p>{content}</p>
-      <Button
-        href={link}
-        className="bg-brand px-3 py-2 font-medium leading-4 text-white"
-      >
-        {button}
-      </Button>
+      <div className="bg-main-theme">
+        <h1>{intro}</h1>
+        <p>{content}</p>
+        <Button
+          href={link}
+          className="px-3 py-2 text-white bg-black rounded-xl shadow-highlight"
+        >
+          {button}
+        </Button>
+      </div>
     </Tailwind>
   );
 };

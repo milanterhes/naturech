@@ -4,33 +4,16 @@ import { Resend } from "resend";
 import { z } from "zod";
 import { prisma } from "../prisma";
 import { publicProcedure } from "../trpc";
-import { sign } from "jsonwebtoken";
 
 interface Env {
   RESEND_API_KEY: string;
-  JWT_SECRET: string;
 }
 
 const config = getSanitizedConfig<Env>({
   RESEND_API_KEY: process.env.RESEND_API_KEY,
-  JWT_SECRET: process.env.JWT_SECRET,
 });
 
 const resend = new Resend(config.RESEND_API_KEY);
-
-function makeToken(email: string) {
-  const token = sign(
-    {
-      email,
-    },
-    config.JWT_SECRET,
-    {
-      expiresIn: "24h",
-    }
-  );
-
-  return token;
-}
 
 async function sendLoginEmail({ to }: { to: string }) {
   await resend.sendEmail({

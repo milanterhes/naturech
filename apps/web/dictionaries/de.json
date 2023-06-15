@@ -1,12 +1,16 @@
 {
   "home": {
-    "hero": "Erdei Éden Balfon",
+    "hero": "Waldparadies in Balf",
     "enjoy": {
-      "title": "Élvezze a természet luxusát",
+      "title": "<large>Genießen</large> Sie den Luxus der Natur",
       "content": {
-        "first": "Üdvözöljük a Nature & Chill Woodhouses-ban, a nyugalom menedékében, mely Magyarország festői északnyugati szélén, Balfon található. Luxus faházunk az elegancia és kényelem egyedülálló kombinációját kínálják.",
-        "second": "A 2023-ban alapított ötletünk küldetése mindig is az volt, hogy nyugodt menedéket biztosítson a mindennapok zűrzavarából. Prémium szolgáltatásainkkal, mint például a privát szaunák és jakuzzik, és fenntartható luxusunk iránti elkötelezettségünkkel, igazán egyedi visszavonuló élményt teremtettünk.",
-        "third": "Merüljön el a természetben és a nyugalomban, miközben élvezi egy luxussház kényelmét. Tapasztallja meg a faházak egyedi báját, a környező zöld területek nyugalmát, és a szolgáltatásainkat, amelyeket úgy terveztünk, hogy tartózkodása emlékezetes legyen."
+        "first": "Willkommen bei Nature & Chill Woodhouses, einem Refugium der Ruhe, das sich im malerischen Nordwesten Ungarns in Balf befindet. Unsere luxuriöse Holzhütte bietet eine einzigartige Kombination aus Eleganz und Komfort.",
+        "second": "Unsere Idee, gegründet im Jahr 2023, hat immer darin bestanden, einen friedlichen Rückzugsort vom Alltagschaos zu bieten. Mit unseren Premium-Dienstleistungen wie privaten Saunen und Whirlpools und unserem Engagement für nachhaltigen Luxus haben wir ein wirklich einzigartiges Rückzugserlebnis geschaffen.",
+        "third": "Tauchen Sie ein in die Natur und die Ruhe, während Sie den Komfort eines luxuriösen Hauses genießen. Erleben Sie den einzigartigen Charme von Holzhütten, die Ruhe der umliegenden grünen Bereiche und unsere Dienstleistungen, die darauf abzielen, Ihren Aufenthalt unvergesslich zu machen.",
+        "button": "Mehr"
+      },
+      "card": {
+        "title": "<large>Tauchen</large> Sie ein in unsere Dienstleistungen"
       }
     }
   },

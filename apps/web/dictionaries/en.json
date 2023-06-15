@@ -2,11 +2,15 @@
   "home": {
     "hero": "Forest Eden on Balf",
     "enjoy": {
-      "title": "Élvezze a természet luxusát",
+      "title": "<large>Enjoy</large> the luxury of nature",
       "content": {
-        "first": "Üdvözöljük a Nature & Chill Woodhouses-ban, a nyugalom menedékében, mely Magyarország festői északnyugati szélén, Balfon található. Luxus faházunk az elegancia és kényelem egyedülálló kombinációját kínálják.",
-        "second": "A 2023-ban alapított ötletünk küldetése mindig is az volt, hogy nyugodt menedéket biztosítson a mindennapok zűrzavarából. Prémium szolgáltatásainkkal, mint például a privát szaunák és jakuzzik, és fenntartható luxusunk iránti elkötelezettségünkkel, igazán egyedi visszavonuló élményt teremtettünk.",
-        "third": "Merüljön el a természetben és a nyugalomban, miközben élvezi egy luxussház kényelmét. Tapasztallja meg a faházak egyedi báját, a környező zöld területek nyugalmát, és a szolgáltatásainkat, amelyeket úgy terveztünk, hogy tartózkodása emlékezetes legyen."
+        "first": "Welcome to Nature & Chill Woodhouses, a refuge of tranquility located in the picturesque northwest of Hungary, in Balf. Our luxury log cabin offers a unique combination of elegance and comfort.",
+        "second": "Established in 2023, our mission has always been to provide a peaceful sanctuary from the chaos of everyday life. With our premium services, such as private saunas and jacuzzis, and our commitment to sustainable luxury, we have truly created a one-of-a-kind retreat experience.",
+        "third": "Immerse yourself in nature and serenity while enjoying the comfort of a luxury house. Experience the unique charm of log cabins, the tranquility of the surrounding green areas, and our services designed to make your stay memorable.",
+        "button": "More"
+      },
+      "card": {
+        "title": "<large>Immerse</large> yourself in our services"
       }
     }
   },

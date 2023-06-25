@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@react-email/button";
 import { Tailwind } from "@react-email/tailwind";
-import { Html } from "@react-email/html";
 
 export interface LoginEmailProps {
   link: string;

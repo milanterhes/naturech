@@ -1,0 +1,4 @@
+- npm install turbo --global
+- .env.local in web
+- .env in db
+- turbo run db:generate

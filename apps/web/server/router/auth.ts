@@ -4,24 +4,48 @@ import { Resend } from "resend";
 import { z } from "zod";
 import { prisma } from "../prisma";
 import { publicProcedure } from "../trpc";
+import { LoginEmail } from "@naturechill/emails";
+import { makeToken } from "../../utils/jwt";
+import { Locale } from "../../i18n-config";
+import { getBaseUrl } from "../../utils/trpc";
 
 interface Env {
   RESEND_API_KEY: string;
 }
 
 const config = getSanitizedConfig<Env>({
-  RESEND_API_KEY: process.env.RESEND_API_KEY,
+  RESEND_API_KEY: process.env.RESEND_API_KEY ?? "",
 });
 
 const resend = new Resend(config.RESEND_API_KEY);
 
-async function sendLoginEmail({ to }: { to: string }) {
-  await resend.sendEmail({
-    from: "onboarding@resend.dev",
+interface LoginEmailInput {
+  to: string;
+  token: string;
+  lang: Locale;
+}
+
+function sendLoginEmail({ to, token, lang }: LoginEmailInput) {
+  return resend.sendEmail({
+    from: "onboarding@resend.dev", // TODO
     to,
-    subject: "na mivan",
-    html: "<strong>It works!</strong>",
+    subject: "Login to NatureChill",
+    react: LoginEmail({
+      button: "Login",
+      link: `${getBaseUrl()}/api/auth/callback?token=` + token,
+      content: "Click the button below to login to NatureChill",
+      intro:
+        "You have requested a login link to NatureChill. If you did not request this, please ignore this email.",
+      lang,
+    }),
   });
+}
+
+async function handleLogin(email: string, lang: Locale) {
+  const token = makeToken(email);
+
+  const emailResult = await sendLoginEmail({ to: email, token, lang });
+  console.log(emailResult);
 }
 
 const login = publicProcedure
@@ -45,7 +69,7 @@ const login = publicProcedure
         },
       });
 
-      console.log("sending email to", newUser.email);
+      await handleLogin(newUser.email, "en");
 
       return { message: "done new" };
     }
@@ -57,7 +81,7 @@ const login = publicProcedure
       },
     });
 
-    console.log("sending email to", existingUser.email);
+    await handleLogin(existingUser.email, "en");
     return { message: "done existing" };
   });
 

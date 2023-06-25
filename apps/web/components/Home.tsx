@@ -10,8 +10,8 @@ import logoPic from "../public/naturechill-logo.png";
 import leafPic from "../public/leaf.png";
 import LocaleSwitcher from "./LocaleSwitcher";
 import { useTranslations } from "next-intl";
-import Login from "./Auth";
 import { useState } from "react";
+import Login, { useAuth } from "./Auth";
 
 const baseImage = {
   src: leafPic,
@@ -40,6 +40,8 @@ const images = [
 ];
 
 export const Navbar: React.FC = () => {
+  const auth = useAuth();
+  console.log(auth);
   return (
     <div className="w-full px-4 py-2 z-10 fixed top-0 flex justify-between items-center">
       <Image src={logoPic} alt="Naturechill logo" width={50} height={50} />
@@ -72,7 +74,16 @@ export const Navbar: React.FC = () => {
               </li>
             </ul>
             <LocaleSwitcher />
-            <Login />
+            {auth.user === null ? (
+              <Login />
+            ) : (
+              <>
+                <p>Logged in as {auth.user.email}</p>
+                <button className="btn" onClick={auth.logout}>
+                  Logout
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

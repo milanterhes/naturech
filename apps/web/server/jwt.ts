@@ -1,6 +1,6 @@
 import { getSanitizedConfig } from "@naturechill/utils";
-import { sign, verify } from "jsonwebtoken";
-import { z } from "zod";
+import { sign, verify, decode } from "jsonwebtoken";
+import { tokenPayloadSchema } from "../utils/client-jwt";
 
 interface Env {
   JWT_SECRET: string;
@@ -8,10 +8,6 @@ interface Env {
 
 const config = getSanitizedConfig<Env>({
   JWT_SECRET: process.env.JWT_SECRET ?? "",
-});
-
-const tokenPayloadSchema = z.object({
-  email: z.string().email().nonempty("Email is required"),
 });
 
 export function makeToken(email: string) {

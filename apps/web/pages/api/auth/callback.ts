@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import { verifyToken } from "../../../utils/jwt";
+import { verifyToken } from "../../../server/jwt";
 
 const handler: NextApiHandler = async (req, res) => {
   const { token } = req.query;
@@ -20,9 +20,9 @@ const handler: NextApiHandler = async (req, res) => {
 
   res.setHeader(
     "Set-Cookie",
-    `auth=${JSON.stringify(
-      payload
-    )}; Path=/; SameSite=Strict; Max-Age=31536000;`
+    `token=${token}; Path=/; SameSite=Strict; Expires=${new Date(
+      payload.exp * 1000
+    ).toUTCString()};`
   );
 
   res.redirect("/");

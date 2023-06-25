@@ -5,7 +5,7 @@ import { z } from "zod";
 import { prisma } from "../prisma";
 import { publicProcedure } from "../trpc";
 import { LoginEmail } from "@naturechill/emails";
-import { makeToken } from "../../utils/jwt";
+import { makeToken } from "../jwt";
 import { Locale } from "../../i18n-config";
 import { getBaseUrl } from "../../utils/trpc";
 
@@ -55,7 +55,6 @@ const login = publicProcedure
     })
   )
   .mutation(async ({ input: { email } }) => {
-    console.log("email", email);
     const existingUser = await prisma.user.findFirst({
       where: {
         email,

@@ -3,6 +3,7 @@ export const getSanitizedConfig = <Config extends {}>(
 ): Config => {
   for (const [key, value] of Object.entries(config)) {
     if (value === undefined || value === null || value === "") {
+      console.log("missing value:", value);
       throw new Error(`Missing key ${key} in config.env`);
     }
   }

@@ -1,5 +1,5 @@
 import { GetStaticProps, NextPage } from "next";
-import { Hero, Intro, Navbar, Services } from "../components/Home";
+import { Navbar } from "../components/Home";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
@@ -10,15 +10,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-const HomePage: NextPage = () => {
+const LoginInfo: NextPage = () => {
   return (
-    <>
+    <div>
       <Navbar />
-      <Hero />
-      <Intro />
-      <Services />
-    </>
+      <p>Sent an email with the login link</p>
+    </div>
   );
 };
 
-export default HomePage;
+export default LoginInfo;

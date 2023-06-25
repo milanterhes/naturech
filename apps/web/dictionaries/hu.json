@@ -13,5 +13,12 @@
         "title": "<large>Merüljön</large> el a szolgáltatásainkban"
       }
     }
+  },
+  "email": {
+    "login": {
+      "subject": "Login to Naturechill",
+      "content": "Click the login button",
+      "button": "Login"
+    }
   }
 }

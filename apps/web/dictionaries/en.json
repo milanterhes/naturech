@@ -13,5 +13,12 @@
         "title": "<large>Immerse</large> yourself in our services"
       }
     }
+  },
+  "email": {
+    "login": {
+      "subject": "Login to Naturechill",
+      "content": "Click the login button",
+      "button": "Login"
+    }
   }
 }

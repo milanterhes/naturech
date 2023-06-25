@@ -13,5 +13,12 @@
         "title": "<large>Tauchen</large> Sie ein in unsere Dienstleistungen"
       }
     }
+  },
+  "email": {
+    "login": {
+      "subject": "Login to Naturechill",
+      "content": "Click the login button",
+      "button": "Login"
+    }
   }
 }

@@ -19,5 +19,12 @@
         "title": "<large>Five-star</large> experiences"
       }
     }
+  },
+  "email": {
+    "login": {
+      "subject": "Login to Naturechill",
+      "content": "Click the login button",
+      "button": "Login"
+    }
   }
 }

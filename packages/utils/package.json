@@ -1,0 +1,14 @@
+{
+  "name": "@naturechill/utils",
+  "version": "0.0.1",
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "license": "MIT",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "description": "",
+  "dependencies": {
+    "typescript": "^4.5.2"
+  }
+}

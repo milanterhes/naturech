@@ -19,5 +19,12 @@
         "title": "<large>Fünf-Sterne</large> Erlebnisse"
       }
     }
+  },
+  "email": {
+    "login": {
+      "subject": "Login to Naturechill",
+      "content": "Click the login button",
+      "button": "Login"
+    }
   }
 }

@@ -19,5 +19,12 @@
         "title": "<large>Öt csillagos</large> élmények"
       }
     }
+  },
+  "email": {
+    "login": {
+      "subject": "Login to Naturechill",
+      "content": "Click the login button",
+      "button": "Login"
+    }
   }
 }

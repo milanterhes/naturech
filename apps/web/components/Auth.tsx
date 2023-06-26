@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { RouterInput, trpc } from "../utils/trpc";
-import { useRouter } from "next/router";
+import { deleteCookie, getCookie } from "cookies-next";
 import { Field, Form, FormInstance } from "houseform";
-import { inferRouterInputs } from "@trpc/server";
-import { z } from "zod";
-import { getCookie, deleteCookie } from "cookies-next";
 import decode from "jwt-decode";
+import { useRouter } from "next/router";
+import React, { useEffect } from "react";
+import { z } from "zod";
 import { TokenPayload, tokenPayloadSchema } from "../utils/client-jwt";
+import { RouterInput, trpc } from "../utils/trpc";
 
 const AuthContext = React.createContext<{
   user: null | TokenPayload;
@@ -48,7 +47,6 @@ export const AuthContextProvider = ({
   useEffect(() => {
     const getUserFromCookie = async () => {
       const token = getCookie("token");
-      console.log("token", token);
       if (!token || typeof token !== "string") {
         return;
       }
@@ -71,7 +69,6 @@ export const AuthContextProvider = ({
 };
 
 export const useAuth = () => {
-  const router = useRouter();
   const context = React.useContext(AuthContext);
 
   if (context === undefined) {
@@ -85,7 +82,7 @@ type FormData = {
 };
 
 const Login = () => {
-  const { login, logout, user } = useAuth();
+  const { login } = useAuth();
 
   const submitHandler: (
     values: FormData,

@@ -8,6 +8,7 @@ import { LoginEmail } from "@naturechill/emails";
 import { makeToken } from "../jwt";
 import { Locale } from "../../i18n-config";
 import { getBaseUrl } from "../../utils/trpc";
+import { TRPCError } from "@trpc/server";
 
 interface Env {
   RESEND_API_KEY: string;
@@ -44,8 +45,7 @@ function sendLoginEmail({ to, token, lang }: LoginEmailInput) {
 async function handleLogin(email: string, lang: Locale) {
   const token = makeToken(email);
 
-  const emailResult = await sendLoginEmail({ to: email, token, lang });
-  console.log(emailResult);
+  return sendLoginEmail({ to: email, token, lang });
 }
 
 const login = publicProcedure
@@ -68,7 +68,14 @@ const login = publicProcedure
         },
       });
 
-      await handleLogin(newUser.email, "en");
+      try {
+        await handleLogin(newUser.email, "en");
+      } catch (error) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to login",
+        });
+      }
 
       return { message: "done new" };
     }

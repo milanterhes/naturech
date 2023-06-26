@@ -11,12 +11,15 @@ const config = getSanitizedConfig<Env>({
 });
 
 export function makeToken(email: string) {
-  const payload = tokenPayloadSchema.parse({
-    email,
-  });
-  const token = sign(payload, config.JWT_SECRET, {
-    expiresIn: "24h",
-  });
+  const token = sign(
+    {
+      email,
+    },
+    config.JWT_SECRET,
+    {
+      expiresIn: "24h",
+    }
+  );
 
   return token;
 }

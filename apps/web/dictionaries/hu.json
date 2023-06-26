@@ -11,6 +11,12 @@
       },
       "card": {
         "title": "<large>Merüljön</large> el a szolgáltatásainkban"
+      },
+      "gallery": {
+        "title": "<large>Vizuális</large> utazás"
+      },
+      "review": {
+        "title": "<large>Öt csillagos</large> élmények"
       }
     }
   }

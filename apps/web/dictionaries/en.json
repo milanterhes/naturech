@@ -11,6 +11,12 @@
       },
       "card": {
         "title": "<large>Immerse</large> yourself in our services"
+      },
+      "gallery": {
+        "title": "<large>Visual</large> journey"
+      },
+      "review": {
+        "title": "<large>Five-star</large> experiences"
       }
     }
   }

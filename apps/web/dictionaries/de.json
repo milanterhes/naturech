@@ -11,6 +11,12 @@
       },
       "card": {
         "title": "<large>Tauchen</large> Sie ein in unsere Dienstleistungen"
+      },
+      "gallery": {
+        "title": "<large>Visuelle</large> Reise"
+      },
+      "review": {
+        "title": "<large>Fünf-Sterne</large> Erlebnisse"
       }
     }
   }

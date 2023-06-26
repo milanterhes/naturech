@@ -1,5 +1,13 @@
 import { GetStaticProps, NextPage } from "next";
-import { Hero, Intro, Navbar, Services } from "../components/Home";
+import {
+  Hero,
+  Intro,
+  Navbar,
+  Services,
+  Gallery,
+  ReviewsContainer,
+  Footer,
+} from "../components/Home";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
@@ -19,6 +27,9 @@ const HomePage: NextPage = () => {
       <Hero />
       <Intro />
       <Services />
+      <Gallery />
+      <ReviewsContainer />
+      <Footer />
     </>
   );
 };

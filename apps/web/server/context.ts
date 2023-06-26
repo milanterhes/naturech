@@ -18,8 +18,12 @@ export async function createContextInner(
   const result = {};
 
   if (token) {
-    const payload = verifyToken(token);
-    Object.assign(result, { user: payload });
+    try {
+      const payload = verifyToken(token);
+      Object.assign(result, { user: payload });
+    } catch (error) {
+      console.error("Failed to verify token", error);
+    }
   }
 
   return result;

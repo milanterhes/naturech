@@ -42,7 +42,6 @@ const images = [
 
 export const Navbar: React.FC = () => {
   const auth = useAuth();
-  console.log(auth);
   return (
     <div className="w-full px-4 py-2 z-10 fixed top-0 flex justify-between items-center">
       <Image src={logoPic} alt="Naturechill logo" width={50} height={50} />

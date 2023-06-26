@@ -32,8 +32,6 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.locale === "default") {
     const locale = getLocale(req);
 
-    console.log(locale);
-
     return NextResponse.redirect(
       new URL(`/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url)
     );

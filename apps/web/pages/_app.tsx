@@ -3,6 +3,7 @@ import { Bowlby_One_SC, Roboto_Mono } from "next/font/google";
 import { NextIntlProvider } from "next-intl";
 import { trpc } from "../utils/trpc";
 import { AuthContextProvider } from "../components/Auth";
+import "react-calendar/dist/Calendar.css";
 
 const bowlby = Bowlby_One_SC({
   weight: ["400"],

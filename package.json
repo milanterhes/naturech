@@ -11,7 +11,7 @@
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "^1.10.6"
   },
   "name": "naturechill",
   "packageManager": "npm@9.6.3",

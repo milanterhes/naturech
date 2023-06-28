@@ -1,6 +1,24 @@
 {
   "home": {
-    "hero": "Erdei Éden Balfon",
+    "hero": {
+      "header": "Erdei éden Balfon",
+      "info1": {
+        "title": "Stílus",
+        "detail": "Luxus"
+      },
+      "info2": {
+        "title": "Hely"
+      },
+      "info3": {
+        "title": "Ár"
+      },
+      "headerbutton": "Foglalás"
+    },
+    "hamburger": {
+      "booking": "Foglalás",
+      "signin": "Bejelentkezés",
+      "loginbutton": "Bejelentkezés"
+    },
     "enjoy": {
       "title": "<large>Élvezze</large> a természet luxusát",
       "content": {
@@ -13,18 +31,55 @@
         "title": "<large>Merüljön</large> el a szolgáltatásainkban"
       },
       "gallery": {
-        "title": "<large>Vizuális</large> utazás"
+        "title": "<large>Vizuális</large> utazás",
+        "button": "összes"
       },
       "review": {
         "title": "<large>Öt csillagos</large> élmények"
+      },
+      "services": {
+        "service1": {
+          "title": "Kényelmi szolgáltatások",
+          "details": "Élvezze a zavartalan kapcsolatot villámgyors Wifi szolgáltatásunkkal. Merüljön el a szórakozás világában fejlett TV rendszerünkkel. Tapasztalja meg a végső beltéri kényelmet kifinomult klímavezérlésünkkel."
+        },
+        "service2": {
+          "title": "Felszereltség",
+          "details": "Lélegezzen be nyugalmat a békés teraszunkon. Merüljön el a pihenés menedékében luxus jakuzzinkban."
+        },
+        "service3": {
+          "title": "Ellátás",
+          "details": "Ébressze fel érzékeit frissen főzött kávénkkal. Ízlelje meg gondosan válogatott, finom boraink csokrát."
+        },
+        "service4": {
+          "title": "Szabadidos tevékenységek",
+          "details": "Sarkallja fel elméjét egy izgalmas sakkjátékkal. Fedezze fel a varázslatos helyi látnivalókat gondosan válogatott túraszolgáltatásunkkal."
+        }
+      },
+      "footer": {
+        "title": "A természet és a luxus tökéletes egyensúlya - Nature & Chill faházak",
+        "button": "Foglalás",
+        "contact": "Kapcsolat",
+        "navigation": {
+          "title": "Oldalak",
+          "booking": "Foglalás",
+          "prices": "Árak",
+          "gallery": "Galéria",
+          "contact": "Kapcsolat"
+        },
+        "information": {
+          "title": "Információ",
+          "contract": "ÁSZF",
+          "data": "Adatvédelmi tájékoztató",
+          "copyright": "© 2023 Nature & Chill | Minden jog fentartva"
+        }
       }
     }
   },
   "email": {
     "login": {
-      "subject": "Login to Naturechill",
-      "content": "Click the login button",
-      "button": "Login"
+      "subject": "Bejelentkezés a Naturechill-be",
+      "content": "Kattints a bejelentkezés gombra",
+      "button": "Bejelentkezés"
     }
   }
 }

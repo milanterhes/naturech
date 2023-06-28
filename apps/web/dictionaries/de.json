@@ -1,6 +1,24 @@
 {
   "home": {
-    "hero": "Waldparadies in Balf",
+    "hero": {
+      "header": "Waldparadies in Balf",
+      "info1": {
+        "title": "Stil",
+        "detail": "Luxus"
+      },
+      "info2": {
+        "title": "Standort"
+      },
+      "info3": {
+        "title": "Preis"
+      },
+      "headerbutton": "Buchung"
+    },
+    "hamburger": {
+      "booking": "Buchung",
+      "signin": "Anmelden",
+      "loginbutton": "Einloggen"
+    },
     "enjoy": {
       "title": "<large>Genießen</large> Sie den Luxus der Natur",
       "content": {
@@ -13,18 +31,55 @@
         "title": "<large>Tauchen</large> Sie ein in unsere Dienstleistungen"
       },
       "gallery": {
-        "title": "<large>Visuelle</large> Reise"
+        "title": "<large>Visuelle</large> Reise",
+        "button": "gesamt"
       },
       "review": {
         "title": "<large>Fünf-Sterne</large> Erlebnisse"
+      },
+      "services": {
+        "service1": {
+          "title": "Komfortdienstleistungen",
+          "details": "Erleben Sie blitzschnelles Wifi, hochmoderne Unterhaltung und ultimativen Komfort mit unserer raffinierten Klimasteuerung."
+        },
+        "service2": {
+          "title": "Ausrüstung",
+          "details": "Atmen Sie die Ruhe auf unserer stillen Terrasse ein. Tauchen Sie ein in eine Oase der Entspannung in unserem luxuriösen Whirlpool."
+        },
+        "service3": {
+          "title": "Versorgung",
+          "details": "Wecken Sie Ihre Sinne mit unserem frisch gebrühten Kaffee. Genießen Sie das Bouquet unserer handverlesenen edlen Weine."
+        },
+        "service4": {
+          "title": "Freizeitaktivitäten",
+          "details": "Fordern Sie Ihren Geist mit einem anregenden Schachspiel heraus. Entdecken Sie bezaubernde lokale Sehenswürdigkeiten mit unserem ausgewählten Tourenservice."
+        }
+      },
+      "footer": {
+        "title": "Die perfekte Balance von Natur und Luxus - Nature & Chill Blockhütten",
+        "button": "Buchung",
+        "contact": "Kontakt",
+        "navigation": {
+          "title": "Seiten",
+          "booking": "Buchung",
+          "prices": "Preise",
+          "gallery": "Galerie",
+          "contact": "Kontakt"
+        },
+        "information": {
+          "title": "Informationen",
+          "contract": "Allgemeine Geschäftsbedingungen",
+          "data": "Datenschutzhinweise",
+          "copyright": "© 2023 Nature & Chill | Alle Rechte vorbehalten"
+        }
       }
     }
   },
   "email": {
     "login": {
-      "subject": "Login to Naturechill",
-      "content": "Click the login button",
-      "button": "Login"
+      "subject": "Anmeldung bei Naturechill",
+      "content": "Klicken Sie auf den Anmeldeknopf",
+      "button": "Anmelden"
     }
   }
 }

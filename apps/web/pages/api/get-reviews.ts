@@ -2,6 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 export type Review = {
   text: string;
+  rating: number;
   author_name: string;
 };
 

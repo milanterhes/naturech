@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 import { z } from "zod";
 import { TokenPayload, tokenPayloadSchema } from "../utils/client-jwt";
 import { RouterInput, trpc } from "../utils/trpc";
+import { useTranslations } from "next-intl";
 
 const AuthContext = React.createContext<{
   user: null | TokenPayload;
@@ -82,6 +83,7 @@ type FormData = {
 };
 
 const Login = () => {
+  const t = useTranslations();
   const { login } = useAuth();
 
   const submitHandler: (
@@ -118,7 +120,7 @@ const Login = () => {
             )}
           </Field>
           <button type="submit" className="btn" onClick={submit}>
-            Login
+            {t("home.hamburger.loginbutton")}
           </button>
         </div>
       )}

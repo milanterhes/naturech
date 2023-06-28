@@ -1,6 +1,24 @@
 {
   "home": {
-    "hero": "Forest Eden on Balf",
+    "hero": {
+      "header": "Forest Eden on Balf",
+      "info1": {
+        "title": "Style",
+        "detail": "Luxury"
+      },
+      "info2": {
+        "title": "Location"
+      },
+      "info3": {
+        "title": "Price"
+      },
+      "headerbutton": "Booking"
+    },
+    "hamburger": {
+      "booking": "Booking",
+      "signin": "Sign in",
+      "loginbutton": "Login"
+    },
     "enjoy": {
       "title": "<large>Enjoy</large> the luxury of nature",
       "content": {
@@ -11,6 +29,49 @@
       },
       "card": {
         "title": "<large>Immerse</large> yourself in our services"
+      },
+      "gallery": {
+        "title": "<large>Visual</large> journey",
+        "button": "all"
+      },
+      "review": {
+        "title": "<large>Five-star</large> experiences"
+      },
+      "services": {
+        "service1": {
+          "title": "Convenience Services",
+          "details": "Experience lightning-fast Wifi, cutting-edge entertainment, and ultimate comfort with our sophisticated climate control."
+        },
+        "service2": {
+          "title": "Equipment",
+          "details": "Breathe in tranquility on our serene terrace. Submerge into a haven of relaxation with our luxurious Jacuzzi."
+        },
+        "service3": {
+          "title": "Supply",
+          "details": "Awaken your senses with our freshly brewed coffee. Savor the bouquet of our handpicked fine wines."
+        },
+        "service4": {
+          "title": "Leisure activities",
+          "details": "Challenge your mind with a stimulating game of chess. Discover enchanting local sights with our curated tour service."
+        }
+      },
+      "footer": {
+        "title": "The perfect balance of nature and luxury - Nature & Chill log cabins",
+        "button": "Booking",
+        "contact": "Contact",
+        "navigation": {
+          "title": "Pages",
+          "booking": "Booking",
+          "prices": "Prices",
+          "gallery": "Gallery",
+          "contact": "Contact"
+        },
+        "information": {
+          "title": "Information",
+          "contract": "Terms and Conditions",
+          "data": "Data Protection Information",
+          "copyright": "© 2023 Nature & Chill | All rights reserved"
+        }
       }
     }
   },

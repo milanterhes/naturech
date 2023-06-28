@@ -8,8 +8,39 @@ datasource db {
 }
 
 model User {
-  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  id               String    @id @default(auto()) @map("_id") @db.ObjectId
   email            String
-  registered       DateTime @default(now())
-  lastLoginRequest DateTime @default(now())
+  createdAt        DateTime  @default(now())
+  registered       DateTime  @default(now())
+  lastLoginRequest DateTime  @default(now())
+  Booking          Booking[]
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum Payment {
+  CASH
+  CARD
+}
+
+type PaymentAmount {
+  deposit Float
+  cash    Float
+}
+
+model Booking {
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  startDate     DateTime
+  endDate       DateTime
+  user          User          @relation(fields: [userId], references: [id])
+  userId        String        @db.ObjectId
+  status        BookingStatus
+  payment       Payment
+  paymentAmount PaymentAmount
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }

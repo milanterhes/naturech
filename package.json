@@ -12,7 +12,7 @@
     "eslint-config-custom": "*",
     "postcss-filters": "^0.0.2",
     "prettier": "^2.5.1",
-    "turbo": "latest"
+    "turbo": "^1.10.6"
   },
   "name": "naturechill",
   "packageManager": "npm@9.6.3",

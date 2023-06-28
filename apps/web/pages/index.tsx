@@ -1,12 +1,13 @@
 import { GetStaticProps, NextPage } from "next";
+import Calendar from "../components/Calendar";
 import {
+  Footer,
+  Gallery,
   Hero,
   Intro,
   Navbar,
-  Services,
-  Gallery,
   ReviewsContainer,
-  Footer,
+  Services,
 } from "../components/Home";
 
 export const getStaticProps: GetStaticProps = async (context) => {
@@ -23,6 +24,7 @@ const HomePage: NextPage = () => {
     <>
       <Navbar />
       <Hero />
+      <Calendar />
       <Intro />
       <Services />
       <Gallery />

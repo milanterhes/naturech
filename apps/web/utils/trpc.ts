@@ -3,6 +3,7 @@ import { createTRPCNext } from "@trpc/next";
 import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import type { AppRouter } from "../server/router";
 import superjson from "superjson";
+import { Context } from "../server/context";
 
 export function getBaseUrl() {
   if (typeof window !== "undefined") {

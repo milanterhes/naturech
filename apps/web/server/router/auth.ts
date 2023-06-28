@@ -1,14 +1,13 @@
 import { getSanitizedConfig } from "@naturechill/utils";
-import { router } from "../trpc";
 import { Resend } from "resend";
 import { z } from "zod";
 import { prisma } from "../prisma";
-import { publicProcedure } from "../trpc";
 import { LoginEmail } from "@naturechill/emails";
 import { makeToken } from "../jwt";
 import { Locale } from "../../i18n-config";
 import { getBaseUrl } from "../../utils/trpc";
 import { TRPCError } from "@trpc/server";
+import { t } from "../trpc";
 
 interface Env {
   RESEND_API_KEY: string;
@@ -48,7 +47,7 @@ async function handleLogin(email: string, lang: Locale) {
   return sendLoginEmail({ to: email, token, lang });
 }
 
-const login = publicProcedure
+const login = t.procedure
   .input(
     z.object({
       email: z.string().email().nonempty(),
@@ -91,4 +90,4 @@ const login = publicProcedure
     return { message: "done existing" };
   });
 
-export const authRouter = router({ login });
+export const authRouter = t.router({ login });

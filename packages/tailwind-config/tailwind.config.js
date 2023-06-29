@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: theme => ({
+         'gradient-opacity': 'linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(231, 177, 129, 0.3))',
+       }),
       fontFamily: {
         bowlby: ["var(--font-bowlby)"],
         "roboto-mono": ["var(--font-roboto-mono)"],

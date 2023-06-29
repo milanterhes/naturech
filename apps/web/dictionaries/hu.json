@@ -81,5 +81,26 @@
       "content": "Kattints a bejelentkezés gombra",
       "button": "Bejelentkezés"
     }
+  },
+  "booking": {
+    "intro": {
+      "header1": "Luxus",
+      "header2": "kikapcsolódás",
+      "header3": "természet"
+    },
+    "card": {
+      "arrival": {
+        "title": "Érkezés",
+        "detail": "dátum kiválasztása"
+      },
+      "departure": {
+        "title": "Távozás",
+        "detail": "dátum kiválasztása"
+      },
+      "guests": {
+        "title": "Vendégek",
+        "detail": "vendégek hozzáadása"
+      }
+    }
   }
 }

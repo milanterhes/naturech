@@ -70,7 +70,7 @@ export const Navbar: React.FC = () => {
     <>
       <div ref={sentinelRef} />
       <div
-        className={`w-full px-4 py-2 z-10 fixed top-0 flex justify-between items-center ${
+        className={`fixed top-0 z-10 flex w-full items-center justify-between px-4 py-2 ${
           isAtTop ? "" : "bg-black bg-opacity-60 transition-colors duration-300"
         }`}
       >
@@ -79,24 +79,24 @@ export const Navbar: React.FC = () => {
           <input id="navbar-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             <label htmlFor="navbar-drawer">
-              <div className="text-main-theme bg-white bg-opacity-50 rounded-md p-1">
+              <div className="rounded-md bg-white bg-opacity-50 p-1 text-main-theme">
                 <Bars3Icon className="h-6 w-6 drop-shadow-2xl" />
               </div>
             </label>
           </div>
           <div className="drawer-side">
             <label htmlFor="navbar-drawer" className="drawer-overlay"></label>
-            <div className="menu p-4 w-75 h-full bg-base-200 text-base-content">
+            <div className="w-75 menu h-full bg-base-200 p-4 text-base-content">
               <ul>
                 <li>
-                  <a className="text-main-theme font-bold">
+                  <a className="font-bold text-main-theme">
                     <CalendarDaysIcon className="h-4 w-4" />
                     {t("home.hamburger.booking")}
                   </a>
                 </li>
                 <div className="divider" />
                 <li>
-                  <a className="text-main-theme font-bold">
+                  <a className="font-bold text-main-theme">
                     <UserCircleIcon className="h-4 w-4" />
                     {t("home.hamburger.signin")}
                   </a>
@@ -133,12 +133,12 @@ const IconInfo: React.FC<{
       alt={alt}
       width={32}
       height={32}
-      className="transition-all ease-in duration-200 transform hover:scale-110 hover:rotate-3 sm:w-10 sm:h-10"
+      className="transform transition-all duration-200 ease-in hover:rotate-3 hover:scale-110 sm:h-10 sm:w-10"
     />
-    <div className="flex flex-col text-xs sm:text-sm gap-0.5">
-      <p className="uppercase opacity-75 tracking-wider">{title}</p>
+    <div className="flex flex-col gap-0.5 text-xs sm:text-sm">
+      <p className="uppercase tracking-wider opacity-75">{title}</p>
       <p className="uppercase">{subtitle}</p>
-      <div className="bg-[#E7B181] bg-opacity-40 w-full h-px mb-1"></div>
+      <div className="mb-1 h-px w-full bg-[#E7B181] bg-opacity-40"></div>
     </div>
   </div>
 );
@@ -147,7 +147,7 @@ export const Hero: React.FC = () => {
   const t = useTranslations();
   return (
     <div className="relative min-h-[85vh]">
-      <div className="absolute w-full h-full z-0">
+      <div className="absolute z-0 h-full w-full">
         <Image
           src={bgPic}
           alt="profile"
@@ -156,14 +156,14 @@ export const Hero: React.FC = () => {
         />
         <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-main-theme to-transparent backdrop-blur" />
       </div>
-      <div className="flex justify-center py-24 px-12 text-center">
-        <h1 className="uppercase text-3xl font-bowlby drop-shadow-2xl tracking-[.25em]">
+      <div className="flex justify-center px-12 py-24 text-center">
+        <h1 className="font-bowlby text-3xl uppercase tracking-[.25em] drop-shadow-2xl">
           {t("home.hero.header")}
         </h1>
       </div>
-      <div className="w-full h-full z-0 flex justify-center px-4 sm:px-0">
-        <div className="flex flex-col justify-center items-center bg-main-theme bg-opacity-40 backdrop-filter backdrop-blur-sm rounded-xl max-w-xl w-full sm:w-5/6 md:w-3/4 lg:w-2/3 xl:w-1/2 h-[130px] mx-auto">
-          <div className="flex flex-wrap justify-around sm:justify-evenly w-full p-2">
+      <div className="z-0 flex h-full w-full justify-center px-4 sm:px-0">
+        <div className="mx-auto flex h-[130px] w-full max-w-xl flex-col items-center justify-center rounded-xl bg-main-theme bg-opacity-40 backdrop-blur-sm backdrop-filter sm:w-5/6 md:w-3/4 lg:w-2/3 xl:w-1/2">
+          <div className="flex w-full flex-wrap justify-around p-2 sm:justify-evenly">
             <IconInfo
               src="/HeroHouse.svg"
               alt="Our Style"
@@ -184,7 +184,7 @@ export const Hero: React.FC = () => {
             />
           </div>
           <button
-            className="bg-[#E7B181] rounded-md py-1 px-2 mt-5 flex transition-transform duration-500 ease-in-out transform hover:scale-105 group"
+            className="group mt-5 flex transform rounded-md bg-[#E7B181] px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
             aria-label="Book Now"
           >
             {t("home.hero.headerbutton")}
@@ -193,7 +193,7 @@ export const Hero: React.FC = () => {
               alt="Booking Arrow CTA"
               width={12}
               height={12}
-              className="self-center ml-2 transition-transform ease-in-out duration-500 transform group-hover:translate-x-1"
+              className="ml-2 transform self-center transition-transform duration-500 ease-in-out group-hover:translate-x-1"
             />
           </button>
         </div>
@@ -206,8 +206,8 @@ export const Intro: React.FC = () => {
   const t = useTranslations();
   return (
     <>
-      <div className="flex justify-center flex-col items-center py-3 px-6">
-        <h2 className="py-4 max-w-[200px] text-center uppercase text-md drop-shadow-2xl tracking-[.20em] font-roboto-mono font-bold">
+      <div className="flex flex-col items-center justify-center px-6 py-3">
+        <h2 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl">
           {t.rich(`home.enjoy.title`, {
             large: (chunks) => <span className="text-xl">{chunks}</span>,
           })}
@@ -217,25 +217,25 @@ export const Intro: React.FC = () => {
           alt="intro TODO"
           height={1024}
           width={1024}
-          className="object-cover brightness-75 rounded-[5px] drop-shadow-highlight aspect-[4/3]"
+          className="aspect-[4/3] rounded-[5px] object-cover brightness-75 drop-shadow-highlight"
         />
-        <div className="my-6 flex gap-4 flex-col font-roboto-mono text-md text-center">
+        <div className="text-md my-6 flex flex-col gap-4 text-center font-roboto-mono">
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.first`)}</p>
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.second`)}</p>
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.third`)}</p>
         </div>
-        <button className="flex font-roboto-mono group transition-all ease-in duration-200 transform hover:scale-110">
+        <button className="group flex transform font-roboto-mono transition-all duration-200 ease-in hover:scale-110">
           {t("home.enjoy.content.button")}
           <Image
             src={"/arrow.svg"}
             alt="Arrow Icon"
             width={35}
             height={35}
-            className="self-center ml-2 transition-all ease-in duration-200 transform group-hover:translate-x-1.5"
+            className="ml-2 transform self-center transition-all duration-200 ease-in group-hover:translate-x-1.5"
           ></Image>
         </button>
       </div>
-      <div className="flex justify-around my-20">
+      <div className="my-20 flex justify-around">
         {images.map((image, index) => (
           <Image
             key={index}
@@ -260,7 +260,7 @@ const ServiceIcon = ({ src, alt }) => (
     alt={alt}
     width={35}
     height={35}
-    className="self-center ml-2 transition-all ease-in duration-200 transform hover:scale-110 hover:rotate-3"
+    className="ml-2 transform self-center transition-all duration-200 ease-in hover:rotate-3 hover:scale-110"
   />
 );
 
@@ -278,7 +278,7 @@ const ServiceCard = ({ servicePic, icons, title, details }) => {
 
   return (
     <div className="w-4/5 py-5" onClick={handleCardClick}>
-      <div className="relative flex justify-center items-center flex-col">
+      <div className="relative flex flex-col items-center justify-center">
         <Image
           src={servicePic}
           width={1024}
@@ -286,16 +286,16 @@ const ServiceCard = ({ servicePic, icons, title, details }) => {
           alt="Our Services on Card"
           className={`object-cover brightness-${
             showDetails ? "50" : "75"
-          } rounded-[5px] drop-shadow-highlight-dark aspect-[4/3]`}
+          } aspect-[4/3] rounded-[5px] drop-shadow-highlight-dark`}
         />
-        <div className="absolute grid grid-flow-row auto-rows-fr h-full justify-between py-1">
+        <div className="absolute grid h-full grid-flow-row auto-rows-fr justify-between py-1">
           <div></div>
           <div
             className={`flex flex-col justify-evenly gap-1 ${
               !showDetails ? "" : "hidden"
             }`}
           >
-            <h2 className="font-semibold text-xl ">{title}</h2>
+            <h2 className="text-xl font-semibold ">{title}</h2>
             <div className="flex justify-center gap-2">
               {icons.map((icon, i) => (
                 <ServiceIcon key={i} src={icon.src} alt={icon.alt} />
@@ -308,7 +308,7 @@ const ServiceCard = ({ servicePic, icons, title, details }) => {
               alt="Arrow Icon Service Card"
               width={20}
               height={20}
-              className={`self-center justify-end ml-2 transition-all ease-in duration-200 transform ${
+              className={`ml-2 transform justify-end self-center transition-all duration-200 ease-in ${
                 showDetails ? "rotate-180" : ""
               } cursor-pointer`}
               onClick={handleArrowClick}
@@ -318,7 +318,7 @@ const ServiceCard = ({ servicePic, icons, title, details }) => {
         <div
           className={`${
             showDetails ? "" : "hidden"
-          } absolute bg-black bg-opacity-50 overflow-hidden flex items-center justify-center h-full w-full xl:w-[64em] text-white text-center rounded-lg`}
+          } absolute flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-black bg-opacity-50 text-center text-white xl:w-[64em]`}
         >
           <p className="text-sm md:text-lg">{details}</p>
         </div>
@@ -379,8 +379,8 @@ export const Services = () => {
   const t = useTranslations() as any;
 
   return (
-    <div className="flex justify-around flex-col items-center py-3 text-center">
-      <h2 className="py-4 max-w-[200px] text-center uppercase text-md drop-shadow-2xl tracking-[.20em] font-roboto-mono font-bold">
+    <div className="flex flex-col items-center justify-around py-3 text-center">
+      <h2 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl">
         {t.rich(`home.enjoy.card.title`, {
           large: (chunks) => <span className="text-xl">{chunks}</span>,
         })}
@@ -416,7 +416,7 @@ const GalleryImage = ({
 
 const PaginationRect = ({ isActive }) => (
   <div
-    className={`self-center ml-2 transition-all ease-in duration-200 transform group-hover:translate-x-1.5 w-2 h-2 rounded-full ${
+    className={`ml-2 h-2 w-2 transform self-center rounded-full transition-all duration-200 ease-in group-hover:translate-x-1.5 ${
       isActive ? "bg-[#9A592D]" : "bg-white"
     }`}
   ></div>
@@ -459,12 +459,12 @@ export const Gallery = () => {
 
   return (
     <div {...handlers} className="flex flex-col items-center py-3">
-      <h2 className="py-4 max-w-[200px] text-center uppercase text-md drop-shadow-2xl tracking-[.20em] font-roboto-mono font-bold">
+      <h2 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl">
         {t.rich(`home.enjoy.gallery.title`, {
           large: (chunks) => <span className="text-xl">{chunks}</span>,
         })}
       </h2>
-      <div className="flex justify-center w-5/6 justify-around min-h-[30vh]">
+      <div className="flex min-h-[30vh] w-5/6 justify-center justify-around">
         {imageSources
           .slice(currentPage * 3, (currentPage + 1) * 3)
           .map((src, index) => (
@@ -475,7 +475,7 @@ export const Gallery = () => {
             />
           ))}
       </div>
-      <div className="flex justify-between lg:justify-around w-5/6 py-2">
+      <div className="flex w-5/6 justify-between py-2 lg:justify-around">
         <div className="flex">
           {[0, 1, 2, 3].map((i) => (
             <PaginationRect key={i} isActive={i === currentPage} />
@@ -490,7 +490,7 @@ export const Gallery = () => {
           alt="Arrow Icon"
           width={35}
           height={35}
-          className="self-center ml-2 transition-all ease-in duration-200 transform hover:scale-110 active:translate-x-1.5 hidden lg:block"
+          className="ml-2 hidden transform self-center transition-all duration-200 ease-in hover:scale-110 active:translate-x-1.5 lg:block"
         />
       </div>
     </div>
@@ -521,27 +521,27 @@ export const Review: FC<ReviewProps> = ({
   return (
     <div
       id={`slide${slideId}`}
-      className={`carousel-item relative w-full h-full flex items-center justify-center text-white ${
+      className={`carousel-item relative flex h-full w-full items-center justify-center text-white ${
         currentSlideId === slideId ? "flex" : "hidden"
       }`}
     >
       <div className=" ">
         <button
           onClick={() => setCurrentSlideId(prevSlideId)}
-          className="btn btn-circle opacity-80"
+          className="btn-circle btn opacity-80"
         >
           ❮
         </button>
       </div>
-      <div className="flex flex-col items-center justify-center bg-main-theme bg-opacity-20 backdrop-filter backdrop-blur-md rounded-xl p-6 space-y-4 w-full sm:w-4/5 md:w-2/3 lg:w-1/2 xl:w-1/3">
-        <ul className="flex justify-center items-center relative">
+      <div className="flex w-full flex-col items-center justify-center space-y-4 rounded-xl bg-main-theme bg-opacity-20 p-6 backdrop-blur-md backdrop-filter sm:w-4/5 md:w-2/3 lg:w-1/2 xl:w-1/3">
+        <ul className="relative flex items-center justify-center">
           {Array.from({ length: rating }).map((_, i) => (
             <li key={`${name}-star-${i.toString()}`}>
-              <span className="text-yellow-500 text-lg">★</span>
+              <span className="text-lg text-yellow-500">★</span>
             </li>
           ))}
           <a
-            className="absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2"
+            className="absolute right-0 top-0 -translate-y-1/2 translate-x-1/2 transform"
             title="Google Inc., Public domain, via Wikimedia Commons"
             href="https://commons.wikimedia.org/wiki/File:Google_%22G%22_Logo.svg"
           >
@@ -552,7 +552,7 @@ export const Review: FC<ReviewProps> = ({
             />
           </a>
         </ul>
-        <div className="text-sm md:text-md lg:text-lg font-semibold overflow-auto relative max-h-[100px] scrollbar-hide">
+        <div className="md:text-md scrollbar-hide relative max-h-[100px] overflow-auto text-sm font-semibold lg:text-lg">
           {text}
         </div>
         <div className="text-xs md:text-sm lg:text-lg">- {name}</div>
@@ -560,7 +560,7 @@ export const Review: FC<ReviewProps> = ({
       <div className="">
         <button
           onClick={() => setCurrentSlideId(nextSlideId)}
-          className="btn btn-circle opacity-80"
+          className="btn-circle btn opacity-80"
         >
           ❯
         </button>
@@ -599,13 +599,13 @@ export const ReviewsContainer: FC = () => {
 
   return (
     <div className="flex flex-col items-center py-3">
-      <h2 className="py-4 max-w-[200px] text-center uppercase text-md drop-shadow-2xl tracking-[.20em] font-roboto-mono font-bold">
+      <h2 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl">
         {t.rich(`home.enjoy.review.title`, {
           large: (chunks) => <span className="text-xl">{chunks}</span>,
         })}
       </h2>
       <div
-        className="carousel w-full bg-cover bg-center min-h-[20rem] flex justify-center items-center"
+        className="carousel flex min-h-[20rem] w-full items-center justify-center bg-cover bg-center"
         style={{ backgroundImage: `url("/gal7.jpg")` }}
       >
         {reviews.map((review, index) => (
@@ -630,34 +630,34 @@ export const Footer = () => {
   const t = useTranslations();
   return (
     <footer
-      className="w-full bg-gradient-to-b from-main-theme to-white/25 py-3 px-4"
+      className="w-full bg-gradient-to-b from-main-theme to-white/25 px-4 py-3"
       role="contentinfo"
     >
       <div className="flex flex-col md:flex-row md:justify-evenly">
-        <div className="flex flex-col justify-center mb-5">
-          <h2 className="indent-5 md:max-w-[70%] lg:max-w-[75%] text-lg md:text-xl mb-5">
+        <div className="mb-5 flex flex-col justify-center">
+          <h2 className="mb-5 indent-5 text-lg md:max-w-[70%] md:text-xl lg:max-w-[75%]">
             {t("home.enjoy.footer.title")}
           </h2>
           <Link href="/foglalas">
             <button
               type="button"
-              className="flex font-roboto-mono group transition-all ease-in duration-200 transform hover:scale-102"
+              className="hover:scale-102 group flex transform font-roboto-mono transition-all duration-200 ease-in"
             >
               <Image
                 src={"/footerarrow.svg"}
                 alt="Footer Arrow Icon"
                 width={35}
                 height={35}
-                className="self-center transition-all ease-in duration-200 transform group-hover:translate-x-1 mx-1"
+                className="mx-1 transform self-center transition-all duration-200 ease-in group-hover:translate-x-1"
               />
               {t("home.enjoy.footer.button")}
             </button>
           </Link>
         </div>
         <div className="flex flex-col">
-          <div className="flex flex-col md:flex-row md:justify-evenly gap-10 mb-5">
+          <div className="mb-5 flex flex-col gap-10 md:flex-row md:justify-evenly">
             <nav role="navigation">
-              <h2 className="text-lg font-bold mb-2">
+              <h2 className="mb-2 text-lg font-bold">
                 {t("home.enjoy.footer.contact")}
               </h2>
               <div>
@@ -683,7 +683,7 @@ export const Footer = () => {
               </div>
             </nav>
             <nav role="navigation">
-              <h2 className="text-lg font-bold mb-2">
+              <h2 className="mb-2 text-lg font-bold">
                 {t("home.enjoy.footer.navigation.title")}
               </h2>
               <ul>
@@ -705,7 +705,7 @@ export const Footer = () => {
               </ul>
             </nav>
             <nav role="navigation">
-              <h2 className="text-lg font-bold mb-2">
+              <h2 className="mb-2 text-lg font-bold">
                 {t("home.enjoy.footer.information.title")}
               </h2>
               <ul>
@@ -723,7 +723,7 @@ export const Footer = () => {
             </nav>
           </div>
           <div className="flex flex-col">
-            <div className="bg-white bg-opacity-40 w-full h-px mb-1"></div>
+            <div className="mb-1 h-px w-full bg-white bg-opacity-40"></div>
             <div className="flex justify-between">
               <div className="flex gap-2">
                 <a

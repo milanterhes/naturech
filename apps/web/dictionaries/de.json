@@ -81,5 +81,26 @@
       "content": "Klicken Sie auf den Anmeldeknopf",
       "button": "Anmelden"
     }
+  },
+  "booking": {
+    "intro": {
+      "header1": "Luxus",
+      "header2": "Entspannung",
+      "header3": "Natur"
+    },
+    "card": {
+      "arrival": {
+        "title": "Ankunft",
+        "detail": "Datum auswählen"
+      },
+      "departure": {
+        "title": "Abfahrt",
+        "detail": "Datum auswählen"
+      },
+      "guests": {
+        "title": "Gäste",
+        "detail": "Gäste hinzufügen"
+      }
+    }
   }
 }

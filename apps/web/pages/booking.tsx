@@ -1,14 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
-import Calendar from "../components/Calendar";
-import {
-  Footer,
-  Gallery,
-  Hero,
-  Intro,
-  Navbar,
-  ReviewsContainer,
-  Services,
-} from "../components/Home";
+import { Navbar, Footer } from "../components/Home";
+import { BookingIntro } from "../components/Booking";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
@@ -19,19 +11,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
-const HomePage: NextPage = () => {
+const BookingPage: NextPage = () => {
   return (
     <>
       <Navbar />
-      <Hero />
-      {/* <Calendar /> */}
-      <Intro />
-      <Services />
-      <Gallery />
-      <ReviewsContainer />
+      <BookingIntro />
       <Footer />
     </>
   );
 };
 
-export default HomePage;
+export default BookingPage;

@@ -81,5 +81,26 @@
       "content": "Click the login button",
       "button": "Login"
     }
+  },
+  "booking": {
+    "intro": {
+      "header1": "Luxury",
+      "header2": "Relaxation",
+      "header3": "Nature"
+    },
+    "card": {
+      "arrival": {
+        "title": "Arrival",
+        "detail": "select a date"
+      },
+      "departure": {
+        "title": "Departure",
+        "detail": "select a date"
+      },
+      "guests": {
+        "title": "Guests",
+        "detail": "add guests"
+      }
+    }
   }
 }

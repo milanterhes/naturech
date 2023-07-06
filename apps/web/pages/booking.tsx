@@ -1,6 +1,7 @@
 import { GetStaticProps, NextPage } from "next";
-import { Navbar, Footer } from "../components/Home";
-import { BookingIntro } from "../components/Booking";
+import { BookingMain } from "../components/Booking";
+import { Footer, Navbar } from "../components/Home";
+import { useState } from "react";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
@@ -12,10 +13,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 const BookingPage: NextPage = () => {
+
   return (
     <>
       <Navbar />
-      <BookingIntro />
+      <BookingMain />
       <Footer />
     </>
   );

@@ -88,7 +88,7 @@
       "header2": "kikapcsolódás",
       "header3": "természet"
     },
-    "card": {
+    "introcard": {
       "arrival": {
         "title": "Érkezés",
         "detail": "dátum kiválasztása"
@@ -100,6 +100,117 @@
       "guests": {
         "title": "Vendégek",
         "detail": "vendégek hozzáadása"
+      }
+    },
+    "info": {
+      "title1": "Megfizethető luxus,",
+      "title2": "kiváló minőség",
+      "availability": {
+        "days": {
+          "fourdays": "Hétfő - csütörtök",
+          "weekend": "Péntek - vasárnap",
+          "specialdays": "Kiemelt ünnepnapokon"
+        },
+        "price": {
+          "fourdays": "60.000,-Ft/éj",
+          "weekend": "75.000,-Ft/é",
+          "specialdays": "80.000,-Ft/éj"
+        },
+        "priceinfo": "Az árak magukban foglalják az idegenforgalmi adót és a teljes takarítást. Kiemelt ünnepnapok a karácsony, szilveszter, húsvét és az aug. 20.-a."
+      },
+      "services": {
+        "card": {
+          "title": "Szolgáltatások",
+          "button": "Részletek"
+        },
+        "popup": {
+          "popupclosebutton": "Bezárás",
+          "popupinformation": {
+            "service1": {
+              "title": "Ingyenes wifi szolgáltatás elérhető",
+              "description": "Élvezze gyors internetünket az egész ingatlanon, díjmentesen. Folytassa a munkát, vagy maradjon kapcsolatban a szeretteivel, ahol csak szeretne."
+            },
+            "service2": {
+              "title": "Magas felbontású televíziós szolgáltatás",
+              "description": "A házunkban lapos képernyős TV áll rendelkezésre, számos csatornával és streaming szolgáltatással. Pihenjen és élvezze kedvenc filmjeit vagy sorozatait."
+            },
+            "service3": {
+              "title": "Klímavezérelt légkondicionálás",
+              "description": "Házunkban teljesen szabályozható klímavezérlés biztosítja a kényelmet egész évben. Legyen kényelmes minden évszakban!"
+            },
+            "service4": {
+              "title": "Ingyenes gourmet kávé szolgáltatás",
+              "description": "Használja ki kávézó szolgáltatásunkat, amely széles választékot kínál forró és hideg italokból, valamint könnyű harapnivalókból. Kezdje a napot egy finom kávéval!"
+            },
+            "service5": {
+              "title": "Terasz gyönyörű panorámás kilátással",
+              "description": "A vendégek szívesen pihenhetnek tágas teraszunkon, és élvezhetik a kilátást. Lélegezze be a friss levegőt, miközben a természet csodálja!"
+            },
+            "service6": {
+              "title": "Pihentető pezsgőfürdő vagy jacuzzi elérhető",
+              "description": "Egy hosszú városnézés után lazítson a pihentető jacuzzinkban. Engedje, hogy a buborékok elsimítsák a nap feszültségét!"
+            },
+            "service7": {
+              "title": "Válogatott finom borok elérhetők",
+              "description": "Csatlakozzon hozzánk egy borkóstolóra, és kóstoljon helyi és nemzetközi borokat. Ismerje meg a borainkat, és élvezze a borok gazdag ízvilágát!"
+            },
+            "service8": {
+              "title": "Sakk készletek a vendégek rendelkezésére állnak",
+              "description": "Élvezze a sakk játékot csendes, a sakknak szentelt szobánkban. Keressen ellenfelet, vagy fejlessze a taktikai képességeit!"
+            },
+            "service9": {
+              "title": "Helyi látványosságok és túraszolgáltatások",
+              "description": "Városnéző túrákat kínálunk. Kérjük, érdeklődjön a házigazdánál további részletekért. Fedezze fel velünk a környéket!"
+            }
+          }
+        }
+      },
+      "important": {
+        "title": "Fontos tudnivalók!",
+        "i1": "Minimum tartózkodás: 2 éjszaka",
+        "i2": "Bejelentkezés: 15:00-19:00 között",
+        "i3": "Távozás: legkésőbb 10:00 óra",
+        "i4": "Kapacitás: A faház max. 2 felnőtt és 1 gyermek számára alkalmas",
+        "i5": "Árak: Áraink változhatnak más portálokon és akciókban",
+        "i6": "Kedvencek: Kutyabarát hely, kiskedvenceket szívesen látunk",
+        "i7": "Kapcsolat: Bármilyen kérdés esetén hívja Orbán Krisztiánt a 0036703928177-es számon (0-24)",
+        "i8": "Lemondás: 30 nappal érkezés előtt ingyenes, 1-29 napig a foglalási díj 50%-a, érkezés napján vagy utána a foglalási díj 100%-a",
+        "i9": "Reggelink: Az ár tartalmazza a 2 fős reggeli tálunkat (7:45-8:15 közötti kiszállítás). Ételallergiát kérem előre jelezze!",
+        "i10": "Hosszú tartózkodás: Extra takarítás, ágyneműk és törölközők cseréje kérhető (6.000,-Ft díj)"
+      },
+      "faq": {
+        "title": "Gyakran ismételt kérdések",
+        "titlequestions": {
+          "q1": "Milyen fizetési módszereket fogadnak el?",
+          "q2": "Van-e lemondási díj, ha nem tudom igénybe venni a foglalást?",
+          "q3": "Van-e kedvezmény, ha hosszabb ideig maradok?"
+        },
+        "popupquestion": {
+          "q1": {
+            "title": "Milyen fizetési módszereket fogadnak el?",
+            "answer": "Elfogadunk különböző fizetési módokat a vendégeink kényelme érdekében. Ezek között szerepelnek a legnépszerűbb kártyatípusok, mint a Visa, Mastercard és American Express, valamint az elektronikus fizetési módok, mint a PayPal. Ha személyesen szeretne fizetni, elfogadjuk a készpénzt is."
+          },
+          "q2": {
+            "title": "Van-e lemondási díj, ha nem tudom igénybe venni a foglalást?",
+            "answer": "A lemondási díjak a foglalástól számított napok számától függenek. 30 nappal érkezés előtt ingyenes a lemondás, 1-29 napig a foglalási díj 50%-a, érkezés napján vagy utána a foglalási díj 100%-a."
+          },
+          "q3": {
+            "title": "Van-e kedvezmény, ha hosszabb ideig maradok?",
+            "answer": "Igen, a hosszabb tartózkodásokért kedvezményeket biztosítunk. Ha egy hétnél hosszabb ideig marad, 10% kedvezményt biztosítunk az összesített díjból. Ha egy hónapnál hosszabb időt tölt nálunk, 15% kedvezményt adunk."
+          },
+          "q4": {
+            "title": "Kézbesítenek-e reggelit a szobába?",
+            "answer": "Igen, szolgáltatásaink közé tartozik a szobaszerviz is. A reggeli általában 7:45 és 8:15 között érkezik, de kérjük, jelezze előre, ha allergiás valamelyik élelmiszerre."
+          },
+          "q5": {
+            "title": "Fogadnak-e kiskedvenceket?",
+            "answer": "Természetesen! A faházunk kutyabarát, szívesen látjuk a kiskedvenceket is. Kérjük, előzetesen jelezze, ha kiskedvencet hoz magával, hogy felkészülhessünk az érkezésére."
+          }
+        }
+      },
+      "help": {
+        "title": "Segítségre van szüksége?",
+        "button": "Kapcsolat"
       }
     }
   }

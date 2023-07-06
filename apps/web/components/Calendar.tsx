@@ -84,17 +84,19 @@ const CalendarWrapper = () => {
   if (!shouldDisplay) return null;
 
   return (
-    <Calendar
-      maxDate={maxDate}
-      minDate={minDate}
-      tileDisabled={tileDisabled}
-      returnValue="range"
-      selectRange
-      onChange={console.log}
-      onViewChange={console.log}
-      className={"text-black"}
-      value={[startDate, endDate]}
-    />
+    <div className="mt-10 flex h-full w-11/12 max-w-3xl flex-col items-center justify-between gap-5 rounded-lg border-2 px-5 py-3 sm:w-5/6 md:w-4/6 md:px-10 md:py-6 2xl:max-w-5xl">
+      <Calendar
+        maxDate={maxDate}
+        minDate={minDate}
+        tileDisabled={tileDisabled}
+        returnValue="range"
+        selectRange
+        onChange={console.log}
+        onViewChange={console.log}
+        className={"text-secondary-theme"}
+        value={[startDate, endDate]}
+      />
+    </div>
   );
 };
 

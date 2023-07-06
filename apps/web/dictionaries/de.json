@@ -88,7 +88,7 @@
       "header2": "Entspannung",
       "header3": "Natur"
     },
-    "card": {
+    "introcard": {
       "arrival": {
         "title": "Ankunft",
         "detail": "Datum auswählen"
@@ -100,6 +100,117 @@
       "guests": {
         "title": "Gäste",
         "detail": "Gäste hinzufügen"
+      }
+    },
+    "info": {
+      "title1": "Erschwinglicher Luxus,",
+      "title2": "hervorragende Qualität",
+      "availability": {
+        "days": {
+          "fourdays": "Montag - Donnerstag",
+          "weekend": "Freitag - Sonntag",
+          "specialdays": "An besonderen Feiertagen"
+        },
+        "price": {
+          "fourdays": "60.000,-Ft/Nacht",
+          "weekend": "75.000,-Ft/Nacht ",
+          "specialdays": "80.000,-Ft/Nacht"
+        },
+        "priceinfo": "Die Preise beinhalten die Tourismussteuer und die vollständige Reinigung. Besondere Feiertage sind Weihnachten, Silvester, Ostern und der 20. August."
+      },
+      "services": {
+        "card": {
+          "title": "Dienstleistungen",
+          "button": "Details"
+        },
+        "popup": {
+          "popupclosebutton": "Schließen",
+          "popupinformation": {
+            "service1": {
+              "title": "Kostenloser Wifi-Service verfügbar",
+              "description": "Genießen Sie unser Highspeed-Internet auf dem gesamten Grundstück, kostenlos. Bleiben Sie in Verbindung oder arbeiten Sie weiter, wo immer Sie möchten."
+            },
+            "service2": {
+              "title": "Hochauflösender TV-Service",
+              "description": "Unser Haus ist mit einem Flachbildfernseher ausgestattet, der eine Vielzahl von Kanälen und Streaming-Diensten bietet. Entspannen Sie sich und genießen Sie Ihre Lieblingsfilme oder -serien."
+            },
+            "service3": {
+              "title": "Klimatisierte Klimaanlage",
+              "description": "Unser Haus verfügt über eine vollständig einstellbare Klimasteuerung, die das ganze Jahr über für Komfort sorgt. Genießen Sie Komfort zu jeder Jahreszeit!"
+            },
+            "service4": {
+              "title": "Kostenloser Gourmet-Kaffeeservice",
+              "description": "Nutzen Sie unseren Café-Service, der eine große Auswahl an heißen und kalten Getränken sowie leichten Snacks bietet. Beginnen Sie den Tag mit einem köstlichen Kaffee!"
+            },
+            "service5": {
+              "title": "Terrasse mit wunderschönem Panoramablick",
+              "description": "Gäste sind eingeladen, sich auf unserer geräumigen Terrasse zu entspannen und die Aussicht zu genießen. Atmen Sie die frische Luft ein und bewundern Sie die Natur!"
+            },
+            "service6": {
+              "title": "Entspannender Whirlpool oder Jacuzzi verfügbar",
+              "description": "Entspannen Sie sich nach einem langen Tag voller Sightseeing in unserem entspannenden Jacuzzi. Lassen Sie die Blasen den Stress des Tages glätten!"
+            },
+            "service7": {
+              "title": "Auswahl an feinen Weinen verfügbar",
+              "description": "Nehmen Sie an einer Weinprobe teil und probieren Sie eine Auswahl an lokalen und internationalen Weinen. Entdecken Sie unsere Weine und genießen Sie die reiche Palette an Weingeschmäckern!"
+            },
+            "service8": {
+              "title": "Schachsets zur Nutzung durch die Gäste verfügbar",
+              "description": "Genießen Sie eine Partie Schach in unserem ruhigen, speziell für Schach reservierten Raum. Finden Sie einen Gegner oder verbessern Sie Ihre taktischen Fähigkeiten!"
+            },
+            "service9": {
+              "title": "Lokale Besichtigungs- und Tourdienste",
+              "description": "Wir bieten geführte Touren durch die Stadt an. Bitte fragen Sie den Gastgeber nach weiteren Details. Entdecken Sie die Umgebung mit uns!"
+            }
+          }
+        }
+      },
+      "important": {
+        "title": "Wichtige Informationen!",
+        "i1": "Mindestaufenthalt: 2 Nächte",
+        "i2": "Check-in: zwischen 15:00 und 19:00 Uhr",
+        "i3": "Check-out: spätestens um 10:00 Uhr",
+        "i4": "Kapazität: Das Blockhaus ist geeignet für max. 2 Erwachsene und 1 Kind",
+        "i5": "Preise: Unsere Preise können auf anderen Portalen und bei Aktionen variieren",
+        "i6": "Haustiere: Hundefreundlicher Ort, wir freuen uns auf Haustiere",
+        "i7": "Kontakt: Bei Fragen wenden Sie sich bitte an Kristian Orbán unter der Nummer 0036703928177 (24/7)",
+        "i8": "Stornierung: Kostenlos bis 30 Tage vor Anreise, 1-29 Tage vor Anreise beträgt die Stornogebühr 50% des Buchungspreises, am Anreisetag oder danach beträgt die Gebühr 100% des Buchungspreises",
+        "i9": "Frühstück: Der Preis beinhaltet unser Frühstück für 2 Personen (Lieferung zwischen 7:45 und 8:15 Uhr). Bitte melden Sie Lebensmittelallergien im Voraus!",
+        "i10": "Längere Aufenthalte: Extra Reinigung, Bettwäsche und Handtuchwechsel können angefordert werden (Gebühr 6.000,-Ft)"
+      },
+      "faq": {
+        "title": "Häufig gestellte Fragen",
+        "titlequestions": {
+          "q1": "Welche Zahlungsmethoden akzeptieren Sie?",
+          "q2": "Gibt es eine Stornierungsgebühr, wenn ich die Buchung nicht in Anspruch nehmen kann?",
+          "q3": "Gibt es einen Rabatt, wenn ich länger bleibe?"
+        },
+        "popupquestion": {
+          "q1": {
+            "title": "Welche Zahlungsmethoden akzeptieren Sie?",
+            "answer": "Wir akzeptieren verschiedene Zahlungsmethoden für den Komfort unserer Gäste. Dazu gehören die beliebtesten Kartentypen wie Visa, Mastercard und American Express, sowie elektronische Zahlungsmethoden wie PayPal. Wenn Sie lieber persönlich bezahlen möchten, akzeptieren wir auch Bargeld."
+          },
+          "q2": {
+            "title": "Gibt es eine Stornogebühr, wenn ich die Reservierung nicht nutzen kann?",
+            "answer": "Die Stornogebühren hängen von der Anzahl der Tage seit der Buchung ab. Eine Stornierung ist bis 30 Tage vor Anreise kostenlos, von 1 bis 29 Tage vor Anreise beträgt die Stornogebühr 50% des Buchungspreises, am Anreisetag oder danach beträgt die Gebühr 100% des Buchungspreises."
+          },
+          "q3": {
+            "title": "Gibt es einen Rabatt für längere Aufenthalte?",
+            "answer": "Ja, wir bieten Rabatte für längere Aufenthalte. Wenn Sie länger als eine Woche bleiben, bieten wir einen Rabatt von 10% auf den Gesamtpreis. Wenn Sie länger als einen Monat bei uns bleiben, bieten wir einen Rabatt von 15%."
+          },
+          "q4": {
+            "title": "Liefern Sie das Frühstück aufs Zimmer?",
+            "answer": "Ja, zu unseren Dienstleistungen gehört auch der Zimmerservice. Das Frühstück wird in der Regel zwischen 7:45 und 8:15 Uhr geliefert, aber bitte geben Sie im Voraus Bescheid, wenn Sie eine Nahrungsmittelallergie haben."
+          },
+          "q5": {
+            "title": "Akzeptieren Sie Haustiere?",
+            "answer": "Natürlich! Unser Blockhaus ist hundefreundlich, wir freuen uns auch auf Haustiere. Bitte geben Sie im Voraus Bescheid, wenn Sie ein Haustier mitbringen, damit wir uns auf seine Ankunft vorbereiten können."
+          }
+        }
+      },
+      "help": {
+        "title": "Brauchen Sie Hilfe?",
+        "button": "Kontakt"
       }
     }
   }

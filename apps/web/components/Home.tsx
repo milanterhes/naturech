@@ -638,7 +638,7 @@ export const Footer = () => {
           <h2 className="mb-5 indent-5 text-lg md:max-w-[70%] md:text-xl lg:max-w-[75%]">
             {t("home.enjoy.footer.title")}
           </h2>
-          <Link href="/foglalas">
+          <Link href="/booking">
             <button
               type="button"
               className="hover:scale-102 group flex transform font-roboto-mono transition-all duration-200 ease-in"

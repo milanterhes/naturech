@@ -88,7 +88,7 @@
       "header2": "Relaxation",
       "header3": "Nature"
     },
-    "card": {
+    "introcard": {
       "arrival": {
         "title": "Arrival",
         "detail": "select a date"
@@ -100,6 +100,117 @@
       "guests": {
         "title": "Guests",
         "detail": "add guests"
+      }
+    },
+    "info": {
+      "title1": "Affordable luxury,",
+      "title2": "excellent quality",
+      "availability": {
+        "days": {
+          "fourdays": "Monday - Thursday",
+          "weekend": "Friday - Sunday",
+          "specialdays": "On special holidays"
+        },
+        "price": {
+          "fourdays": "60,000 Ft/night",
+          "weekend": "75,000 Ft/night",
+          "specialdays": "80,000 Ft/night"
+        },
+        "priceinfo": "The prices include the tourist tax and the full cleaning. Special holidays are Christmas, New Year's Eve, Easter, and August 20th."
+      },
+      "services": {
+        "card": {
+          "title": "Services",
+          "button": "Details"
+        },
+        "popup": {
+          "popupclosebutton": "Close",
+          "popupinformation": {
+            "service1": {
+              "title": "Free Wifi Service Available",
+              "description": "Enjoy our high-speed internet throughout the entire property, free of charge. Continue your work or stay connected with your loved ones wherever you prefer."
+            },
+            "service2": {
+              "title": "High Definition TV Service",
+              "description": "Our house is equipped with a flat screen TV with a variety of channels and streaming services available. Relax and enjoy your favorite movies or series."
+            },
+            "service3": {
+              "title": "Climate Controlled Air Conditioning",
+              "description": "Our house comes with fully adjustable climate control, ensuring your comfort all year round. Be comfortable in any season!"
+            },
+            "service4": {
+              "title": "Complimentary Gourmet Coffee Service",
+              "description": "Take advantage of our café service, offering a wide selection of hot and cold beverages, as well as light snacks. Start your day with a delicious coffee!"
+            },
+            "service5": {
+              "title": "Terrace with Beautiful Scenic Views",
+              "description": "Guests are welcome to relax on our spacious terrace and enjoy the view. Take in the fresh air while admiring the nature!"
+            },
+            "service6": {
+              "title": "Relaxing Hot Tub or Jacuzzi Available",
+              "description": "After a long day of sightseeing, unwind in our relaxing jacuzzi. Let the bubbles smooth away the day's tension!"
+            },
+            "service7": {
+              "title": "Selection of Fine Wines Available",
+              "description": "Join us for a wine tasting session and sample a selection of local and international wines. Get to know our wines and enjoy the rich palette of flavors!"
+            },
+            "service8": {
+              "title": "Chess Sets Available for Guest Use",
+              "description": "Enjoy a game of chess in our quiet, dedicated chess room. Find an opponent or enhance your tactical skills!"
+            },
+            "service9": {
+              "title": "Local Sightseeing and Tour Services",
+              "description": "We offer guided tours around the city. Please ask the host for more details. Discover the surroundings with us!"
+            }
+          }
+        }
+      },
+      "important": {
+        "title": "Important Information!",
+        "i1": "Minimum stay: 2 nights",
+        "i2": "Check-in: between 15:00 and 19:00",
+        "i3": "Check-out: no later than 10:00",
+        "i4": "Capacity: The log cabin is suitable for max. 2 adults and 1 child",
+        "i5": "Prices: Our prices may vary on other portals and in promotions",
+        "i6": "Pets: Dog-friendly place, pets are welcome",
+        "i7": "Contact: For any questions, call Krisztian Orbán at 0036703928177 (24/7)",
+        "i8": "Cancellation: Free up to 30 days before arrival, 1-29 days before arrival the cancellation fee is 50% of the booking fee, on the day of arrival or after, the fee is 100% of the booking fee",
+        "i9": "Breakfast: The price includes our breakfast for 2 people (delivery between 7:45 and 8:15). Please notify us in advance of any food allergies!",
+        "i10": "Long stay: Extra cleaning, linen and towel change can be requested (fee 6.000,-Ft)"
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "titlequestions": {
+          "q1": "What payment methods do you accept?",
+          "q2": "Is there a cancellation fee if I can't take up the booking?",
+          "q3": "Is there a discount if I stay longer?"
+        },
+        "popupquestion": {
+          "q1": {
+            "title": "What payment methods do you accept?",
+            "answer": "We accept various payment methods for the convenience of our guests. These include the most popular card types such as Visa, Mastercard, and American Express, as well as electronic payment methods such as PayPal. If you prefer to pay in person, we also accept cash."
+          },
+          "q2": {
+            "title": "Is there a cancellation fee if I can't use the reservation?",
+            "answer": "Cancellation fees depend on the number of days since the booking. Cancellation is free up to 30 days before arrival, from 1 to 29 days before arrival the cancellation fee is 50% of the booking fee, on the day of arrival or after, the fee is 100% of the booking fee."
+          },
+          "q3": {
+            "title": "Is there a discount for staying longer?",
+            "answer": "Yes, we provide discounts for longer stays. If you stay longer than a week, we provide a 10% discount on the total fee. If you stay longer than a month with us, we provide a 15% discount."
+          },
+          "q4": {
+            "title": "Do you deliver breakfast to the room?",
+            "answer": "Yes, our services include room service. Breakfast is usually delivered between 7:45 and 8:15 AM, but please notify us in advance if you have any food allergies."
+          },
+          "q5": {
+            "title": "Do you accept pets?",
+            "answer": "Of course! Our log cabin is dog-friendly, we also welcome pets. Please notify us in advance if you are bringing a pet so we can prepare for its arrival."
+          }
+        }
+      },
+      "help": {
+        "title": "Need Help?",
+        "button": "Contact"
       }
     }
   }

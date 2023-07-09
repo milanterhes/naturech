@@ -19,6 +19,11 @@
       "signin": "Sign in",
       "loginbutton": "Login"
     },
+    "pages": {
+      "booking": "Booking",
+      "gallery": "Gallery",
+      "contact": "Contact"
+    },
     "enjoy": {
       "title": "<large>Enjoy</large> the luxury of nature",
       "content": {
@@ -212,6 +217,43 @@
         "title": "Need Help?",
         "button": "Contact"
       }
+    }
+  },
+  "gallery": {
+    "hero": {
+      "title": "<large>Discover</large> our elegance in pictures"
+    },
+    "cta": {
+      "title": "Follow us on our social media platforms to stay up-to-date with our latest content!"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "We look forward to hearing your needs and ideas. Excellent service and individual attention are the norm at our luxury accommodation, and we are open to all your questions, observations, or recommendations. Please feel free to contact us."
+    },
+    "form": {
+      "name": {
+        "title": "Your name",
+        "placeholder": "Write your full name"
+      },
+      "email": {
+        "title": "Your email address",
+        "placeholder": "Write your email address"
+      },
+      "subject": {
+        "title": "Subject",
+        "placeholder": "Write the subject of your message"
+      },
+      "textbox": {
+        "title": "Message",
+        "placeholder": "Write your opinion"
+      },
+      "available": {
+        "title": "Phone availability:",
+        "week": "Mon-Fri 09:00 – 19:00",
+        "weekend": "Sat-Sun 10:00 – 14:00"
+      },
+      "button": { "title": "Submit" }
     }
   }
 }

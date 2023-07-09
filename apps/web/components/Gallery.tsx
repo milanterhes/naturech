@@ -1,7 +1,10 @@
 import React, { useState, MouseEventHandler } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
+
 
 export const GalleryIntro = () => {
+  const t = useTranslations();
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       <iframe
@@ -15,7 +18,9 @@ export const GalleryIntro = () => {
       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 text-center">
         <div>
           <h1 className="mb-4 text-3xl text-white lg:text-5xl">
-            Fedezze fel eleganciánkat képekben
+          {t.rich(`gallery.hero.title`, {
+            large: (chunks) => <span className="text-5xl lg:text-7xl">{chunks}</span>,
+          })}
           </h1>
         </div>
       </div>
@@ -50,6 +55,7 @@ const ImageGridItem: React.FC<ImageGridItemProps> = ({
 export const GalleryGrid = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
+  const t = useTranslations();
 
   const handleImageClick = (image) => {
     setModalImage(image);
@@ -137,8 +143,7 @@ export const GalleryGrid = () => {
       </div>
       <div className="mx-auto mb-20 mt-10 flex flex-col items-center space-y-4 bg-secondary-theme bg-opacity-30 py-2 text-center text-lg md:text-xl lg:text-2xl xl:text-3xl">
         <h2>
-          Kövessen minket a közösségi média platformjainkon, hogy naprakész
-          legyen legújabb tartalmainkkal kapcsolatban!
+          {t("gallery.cta.title")}
         </h2>
         <div className="flex space-x-4">
           <a

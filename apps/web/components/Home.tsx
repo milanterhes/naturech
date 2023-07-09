@@ -71,11 +71,13 @@ export const Navbar: React.FC = () => {
       <div ref={sentinelRef} />
       <div
         className={`fixed top-0 z-10 flex w-full items-center justify-between px-4 py-2 ${
-          isAtTop ? "" : "bg-black bg-opacity-60 transition-colors duration-300"
+          isAtTop ? "bg-black bg-opacity-30 backdrop-blur-xl" : "bg-black bg-opacity-60 transition-colors duration-300 backdrop-blur-sm"
         }`}
       >
-        <Image src={logoPic} alt="Naturechill logo" width={50} height={50} />
-        <div className="drawer drawer-end w-auto">
+        <Link href="/" className="cursor-pointer">
+          <Image src={logoPic} alt="Naturechill logo" width={50} height={50} />
+        </Link>
+        <div className="drawer drawer-end block w-auto md:hidden">
           <input id="navbar-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             <label htmlFor="navbar-drawer">
@@ -116,6 +118,52 @@ export const Navbar: React.FC = () => {
             </div>
           </div>
         </div>
+        <nav className="hidden w-full items-center justify-between px-6 py-3 transition-colors duration-300 md:flex">
+          <nav>
+            <div className="space-x-8">
+              <Link
+                href="/booking"
+                className="font-bold text-white transition-colors duration-300 hover:text-main-theme cursor-pointer"
+              >
+                {t("home.pages.booking")}
+              </Link>
+              <Link
+                href="/gallery"
+                className="font-bold text-white transition-colors duration-300 hover:text-main-theme cursor-pointer"
+              >
+                {t("home.pages.gallery")}
+              </Link>
+              <Link
+                href="/contact"
+                className="font-bold text-white transition-colors duration-300 hover:text-main-theme cursor-pointer"
+              >
+                {t("home.pages.contact")}
+              </Link>
+            </div>
+          </nav>
+
+          <div className="flex items-center space-x-4">
+            <LocaleSwitcher />
+            {auth.user === null ? (
+              <button className="flex items-center gap-1 font-bold text-white transition-colors duration-300 hover:text-main-theme">
+                <UserCircleIcon className="h-4 w-4" />
+                {t("home.hamburger.signin")}
+              </button>
+            ) : (
+              <>
+                <p className="mr-4 text-main-theme">
+                  Logged in as {auth.user.email}
+                </p>
+                <button
+                  className="btn rounded-md bg-main-theme px-4 py-1 text-white transition-colors duration-300 hover:bg-white hover:text-main-theme"
+                  onClick={auth.logout}
+                >
+                  Logout
+                </button>
+              </>
+            )}
+          </div>
+        </nav>
       </div>
     </>
   );
@@ -630,7 +678,7 @@ export const Footer = () => {
   const t = useTranslations();
   return (
     <footer
-      className="w-full bg-gradient-to-b from-main-theme to-white/25 px-4 py-3"
+      className="w-full bg-gradient-to-b from-main-theme to-white/25 px-4 py-3 border-t border-white/30"
       role="contentinfo"
     >
       <div className="flex flex-col md:flex-row md:justify-evenly">

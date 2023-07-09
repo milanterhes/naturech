@@ -19,6 +19,11 @@
       "signin": "Bejelentkezés",
       "loginbutton": "Bejelentkezés"
     },
+    "pages": {
+      "booking": "Foglalás",
+      "gallery": "Galéria",
+      "contact": "Kapcsolat"
+    },
     "enjoy": {
       "title": "<large>Élvezze</large> a természet luxusát",
       "content": {
@@ -212,6 +217,44 @@
         "title": "Segítségre van szüksége?",
         "button": "Kapcsolat"
       }
+    }
+  },
+  "gallery": {
+    "hero": {
+      "title": "<large>Fedezze</large> fel eleganciánkat képekben"
+    },
+    "cta": {
+      "title": "Kövessen minket a közösségi média platformjainkon, hogy naprakész legyen legújabb tartalmainkkal kapcsolatban!"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Örömmel várjuk, hogy meghallgassuk az Ön igényeit és elképzeléseit. A luxus szállásunkon a kiváló szolgáltatás és az egyéni odafigyelés a norma, és minden kérdésére, észrevételére vagy ajánlására nyitottak vagyunk. Forduljon hozzánk bizalommal."
+    },
+    "form": {
+      "name": {
+        "title": "Ön neve",
+        "placeholder": "Írja le a teljes nevét"
+      },
+      "email": {
+        "title": "Email címe",
+        "placeholder": "Írja le az email címét"
+      },
+      "subject": {
+        "title": "Tárgy",
+        "placeholder": "Írja le az üzenet tárgyát"
+      },
+      "textbox": {
+        "title": "Üzenet",
+        "placeholder": "Írja le véleményét"
+      },
+      "available": {
+        "title": "Telefonos elérhetőség:",
+        "week": "H-P 09:00 – 19:00",
+        "weekend": "Sz-V 10:00 – 14:00"
+      },
+      "button": { "title": "Küldés" }
+
     }
   }
 }

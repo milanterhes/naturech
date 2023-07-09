@@ -19,6 +19,11 @@
       "signin": "Anmelden",
       "loginbutton": "Einloggen"
     },
+    "pages": {
+      "booking": "Buchung",
+      "gallery": "Galerie",
+      "contact": "Kontakt"
+    },
     "enjoy": {
       "title": "<large>Genießen</large> Sie den Luxus der Natur",
       "content": {
@@ -212,6 +217,44 @@
         "title": "Brauchen Sie Hilfe?",
         "button": "Kontakt"
       }
+    }
+  },
+  "gallery": {
+    "hero": {
+      "title": "<large>Entdecken</large> Sie unsere Eleganz in Bildern"
+    },
+    "cta": {
+      "title": "Folgen Sie uns auf unseren Social-Media-Plattformen, um immer auf dem neuesten Stand mit unserem neuesten Inhalt zu sein!"
+    }
+  },
+  "contact": {
+    "hero": {
+      "title": "Wir freuen uns darauf, Ihre Bedürfnisse und Vorstellungen zu hören. In unserer luxuriösen Unterkunft sind exzellenter Service und individuelle Aufmerksamkeit die Norm, und wir sind offen für alle Ihre Fragen, Anmerkungen oder Empfehlungen. Bitte zögern Sie nicht, uns zu kontaktieren."
+    },
+    "form": {
+      "name": {
+        "title": "Ihr Name",
+        "placeholder": "Schreiben Sie Ihren vollständigen Namen"
+      },
+      "email": {
+        "title": "Ihre E-Mail-Adresse",
+        "placeholder": "Schreiben Sie Ihre E-Mail-Adresse"
+      },
+      "subject": {
+        "title": "Betreff",
+        "placeholder": "Schreiben Sie den Betreff Ihrer Nachricht"
+      },
+      "textbox": {
+        "title": "Nachricht",
+        "placeholder": "Schreiben Sie Ihre Meinung"
+      },
+      "available": {
+        "title": "Telefonische Verfügbarkeit:",
+        "week": "Mo-Fr 09:00 – 19:00",
+        "weekend": "Sa-So 10:00 – 14:00"
+      },
+      "button": { "title": "Senden" }
+
     }
   }
 }

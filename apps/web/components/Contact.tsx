@@ -6,6 +6,7 @@ import {
   EnvelopeIcon,
   PhoneArrowDownLeftIcon,
 } from "@heroicons/react/24/outline";
+import { useTranslations } from "next-intl";
 
 interface FormState {
   fullName: string;
@@ -22,6 +23,7 @@ const initialFormState: FormState = {
 };
 
 export const Contact = () => {
+  const t = useTranslations();
   const [formState, setFormState] = useState<FormState>(initialFormState);
 
   const handleChange = (
@@ -80,14 +82,11 @@ export const Contact = () => {
         </div>
         <div className="px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-14">
           <h3 className="mx-auto py-10 text-center text-2xl leading-normal tracking-wide text-black md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-5xl">
-            Örömmel várjuk, hogy meghallgassuk az Ön igényeit és elképzeléseit.
-            A luxus szállásunkon a kiváló szolgáltatás és az egyéni odafigyelés
-            a norma, és minden kérdésére, észrevételére vagy ajánlására
-            nyitottak vagyunk. Forduljon hozzánk bizalommal.
+            {t("contact.hero.title")}
           </h3>
         </div>
       </section>
-      <section className="0 mt-10 flex flex-col border-b border-secondary-theme/30">
+      <section className="0 mt-10 flex flex-col">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col gap-5 px-4 md:px-0"
@@ -96,13 +95,13 @@ export const Contact = () => {
             1
           </span>
           <label className="flex w-full flex-col items-center">
-            Ön neve
+            {t("contact.form.name.title")}
             <input
               type="text"
               name="fullName"
               value={formState.fullName}
               onChange={handleChange}
-              placeholder="Írja le a teljes nevét"
+              placeholder={t("contact.form.name.placeholder")}
               className="mx-auto w-full border-b-2 border-white bg-transparent text-center text-white placeholder:text-white placeholder:opacity-60 focus:outline-none md:w-2/3 lg:w-1/2"
             />
           </label>
@@ -110,13 +109,13 @@ export const Contact = () => {
             2
           </span>
           <label className="flex flex-col items-center">
-            Email címe
+            {t("contact.form.email.title")}
             <input
               type="email"
               name="email"
               value={formState.email}
               onChange={handleChange}
-              placeholder="Írja le az email címét"
+              placeholder={t("contact.form.email.placeholder")}
               className="mx-auto w-full border-b-2 border-white bg-transparent text-center text-white placeholder:text-white placeholder:opacity-60 focus:outline-none md:w-2/3 lg:w-1/2"
             />
           </label>
@@ -124,13 +123,13 @@ export const Contact = () => {
             3
           </span>
           <label className="flex flex-col items-center">
-            Tárgy
+            {t("contact.form.subject.title")}
             <input
               type="text"
               name="subject"
               value={formState.subject}
               onChange={handleChange}
-              placeholder="Írja le az üzenet tárgyát"
+              placeholder={t("contact.form.subject.placeholder")}
               className="mx-auto w-full border-b-2 border-white bg-transparent text-center text-white placeholder:text-white placeholder:opacity-60 focus:outline-none md:w-2/3 lg:w-1/2"
             />
           </label>
@@ -138,16 +137,22 @@ export const Contact = () => {
             4
           </span>
           <label className="flex flex-col items-center">
-            Üzenet
+            {t("contact.form.textbox.title")}
             <textarea
               name="message"
               value={formState.message}
               onChange={handleChange}
-              placeholder="Írja le véleményét"
+              placeholder={t("contact.form.textbox.placeholder")}
               rows={5}
               className="mx-auto w-full rounded-xl border-2 border-white bg-transparent text-center text-white placeholder:items-center placeholder:text-white placeholder:opacity-60 focus:outline-none md:w-2/3 lg:w-1/2"
             />
           </label>
+          <button
+            type="submit"
+            className="text-md w-full transform self-center rounded-full bg-white bg-opacity-70 px-2 py-2 text-secondary-theme transition duration-500 ease-in-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-secondary-theme active:bg-secondary-theme active:text-white sm:w-2/3 sm:text-lg md:w-1/2 md:text-xl lg:w-1/3 lg:text-2xl xl:text-3xl 2xl:text-4xl"
+          >
+            {t("contact.form.button.title")}
+          </button>
         </form>
         <div className="my-20 flex flex-col items-center space-y-4 text-center md:space-y-8 lg:space-y-12">
           <div className="flex flex-col items-center space-y-2 md:space-y-4 lg:space-y-6">
@@ -165,11 +170,11 @@ export const Contact = () => {
             <p className="text-sm md:text-lg lg:text-xl">+36 70 392 8177</p>
           </div>
           <div className="text-sm md:text-lg lg:text-xl">
-            Telefonos elérhetőség:
+            {t("contact.form.available.title")}
             <br />
-            H-P 09:00 – 19:00
+            {t("contact.form.available.week")}
             <br />
-            Sz-V 10:00 – 14:00
+            {t("contact.form.available.weekend")}
           </div>
           <div className="flex space-x-4 md:space-x-8 lg:space-x-10">
             <a

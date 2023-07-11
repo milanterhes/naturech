@@ -1,15 +1,9 @@
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import Link from "next/link";
-import { i18n } from "../i18n-config";
 
 export default function LocaleSwitcher() {
-  const pathName = usePathname();
-  const redirectedPathName = (locale: string) => {
-    if (!pathName) return "/";
-    const segments = pathName.split("/");
-    segments[1] = locale;
-    return segments.join("/");
-  };
+  const router = useRouter();
+  
 
   const flagComponents = {
     en: <img width="10" alt="UK flag" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Nuvola_United_Kingdom_flag.svg/32px-Nuvola_United_Kingdom_flag.svg.png" />,
@@ -20,10 +14,10 @@ export default function LocaleSwitcher() {
   return (
     <div>
       <ul className="md:flex gap-5 items-center">
-        {i18n.locales.map((locale) => {
+        {router.locales?.map((locale) => {
           return (
             <li key={locale}>
-              <Link href={redirectedPathName(locale)} passHref>
+              <Link href={router.asPath} locale={locale} passHref>
                 <span>{flagComponents[locale]}</span>
               </Link>
             </li>

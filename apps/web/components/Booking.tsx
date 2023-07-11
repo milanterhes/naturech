@@ -6,6 +6,7 @@ import guestInfo from "../data/guestInfo";
 import services from "../data/services";
 import bookingherobg from "../public/bookingherobg.webp";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
+import { FC } from "react";
 
 type IconTextProps = {
   imgSrc: string;
@@ -48,7 +49,25 @@ const IconText: React.FC<IconTextProps> = ({
   );
 };
 
-export const BookingMain: React.FC = ({}) => {
+interface BookingMainProps {
+  startDate: Date;
+  endDate: Date;
+  onIconTextClick: () => void;
+  isDateSelected: boolean;
+  setIsDateSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  showModalPage: boolean;
+  setShowModalPage: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const BookingMain: FC<BookingMainProps> = ({
+  startDate,
+  endDate,
+  onIconTextClick,
+  isDateSelected,
+  setIsDateSelected,
+  showModalPage,
+  setShowModalPage
+}) => {
   const t = useTranslations();
   return (
     <div className="relative flex flex-col items-center bg-[url('/bookingbg.webp')] bg-cover bg-top pt-[80px]">
@@ -74,7 +93,12 @@ export const BookingMain: React.FC = ({}) => {
               imgWidth={50}
               imgHeight={50}
               title={t("booking.introcard.arrival.title")}
-              subtitle={t("booking.introcard.arrival.detail")}
+              subtitle={
+                isDateSelected
+                  ? startDate.toLocaleDateString()
+                  : t("booking.introcard.arrival.detail")
+              }
+              onClick={onIconTextClick}
             />
             <IconText
               imgSrc={"/arrivalicon.svg"}
@@ -82,14 +106,20 @@ export const BookingMain: React.FC = ({}) => {
               imgWidth={50}
               imgHeight={50}
               title={t("booking.introcard.departure.title")}
-              subtitle={t("booking.introcard.departure.detail")}
+              subtitle={
+                isDateSelected
+                  ? endDate.toLocaleDateString()
+                  : t("booking.introcard.arrival.detail")
+              }
+              onClick={onIconTextClick}
             />
           </div>
-          <button aria-label="Search Dates">
+          <button aria-label="Search Dates" onClick={() => setShowModalPage(true)}>
             <MagnifyingGlassCircleIcon className="h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20" />
           </button>
         </section>
       </div>
+
       <BookingInfo />
     </div>
   );

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { trpc } from "../utils/trpc";
 import Calendar from "react-calendar";
+import { FC, SetStateAction } from "react";
 
 // interface CalendarProps {
 //   minDate: Date;
@@ -24,14 +25,27 @@ import Calendar from "react-calendar";
 //   );
 // };
 
-const CalendarWrapper = () => {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(() => {
-    const date = new Date();
-    date.setDate(date.getDate() + 1);
-    return date;
-  });
+interface CalendarWrapperProps {
+  startDate: Date;
+  endDate: Date;
+  setStartDate: React.Dispatch<SetStateAction<Date>>;
+  setEndDate: React.Dispatch<SetStateAction<Date>>;
+  setShowCalendar: React.Dispatch<React.SetStateAction<boolean>>;
+  isDateSelected: boolean;
+  setIsDateSelected: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const CalendarWrapper = ({
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  setShowCalendar,
+  isDateSelected,
+  setIsDateSelected,
+}) => {
   const [shouldDisplay, setShouldDisplay] = useState(false);
+  
 
   useEffect(() => {
     setShouldDisplay(true);
@@ -82,20 +96,33 @@ const CalendarWrapper = () => {
   }
 
   if (!shouldDisplay) return null;
+  const handleDateChange = (newDates: [Date, Date]) => {
+    setStartDate(newDates[0]);
+    setEndDate(newDates[1]);
+    setShowCalendar(false);
+    setIsDateSelected(true);
+  };
 
   return (
-    <div className="mt-10 flex h-full w-11/12 max-w-3xl flex-col items-center justify-between gap-5 rounded-lg border-2 px-5 py-3 sm:w-5/6 md:w-4/6 md:px-10 md:py-6 2xl:max-w-5xl">
-      <Calendar
-        maxDate={maxDate}
-        minDate={minDate}
-        tileDisabled={tileDisabled}
-        returnValue="range"
-        selectRange
-        onChange={console.log}
-        onViewChange={console.log}
-        className={"text-secondary-theme"}
-        value={[startDate, endDate]}
-      />
+    <div
+      className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-40"
+      onClick={(e) => e.target === e.currentTarget && setShowCalendar(false)}
+    >
+      <div className="flex items-center justify-center overflow-hidden rounded-lg">
+        <div className="w-full">
+          <Calendar
+            maxDate={maxDate}
+            minDate={minDate}
+            tileDisabled={tileDisabled}
+            returnValue="range"
+            selectRange
+            onChange={handleDateChange}
+            onViewChange={console.log}
+            className={"text-secondary-theme"}
+            value={[startDate, endDate]}
+          />
+        </div>
+      </div>
     </div>
   );
 };

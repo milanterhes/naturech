@@ -3,7 +3,7 @@ import { BookingMain } from "../components/Booking";
 import { Footer, Navbar } from "../components/Home";
 import { useState } from "react";
 import CalendarWrapper from "../components/Calendar";
-import { ProfileForm } from "../components/BookingForm";
+import { ProfileForm, ProfileFormPage2 } from "../components/BookingForm";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
@@ -19,6 +19,7 @@ const BookingPage: NextPage = () => {
   const [showCalendar, setShowCalendar] = useState(false);
   const [isDateSelected, setIsDateSelected] = useState(false);
   const [showModalPage, setShowModalPage] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const [endDate, setEndDate] = useState(() => {
     const date = new Date();
@@ -26,19 +27,36 @@ const BookingPage: NextPage = () => {
     return date;
   });
 
+  const handleNextPage = () => setCurrentPage((prev) => prev + 1);
+  const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);
+
   return (
     <>
       <Navbar />
-      {!showCalendar && showModalPage && 
-          <div
-            className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-40"
-            onClick={(e) =>
-              e.target === e.currentTarget && setShowModalPage(false)
+      {!showCalendar && showModalPage && (
+        <div
+          className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-40"
+          onClick={(e) => {
+            if(e.target === e.currentTarget) {
+              setShowModalPage(false);
+              setCurrentPage(1);
             }
-          >
-            <ProfileForm/>
-          </div>
-        }
+          }}
+        >
+          {currentPage === 1 ? (
+            <ProfileForm
+              startDate={startDate}
+              endDate={endDate}
+              showModalPage={showModalPage}
+              setShowModalPage={setShowModalPage}
+              onNextPage={handleNextPage}
+            />
+          ) : (
+            <ProfileFormPage2 startDate={startDate}
+            endDate={endDate}/>
+          )}
+        </div>
+      )}
       {showCalendar && (
         <CalendarWrapper
           startDate={startDate}

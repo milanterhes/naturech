@@ -4,6 +4,8 @@ import * as z from "zod";
 import { useState } from "react";
 import { Checkbox } from "../components/ui/checkbox";
 import Link from "next/link";
+import { Label } from "./ui/label";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -43,6 +45,9 @@ const formSchema = z.object({
     required_error: "Nincs kiválasztva a vendégek száma.",
   }),
   house_number_1: z.boolean().default(false),
+  paymentType: z.enum(["fullPrice", "halfPrice"], {
+    required_error: "Nincs kiválasztva fizetési mód.",
+  }),
 });
 
 interface ProfileFormProps {
@@ -51,6 +56,8 @@ interface ProfileFormProps {
   showModalPage: boolean;
   setShowModalPage: React.Dispatch<React.SetStateAction<boolean>>;
   onNextPage: () => void;
+  setHouse1: React.Dispatch<React.SetStateAction<boolean>>;
+  setGuests: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({
@@ -59,6 +66,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
   showModalPage,
   setShowModalPage,
   onNextPage,
+  setHouse1,
+  setGuests,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,6 +80,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     setIsLoading(true);
     console.log(values);
     const isValid = await form.trigger();
+    setHouse1(values.house_number_1);
+    setGuests(values.guests);
 
     if (isValid) {
       onNextPage();
@@ -83,14 +94,14 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 rounded-xl bg-white p-4 text-black drop-shadow-[0px_5px_2px_rgba(0,0,0,0.4)] backdrop-blur-[2px] backdrop-filter sm:space-y-5 sm:p-6"
+        className="space-y-4 rounded-xl bg-white p-4 text-black drop-shadow-[0px_5px_2px_rgba(0,0,0,0.4)] backdrop-blur-[2px] backdrop-filter sm:space-y-5 sm:p-6 max-h-screen overflow-auto w-10/12 sm:w-max"
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-          <div className="flex items-center justify-between rounded-md bg-gray-100 p-3">
+          <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
             <p className="mr-1 font-semibold">Érkezés:</p>
             <p>{startDate.toLocaleDateString()}</p>
           </div>
-          <div className="flex items-center justify-between rounded-md bg-gray-100 p-3">
+          <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
             <p className="mr-1 font-semibold">Távozás:</p>
             <p>{endDate.toLocaleDateString()}</p>
           </div>
@@ -179,9 +190,53 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   />
                 </TableCell>
               </TableRow>
+              <TableRow>
+                <TableCell>
+                  <FormField
+                    control={form.control}
+                    name="paymentType"
+                    render={({ field }) => (
+                      <RadioGroup
+                        onValueChange={(value) =>
+                          field.onChange(value as "fullPrice" | "halfPrice")
+                        }
+                        defaultValue={field.value}
+                        className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-items-start sm:justify-items-center"
+                      >
+                        <Label
+                          htmlFor="fullPrice"
+                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:border-secondary-theme"
+                        >
+                          <RadioGroupItem
+                            value="fullPrice"
+                            id="fullPrice"
+                            className="sr-only"
+                          />
+                          Teljes összeg fizetése <br /> <br />
+                          (120.000 Ft)
+                        </Label>
+                        <Label
+                          htmlFor="halfPrice"
+                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:border-secondary-theme"
+                        >
+                          <RadioGroupItem
+                            value="halfPrice"
+                            id="halfPrice"
+                            className="sr-only"
+                          />
+                          Előleg fizetése <br />
+                          <br />
+                          (60.000 Ft)
+                        </Label>
+                        <FormMessage />
+                      </RadioGroup>
+                    )}
+                  />
+                </TableCell>
+              </TableRow>
             </TableBody>
           </Table>
-          <div className="mt-4 flex flex-col justify-between space-y-4 sm:mt-6 sm:flex-row sm:space-y-0">
+          <div className="mt-24 flex flex-col justify-between space-y-4 sm:mt-20 sm:flex-row sm:space-y-0">
             <Button
               type="submit"
               className="w-full sm:w-auto"
@@ -221,12 +276,18 @@ const formSchemaPage2 = z.object({
   country: z.string().min(2, {
     message: "Country must be at least 2 characters.",
   }),
-  terms: z.boolean().refine(value => value === true, {
+  terms: z.boolean().refine((value) => value === true, {
     message: "You must accept the terms and conditions.",
   }),
 });
 
-export const ProfileFormPage2 = ({ startDate, endDate }) => {
+export const ProfileFormPage2 = ({
+  startDate,
+  endDate,
+  onPrevPage,
+  house1,
+  guests,
+}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const form = useForm<z.infer<typeof formSchemaPage2>>({
@@ -254,31 +315,31 @@ export const ProfileFormPage2 = ({ startDate, endDate }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmitPage2)}
-        className="space-y-4 rounded-xl bg-white p-4 text-black drop-shadow-[0px_5px_2px_rgba(0,0,0,0.4)] backdrop-blur-[2px] backdrop-filter sm:space-y-5 sm:p-6"
+        className="max-h-screen w-10/12 space-y-4 overflow-auto rounded-xl bg-white p-4 text-black drop-shadow-[0px_5px_2px_rgba(0,0,0,0.4)] backdrop-blur-[2px] backdrop-filter sm:w-max sm:space-y-5 sm:p-6"
       >
         {" "}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-          <div className="flex items-center justify-between rounded-md bg-gray-100 p-3">
+          <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
             <p className="mr-1 font-semibold">Érkezés:</p>
             <p>{startDate.toLocaleDateString()}</p>
           </div>
-          <div className="flex items-center justify-between rounded-md bg-gray-100 p-3">
+          <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
             <p className="mr-1 font-semibold">Távozás:</p>
             <p>{endDate.toLocaleDateString()}</p>
           </div>
         </div>
-        <div className="flex w-full flex-col items-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-          <div className="flex flex-col rounded-md bg-gray-100 p-3">
+        <div className="flex w-full flex-col items-stretch space-y-6 sm:flex-row sm:space-x-4 sm:space-y-0">
+          <div className="flex flex-col rounded-md bg-gray-400 p-3">
             <h2>Választott ház:</h2>
-            <span>Fakopáncs</span>
+            <span>{house1 ? "Ház Fakopáncs" : "Nincs kiválasztva ház"}</span>
           </div>
-          <div className="flex flex-col rounded-md bg-gray-100 p-3">
+          <div className="flex flex-col rounded-md bg-gray-400 p-3">
             <h2>Ár</h2>
             <span>120.000 Ft</span>
           </div>
-          <div className="flex flex-col rounded-md bg-gray-100 p-3">
+          <div className="flex flex-col rounded-md bg-gray-400 p-3">
             <h2>Vendégek száma:</h2>
-            <span>3</span>
+            <span>{guests}</span>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center">
@@ -290,7 +351,7 @@ export const ProfileFormPage2 = ({ startDate, endDate }) => {
                 <FormItem>
                   <FormLabel>Teljes Név</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ön teljes neve" {...field} />
+                    <Input {...field} aria-label="Full Name" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -303,7 +364,7 @@ export const ProfileFormPage2 = ({ startDate, endDate }) => {
                 <FormItem>
                   <FormLabel>Email cím</FormLabel>
                   <FormControl>
-                    <Input placeholder="Ön e-mail címe" {...field} />
+                    <Input {...field} aria-label="Email" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -318,7 +379,7 @@ export const ProfileFormPage2 = ({ startDate, endDate }) => {
                 <FormItem>
                   <FormLabel>Utca, házszám</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} aria-label="Street" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -331,7 +392,7 @@ export const ProfileFormPage2 = ({ startDate, endDate }) => {
                 <FormItem>
                   <FormLabel>Város</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} aria-label="City" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -346,7 +407,7 @@ export const ProfileFormPage2 = ({ startDate, endDate }) => {
                 <FormItem>
                   <FormLabel>Telefonszám</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} aria-label="Phone Number" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -359,7 +420,7 @@ export const ProfileFormPage2 = ({ startDate, endDate }) => {
                 <FormItem>
                   <FormLabel>Ország</FormLabel>
                   <FormControl>
-                    <Input {...field} />
+                    <Input {...field} aria-label="Country" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -378,8 +439,14 @@ export const ProfileFormPage2 = ({ startDate, endDate }) => {
             name="terms"
             render={({ field }) => (
               <div className="flex items-center space-x-2">
-                <Checkbox id="terms" aria-label="Accept terms and conditions" checked={field.value} 
-        onCheckedChange={(checked) => field.onChange(checked === true)} />
+                <Checkbox
+                  id="terms"
+                  aria-label="Accept terms and conditions"
+                  checked={field.value}
+                  onCheckedChange={(checked) =>
+                    field.onChange(checked === true)
+                  }
+                />
                 <label
                   htmlFor="terms"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -392,7 +459,11 @@ export const ProfileFormPage2 = ({ startDate, endDate }) => {
           <FormMessage>{form.formState.errors.terms?.message}</FormMessage>
         </div>
         <div className="mt-4 flex flex-col justify-between space-y-4 sm:mt-6 sm:flex-row sm:space-y-0">
-          <Button type="submit" className="w-full sm:w-auto">
+          <Button
+            type="submit"
+            className="w-full sm:w-auto"
+            onClick={onPrevPage}
+          >
             Vissza
           </Button>
           <Button

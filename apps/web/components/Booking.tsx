@@ -38,10 +38,10 @@ const IconText: React.FC<IconTextProps> = ({
       />
 
       <div className="flex h-full flex-col">
-        <h3 className="text-xs font-bold sm:text-lg md:text-xl xl:text-2xl">
+        <h3 className="text-sm font-bold sm:text-lg md:text-xl xl:text-2xl">
           {title}
         </h3>
-        <small className="md:text-md text-[0.5rem] sm:text-sm xl:text-lg">
+        <small className="md:text-md text-[0.5rem] text-sm xl:text-lg">
           {subtitle}
         </small>
       </div>
@@ -66,7 +66,7 @@ export const BookingMain: FC<BookingMainProps> = ({
   isDateSelected,
   setIsDateSelected,
   showModalPage,
-  setShowModalPage
+  setShowModalPage,
 }) => {
   const t = useTranslations();
   return (
@@ -85,7 +85,7 @@ export const BookingMain: FC<BookingMainProps> = ({
           <h2>{t("booking.intro.header2")},</h2>
           <h2>{t("booking.intro.header3")}</h2>
         </header>
-        <section className="absolute bottom-0 flex h-32 w-4/6 translate-y-[15%] transform flex-col items-center justify-around rounded-xl border border-b-[#E7B181]/50 border-l-[#E7B181]/50 border-r-[#FFFFFF]/75 border-t-[#FFFFFF]/75 bg-gradient-opacity px-2 drop-shadow-[0px_5px_2px_rgba(0,0,0,0.4)] backdrop-blur-[2px] backdrop-filter sm:h-44 sm:w-3/6 md:h-64 xl:w-2/6 2xl:h-80">
+        <section className="absolute bottom-0 flex h-32 w-5/6 translate-y-[15%] transform flex-col items-center justify-around rounded-xl border border-b-[#E7B181]/50 border-l-[#E7B181]/50 border-r-[#FFFFFF]/75 border-t-[#FFFFFF]/75 bg-gradient-opacity px-2 drop-shadow-[0px_5px_2px_rgba(0,0,0,0.4)] backdrop-blur-[2px] backdrop-filter sm:h-44 sm:w-3/6 md:h-64 xl:w-2/6 2xl:h-80">
           <div className="flex w-full justify-around gap-4 sm:justify-center md:gap-3">
             <IconText
               imgSrc={"/arrivalicon.svg"}
@@ -114,7 +114,10 @@ export const BookingMain: FC<BookingMainProps> = ({
               onClick={onIconTextClick}
             />
           </div>
-          <button aria-label="Search Dates" onClick={() => setShowModalPage(true)}>
+          <button
+            aria-label="Search Dates"
+            onClick={() => setShowModalPage(true)}
+          >
             <MagnifyingGlassCircleIcon className="h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20" />
           </button>
         </section>

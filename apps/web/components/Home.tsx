@@ -112,7 +112,7 @@ export const Navbar: React.FC = () => {
                   <p>Logged in as {auth.user.email}</p>
                   <button className="btn" onClick={auth.logout}>
                     Logout
-                  </button>
+                np  </button>
                 </>
               )}
             </div>

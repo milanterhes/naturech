@@ -39,14 +39,41 @@ import {
 } from "../components/ui/form";
 import React from "react";
 import { Input } from "./ui/input";
+import { useTranslations } from "next-intl";
+
+import { loadStripe } from "@stripe/stripe-js";
+
+let required_guestError_message = "Nincs kiválasztva a vendégek száma.";
+let required_paymentError_message = "Nincs kiválasztva fizetési mód.";
+
+if (typeof window !== "undefined") {
+  const locale = window.location.pathname.split("/")[1];
+
+  const errorMessagesGuest = {
+    de: "Die Anzahl der Gäste ist nicht ausgewählt.",
+    en: "The number of guests is not selected.",
+    hu: "Nincs kiválasztva a vendégek száma.",
+  };
+
+  const errorMessagesPayment = {
+    de: "Keine Zahlungsmethode ausgewählt.",
+    en: "No payment method selected.",
+    hu: "Nincs kiválasztva fizetési mód.",
+  };
+
+  required_guestError_message =
+    errorMessagesGuest[locale] || required_guestError_message;
+  required_paymentError_message =
+    errorMessagesPayment[locale] || required_paymentError_message;
+}
 
 const formSchema = z.object({
   guests: z.string({
-    required_error: "Nincs kiválasztva a vendégek száma.",
+    required_error: required_guestError_message,
   }),
   house_number_1: z.boolean().default(false),
   paymentType: z.enum(["fullPrice", "halfPrice"], {
-    required_error: "Nincs kiválasztva fizetési mód.",
+    required_error: required_paymentError_message,
   }),
 });
 
@@ -69,6 +96,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
   setHouse1,
   setGuests,
 }) => {
+  const t = useTranslations();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { house_number_1: true },
@@ -98,11 +126,15 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
           <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
-            <p className="mr-1 font-semibold">Érkezés:</p>
+            <p className="mr-1 font-semibold">
+              {t("booking.bookingmodal.page1.date.arrival")}:
+            </p>
             <p>{startDate.toLocaleDateString()}</p>
           </div>
           <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
-            <p className="mr-1 font-semibold">Távozás:</p>
+            <p className="mr-1 font-semibold">
+              {t("booking.bookingmodal.page1.date.departure")}:
+            </p>
             <p>{endDate.toLocaleDateString()}</p>
           </div>
         </div>
@@ -117,15 +149,19 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             ></Image>
           </div>
           <h2 className="text-lg font-semibold sm:text-xl">
-            Nature & Chill Luxus faházak
+            {t("booking.bookingmodal.page1.main.title")}
           </h2>
         </div>
         <div>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Válasszon faházat</TableHead>
-                <TableHead>Ár</TableHead>
+                <TableHead className="border-b border-main-theme">
+                  {t("booking.bookingmodal.page1.tablehead.housechoose")}
+                </TableHead>
+                <TableHead className="border-b border-main-theme">
+                  {t("booking.bookingmodal.page1.tablehead.price")}
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -149,9 +185,15 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           />
                         </FormControl>
                         <div className="space-y-1 leading-none">
-                          <FormLabel>Luxus Faház, Fakopáncs</FormLabel>
+                          <FormLabel>
+                            {t(
+                              "booking.bookingmodal.page1.tablebody.woodhouse1"
+                            )}
+                          </FormLabel>
                           <FormDescription>
-                            Maximum 3 Főre foglalható(2 felnőtt, 1 gyerek)
+                            {t(
+                              "booking.bookingmodal.page1.tablebody.description"
+                            )}
                           </FormDescription>
                         </div>
                       </FormItem>
@@ -172,15 +214,29 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Válassza ki a vendégek számát" />
+                            <SelectTrigger className="border border-main-theme/75">
+                              <SelectValue
+                                placeholder={t(
+                                  "booking.bookingmodal.page1.selectguest.title"
+                                )}
+                              />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="1">1 Fő (felnőtt)</SelectItem>
-                            <SelectItem value="2">2 Fő (felnőtt)</SelectItem>
+                            <SelectItem value="1">
+                              {t(
+                                "booking.bookingmodal.page1.selectguest.value1"
+                              )}
+                            </SelectItem>
+                            <SelectItem value="2">
+                              {t(
+                                "booking.bookingmodal.page1.selectguest.value2"
+                              )}
+                            </SelectItem>
                             <SelectItem value="3">
-                              3 Fő (felnőtt + gyerek)
+                              {t(
+                                "booking.bookingmodal.page1.selectguest.value3"
+                              )}
                             </SelectItem>
                           </SelectContent>
                         </Select>
@@ -212,7 +268,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                             id="fullPrice"
                             className="sr-only"
                           />
-                          Teljes összeg fizetése <br /> <br />
+                          {t(
+                            "booking.bookingmodal.page1.fullhalfpriceselect.fullprice"
+                          )}{" "}
+                          <br /> <br />
                           (120.000 Ft)
                         </Label>
                         <Label
@@ -224,7 +283,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                             id="halfPrice"
                             className="sr-only"
                           />
-                          Előleg fizetése <br />
+                          {t(
+                            "booking.bookingmodal.page1.fullhalfpriceselect.halfprice"
+                          )}{" "}
+                          <br />
                           <br />
                           (60.000 Ft)
                         </Label>
@@ -242,13 +304,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
               className="w-full sm:w-auto"
               onClick={() => setShowModalPage(!showModalPage)}
             >
-              Vissza
+              {t("booking.bookingmodal.buttons.previous")}
             </Button>
             <Button
               type="submit"
               className="w-full bg-main-theme text-white sm:w-auto"
             >
-              Tovább
+              {t("booking.bookingmodal.buttons.next")}
             </Button>
           </div>
         </div>
@@ -281,6 +343,14 @@ const formSchemaPage2 = z.object({
   }),
 });
 
+type ProfileFormPage2Props = {
+  startDate: Date;
+  endDate: Date;
+  onPrevPage: () => void;
+  house1: string;
+  guests: number;
+};
+
 export const ProfileFormPage2 = ({
   startDate,
   endDate,
@@ -290,6 +360,7 @@ export const ProfileFormPage2 = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const t = useTranslations();
   const form = useForm<z.infer<typeof formSchemaPage2>>({
     resolver: zodResolver(formSchemaPage2),
     defaultValues: {},
@@ -297,9 +368,33 @@ export const ProfileFormPage2 = ({
 
   async function onSubmitPage2(values: z.infer<typeof formSchemaPage2>) {
     setIsLoading(true);
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     console.log(values);
+
+    const { email } = values;
+
+    const response = await fetch("/api/stripe/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, house1, guests }),
+    });
+    const { sessionId } = await response.json();
+    const stripe = await loadStripe(
+      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+    );
+
+    if (stripe) {
+      const result = await stripe.redirectToCheckout({
+        sessionId,
+      });
+
+      if (result.error) {
+        alert(result.error.message);
+      }
+    } else {
+      console.log("Stripe is not loaded");
+    }
 
     // Simulate a network request.
     await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -320,37 +415,43 @@ export const ProfileFormPage2 = ({
         {" "}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
           <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
-            <p className="mr-1 font-semibold">Érkezés:</p>
+            <p className="mr-1 font-semibold">
+              {t("booking.bookingmodal.page2.date.arrival")}:
+            </p>
             <p>{startDate.toLocaleDateString()}</p>
           </div>
           <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
-            <p className="mr-1 font-semibold">Távozás:</p>
+            <p className="mr-1 font-semibold">
+              {t("booking.bookingmodal.page2.date.departure")}:
+            </p>
             <p>{endDate.toLocaleDateString()}</p>
           </div>
         </div>
         <div className="flex w-full flex-col items-stretch space-y-6 sm:flex-row sm:space-x-4 sm:space-y-0">
           <div className="flex flex-col rounded-md bg-gray-400 p-3">
-            <h2>Választott ház:</h2>
+            <h2>{t("booking.bookingmodal.page2.house.title")}</h2>
             <span>{house1 ? "Ház Fakopáncs" : "Nincs kiválasztva ház"}</span>
           </div>
           <div className="flex flex-col rounded-md bg-gray-400 p-3">
-            <h2>Ár</h2>
+            <h2>{t("booking.bookingmodal.page2.price.title")}</h2>
             <span>120.000 Ft</span>
           </div>
           <div className="flex flex-col rounded-md bg-gray-400 p-3">
-            <h2>Vendégek száma:</h2>
+            <h2>{t("booking.bookingmodal.page2.guests.title")}</h2>
             <span>{guests}</span>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 w-full md:w-max">
             <FormField
               control={form.control}
               name="fullname"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Teljes Név</FormLabel>
-                  <FormControl>
+                  <FormLabel>
+                    {t("booking.bookingmodal.page2.form.name")}
+                  </FormLabel>
+                  <FormControl className="border border-main-theme/50">
                     <Input {...field} aria-label="Full Name" />
                   </FormControl>
                   <FormMessage />
@@ -362,8 +463,10 @@ export const ProfileFormPage2 = ({
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email cím</FormLabel>
-                  <FormControl>
+                  <FormLabel>
+                    {t("booking.bookingmodal.page2.form.email")}
+                  </FormLabel>
+                  <FormControl className="border border-main-theme/50">
                     <Input {...field} aria-label="Email" />
                   </FormControl>
                   <FormMessage />
@@ -371,14 +474,16 @@ export const ProfileFormPage2 = ({
               )}
             />
           </div>
-          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 w-full md:w-max">
             <FormField
               control={form.control}
               name="street"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Utca, házszám</FormLabel>
-                  <FormControl>
+                  <FormLabel>
+                    {t("booking.bookingmodal.page2.form.street")}
+                  </FormLabel>
+                  <FormControl className="border border-main-theme/50">
                     <Input {...field} aria-label="Street" />
                   </FormControl>
                   <FormMessage />
@@ -390,8 +495,10 @@ export const ProfileFormPage2 = ({
               name="city"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Város</FormLabel>
-                  <FormControl>
+                  <FormLabel>
+                    {t("booking.bookingmodal.page2.form.city")}
+                  </FormLabel>
+                  <FormControl className="border border-main-theme/50">
                     <Input {...field} aria-label="City" />
                   </FormControl>
                   <FormMessage />
@@ -399,14 +506,16 @@ export const ProfileFormPage2 = ({
               )}
             />
           </div>
-          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0">
+          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 w-full md:w-max">
             <FormField
               control={form.control}
               name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Telefonszám</FormLabel>
-                  <FormControl>
+                  <FormLabel>
+                    {t("booking.bookingmodal.page2.form.phone")}
+                  </FormLabel>
+                  <FormControl className="border border-main-theme/50">
                     <Input {...field} aria-label="Phone Number" />
                   </FormControl>
                   <FormMessage />
@@ -418,8 +527,10 @@ export const ProfileFormPage2 = ({
               name="country"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Ország</FormLabel>
-                  <FormControl>
+                  <FormLabel>
+                    {t("booking.bookingmodal.page2.form.country")}
+                  </FormLabel>
+                  <FormControl className="border border-main-theme/50">
                     <Input {...field} aria-label="Country" />
                   </FormControl>
                   <FormMessage />
@@ -431,7 +542,10 @@ export const ProfileFormPage2 = ({
             control={form.control}
             name="fullname"
             render={({ field }) => (
-              <Textarea placeholder="Type your message here." />
+              <Textarea
+                placeholder={t("booking.bookingmodal.page2.form.textarea")}
+                className="border border-main-theme/50 my-10 w-full"
+              />
             )}
           />
           <FormField
@@ -451,7 +565,7 @@ export const ProfileFormPage2 = ({
                   htmlFor="terms"
                   className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Accept terms and conditions
+                  {t("booking.bookingmodal.page2.form.terms")}
                 </label>
               </div>
             )}
@@ -464,14 +578,14 @@ export const ProfileFormPage2 = ({
             className="w-full sm:w-auto"
             onClick={onPrevPage}
           >
-            Vissza
+            {t("booking.bookingmodal.buttons.previous")}
           </Button>
           <Button
             type="submit"
             className="w-full bg-main-theme text-white sm:w-auto"
             disabled={!form.formState.isValid || isLoading}
           >
-            {isLoading ? "Loading..." : "Tovább"}
+            {isLoading ? "Loading..." : t("booking.bookingmodal.buttons.next")}
           </Button>
         </div>
       </form>

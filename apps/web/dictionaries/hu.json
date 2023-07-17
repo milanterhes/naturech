@@ -217,6 +217,64 @@
         "title": "Segítségre van szüksége?",
         "button": "Kapcsolat"
       }
+    },
+    "bookingmodal": {
+      "page1": {
+        "date": {
+          "arrival": "Érkezés",
+          "departure": "Távozás"
+        },
+        "main": {
+          "title": "Nature & Chill Luxus faházak"
+        },
+        "tablehead": {
+          "housechoose": "Válasszon faházat",
+          "price": "Ár"
+        },
+        "tablebody": {
+          "woodhouse1": "Luxus faház, Fakopáncs",
+          "description": "Maximum 3 Főre foglalható(2 felnőtt, 1 gyerek)"
+        },
+        "selectguest": {
+          "title": "Válassza ki a vendégek számát",
+          "value1": "1 Fő (felnőtt)",
+          "value2": "2 Fő (felnőtt)",
+          "value3": "3 Fő (felnőtt + gyerek)"
+        },
+        "fullhalfpriceselect": {
+          "fullprice": "Teljes összeg fizetése",
+          "halfprice": "Előleg fizetése"
+        }
+      },
+      "page2": {
+        "date": {
+          "arrival": "Érkezés",
+          "departure": "Távozás"
+        },
+        "house": {
+          "title": "Választott ház:"
+        },
+        "price": {
+          "title": "Ár"
+        },
+        "guests": {
+          "title": "Vendégek száma:"
+        },
+        "form": {
+          "name": "Teljes név",
+          "email": "Email cím",
+          "street": "Utca, házszám",
+          "city": "Város",
+          "phone": "Telefonszám",
+          "country": "Ország",
+          "textarea": "Írja le üzenetét nekünk..",
+          "terms": "Elfogadom a felhasználási feltételeket"
+        }
+      },
+      "buttons": {
+        "previous": "Vissza",
+        "next": "Tovább"
+      }
     }
   },
   "gallery": {
@@ -253,8 +311,9 @@
         "week": "H-P 09:00 – 19:00",
         "weekend": "Sz-V 10:00 – 14:00"
       },
-      "button": { "title": "Küldés" }
-
+      "button": {
+        "title": "Küldés"
+      }
     }
   }
 }

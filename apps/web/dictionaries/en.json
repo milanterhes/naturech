@@ -217,6 +217,64 @@
         "title": "Need Help?",
         "button": "Contact"
       }
+    },
+    "bookingmodal": {
+      "page1": {
+        "date": {
+          "arrival": "Arrive on",
+          "departure": "Departure on"
+        },
+        "main": {
+          "title": "Nature & Chill Luxury Cabins"
+        },
+        "tablehead": {
+          "housechoose": "Choose a house",
+          "price": "Price"
+        },
+        "tablebody": {
+          "woodhouse1": "Luxury cabin, Fakopáncs",
+          "description": "Can be booked for up to 3 people (2 adults, 1 child)"
+        },
+        "selectguest": {
+          "title": "Select the number of guests",
+          "value1": "1 person (adult)",
+          "value2": "2 people (adults)",
+          "value3": "3 people (adult + child)"
+        },
+        "fullhalfpriceselect": {
+          "fullprice": "Pay full amount",
+          "halfprice": "Pay deposit"
+        }
+      },
+      "page2": {
+        "date": {
+          "arrival": "Arrival",
+          "departure": "Departure"
+        },
+        "house": {
+          "title": "Selected house:"
+        },
+        "price": {
+          "title": "Price"
+        },
+        "guests": {
+          "title": "Number of guests:"
+        },
+        "form": {
+          "name": "Full name",
+          "email": "Email address",
+          "street": "Street, house number",
+          "city": "City",
+          "phone": "Phone number",
+          "country": "Country",
+          "textarea": "Write your message to us..",
+          "terms": "I accept the terms and conditions"
+        }
+      },
+      "buttons": {
+        "previous": "Back",
+        "next": "Next"
+      }
     }
   },
   "gallery": {

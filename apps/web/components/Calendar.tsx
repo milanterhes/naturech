@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useMemo, useState } from "react";
 import { trpc } from "../utils/trpc";
 import Calendar from "react-calendar";
@@ -45,7 +43,6 @@ const CalendarWrapper = ({
   setIsDateSelected,
 }) => {
   const [shouldDisplay, setShouldDisplay] = useState(false);
-  
 
   useEffect(() => {
     setShouldDisplay(true);
@@ -97,12 +94,16 @@ const CalendarWrapper = ({
 
   if (!shouldDisplay) return null;
   const handleDateChange = (newDates: [Date, Date]) => {
-    const differenceInDays = Math.round(Math.abs((newDates[0].getTime() - newDates[1].getTime()) / (24 * 60 * 60 * 1000)));
+    const differenceInDays = Math.round(
+      Math.abs(
+        (newDates[0].getTime() - newDates[1].getTime()) / (24 * 60 * 60 * 1000)
+      )
+    );
     if (differenceInDays < 3) {
       alert("Legalább két éjszaka tartózkodás szükséges!");
       return;
     }
-  
+
     setStartDate(newDates[0]);
     setEndDate(newDates[1]);
     setShowCalendar(false);

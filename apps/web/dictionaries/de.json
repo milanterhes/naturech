@@ -217,6 +217,64 @@
         "title": "Brauchen Sie Hilfe?",
         "button": "Kontakt"
       }
+    },
+    "bookingmodal": {
+      "page1": {
+        "date": {
+          "arrival": "Ankunft am",
+          "departure": "Abreise am"
+        },
+        "main": {
+          "title": "Natur & Chill Luxus Hütten"
+        },
+        "tablehead": {
+          "housechoose": "Wählen Sie ein Haus",
+          "price": "Preis"
+        },
+        "tablebody": {
+          "woodhouse1": "Luxushütte, Fakopáncs",
+          "description": "Buchbar für bis zu 3 Personen (2 Erwachsene, 1 Kind)"
+        },
+        "selectguest": {
+          "title": "Wählen Sie die Anzahl der Gäste",
+          "value1": "1 Person (Erwachsener)",
+          "value2": "2 Personen (Erwachsene)",
+          "value3": "3 Personen (Erwachsener + Kind)"
+        },
+        "fullhalfpriceselect": {
+          "fullprice": "Gesamtbetrag bezahlen",
+          "halfprice": "Anzahlung leisten"
+        }
+      },
+      "page2": {
+        "date": {
+          "arrival": "Ankunft am",
+          "departure": "Abreise am"
+        },
+        "house": {
+          "title": "Ausgewähltes Haus:"
+        },
+        "price": {
+          "title": "Preis"
+        },
+        "guests": {
+          "title": "Anzahl der Gäste:"
+        },
+        "form": {
+          "name": "Vollständiger Name",
+          "email": "Email Adresse",
+          "street": "Straße, Hausnummer",
+          "city": "Stadt",
+          "phone": "Telefonnummer",
+          "country": "Land",
+          "textarea": "Schreiben Sie uns Ihre Nachricht..",
+          "terms": "Ich akzeptiere die Allgemeinen Geschäftsbedingungen"
+        }
+      },
+      "buttons": {
+        "previous": "Zurück",
+        "next": "Weiter"
+      }
     }
   },
   "gallery": {
@@ -254,7 +312,6 @@
         "weekend": "Sa-So 10:00 – 14:00"
       },
       "button": { "title": "Senden" }
-
     }
   }
 }

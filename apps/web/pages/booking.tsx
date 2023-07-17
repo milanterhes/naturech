@@ -37,15 +37,7 @@ const BookingPage: NextPage = () => {
     <>
       <Navbar />
       {!showCalendar && showModalPage && (
-        <div
-          className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-40"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setShowModalPage(false);
-              setCurrentPage(1);
-            }
-          }}
-        >
+        <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-40">
           {currentPage === 1 ? (
             <ProfileForm
               startDate={startDate}

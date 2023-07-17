@@ -32,12 +32,56 @@ export const LoginEmail = ({
         },
       }}
     >
-      <div className="bg-main-theme">
-        <h1>{intro}</h1>
-        <p>{content}</p>
+      <div className="bg-main-theme p-6 max-w-md mx-auto rounded-lg shadow-xl overflow-hidden text-center space-y-10">
+        <h1 className="text-3xl font-bold text-white">{intro}</h1>
+        <p className="text-white">{content}</p>
         <Button
           href={link}
-          className="px-3 py-2 text-white bg-black rounded-xl shadow-highlight"
+          className="px-8 py-3 font-semibold rounded-xl bg-white text-main-theme shadow-highlight"
+        >
+          {button}
+        </Button>
+      </div>
+    </Tailwind>
+  );
+};
+
+export interface BookingConfirmationEmailProps {
+  link: string;
+  intro: string;
+  bookingDetails: string;
+  button: string;
+  lang: "en" | "de" | "hu";
+}
+
+export const BookingConfirmationEmail = ({
+  button,
+  bookingDetails,
+  intro,
+  link,
+  lang,
+}: BookingConfirmationEmailProps) => {
+  return (
+    <Tailwind
+      config={{
+        theme: {
+          extend: {
+            colors: {
+              "main-theme": "#DDA771",
+            },
+            dropShadow: {
+              highlight: "0px 0px 20px rgba(255,255,255,0.60)",
+            },
+          },
+        },
+      }}
+    >
+      <div className="bg-main-theme p-6 max-w-md mx-auto rounded-lg shadow-xl overflow-hidden text-center space-y-10">
+        <h1 className="text-3xl font-bold text-white">{intro}</h1>
+        <p className="text-white">{bookingDetails}</p>
+        <Button
+          href={link}
+          className="px-8 py-3 font-semibold rounded-xl bg-white text-main-theme shadow-highlight"
         >
           {button}
         </Button>

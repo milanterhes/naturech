@@ -377,7 +377,7 @@ export const ProfileFormPage2 = ({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, house1, guests }),
+      body: JSON.stringify({ email, house1, guests, endDate, startDate }),
     });
     const { sessionId } = await response.json();
     const stripe = await loadStripe(

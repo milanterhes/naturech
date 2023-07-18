@@ -23,6 +23,7 @@
     "@stripe/stripe-js": "^1.54.1",
     "flag-icons": "^6.7.0",
     "i18next": "^23.2.11",
+    "micro": "^10.0.1",
     "react-swipeable": "^7.0.1",
     "stripe": "^12.13.0"
   }

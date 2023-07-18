@@ -9,7 +9,7 @@ datasource db {
 
 model User {
   id               String    @id @default(auto()) @map("_id") @db.ObjectId
-  email            String
+  email            String    @unique
   createdAt        DateTime  @default(now())
   registered       DateTime  @default(now())
   lastLoginRequest DateTime  @default(now())
@@ -43,4 +43,5 @@ model Booking {
   paymentAmount PaymentAmount
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  sessionId     String        @unique @map("session_id")
 }

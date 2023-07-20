@@ -7,6 +7,7 @@ import { z } from "zod";
 import { TokenPayload, tokenPayloadSchema } from "../utils/client-jwt";
 import { RouterInput, trpc } from "../utils/trpc";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 const AuthContext = React.createContext<{
   user: null | TokenPayload;
@@ -97,7 +98,7 @@ const Login = () => {
   return (
     <Form<FormData> onSubmit={submitHandler}>
       {({ submit }) => (
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 items-center">
           <Field
             name="email"
             onChangeValidate={z
@@ -118,9 +119,19 @@ const Login = () => {
                 />
               </>
             )}
-          </Field>
-          <button type="submit" className="btn" onClick={submit}>
+          </Field>{" "}
+          <button
+            className="bg-main-theme text-white group mt-5 flex transform rounded-md bg-[#E7B181] px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
+            aria-label="Login Now"
+          >
             {t("home.hamburger.loginbutton")}
+            <Image
+              src={"/HeroButtonArrow.svg"}
+              alt="Booking Arrow CTA"
+              width={12}
+              height={12}
+              className="ml-2 transform self-center transition-transform duration-500 ease-in-out group-hover:translate-x-1"
+            />
           </button>
         </div>
       )}

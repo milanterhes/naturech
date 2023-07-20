@@ -380,6 +380,7 @@ export const ProfileFormPage2 = ({
       body: JSON.stringify({ email, house1, guests, endDate, startDate }),
     });
     const { sessionId } = await response.json();
+
     const stripe = await loadStripe(
       process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
     );

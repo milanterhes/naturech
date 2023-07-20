@@ -16,6 +16,8 @@
     },
     "hamburger": {
       "booking": "Foglalás",
+      "gallery": "Galéria",
+      "contact": "Kapcsolat",
       "signin": "Bejelentkezés",
       "loginbutton": "Bejelentkezés"
     },

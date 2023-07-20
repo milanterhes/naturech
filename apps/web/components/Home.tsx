@@ -2,6 +2,8 @@ import {
   Bars3Icon,
   CalendarDaysIcon,
   UserCircleIcon,
+  PhotoIcon,
+  QuestionMarkCircleIcon,
 } from "@heroicons/react/24/solid";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
@@ -71,7 +73,9 @@ export const Navbar: React.FC = () => {
       <div ref={sentinelRef} />
       <div
         className={`fixed top-0 z-10 flex w-full items-center justify-between px-4 py-2 ${
-          isAtTop ? "bg-black bg-opacity-30 backdrop-blur-xl" : "bg-black bg-opacity-60 transition-colors duration-300 backdrop-blur-sm"
+          isAtTop
+            ? "bg-black bg-opacity-30 backdrop-blur-xl"
+            : "bg-black bg-opacity-60 transition-colors duration-300 backdrop-blur-sm"
         }`}
       >
         <Link href="/" className="cursor-pointer">
@@ -81,7 +85,7 @@ export const Navbar: React.FC = () => {
           <input id="navbar-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             <label htmlFor="navbar-drawer">
-              <div className="rounded-md bg-white bg-opacity-50 p-1 text-main-theme">
+              <div className="rounded-md bg-white bg-opacity-50 p-1.5 text-main-theme">
                 <Bars3Icon className="h-6 w-6 drop-shadow-2xl" />
               </div>
             </label>
@@ -89,12 +93,21 @@ export const Navbar: React.FC = () => {
           <div className="drawer-side">
             <label htmlFor="navbar-drawer" className="drawer-overlay"></label>
             <div className="w-75 menu h-full bg-base-200 p-4 text-base-content">
-              <ul>
+              <LocaleSwitcher />
+              <ul className="py-2 space-y-2">
                 <li>
-                  <a className="font-bold text-main-theme">
+                  <Link href="/booking" className="font-bold text-main-theme">
                     <CalendarDaysIcon className="h-4 w-4" />
                     {t("home.hamburger.booking")}
-                  </a>
+                  </Link>
+                  <Link href="/gallery" className="font-bold text-main-theme">
+                    <PhotoIcon className="h-4 w-4" />
+                    {t("home.hamburger.gallery")}
+                  </Link>
+                  <Link href="/contact" className="font-bold text-main-theme">
+                    <QuestionMarkCircleIcon className="h-4 w-4" />
+                    {t("home.hamburger.contact")}
+                  </Link>
                 </li>
                 <div className="divider" />
                 <li>
@@ -104,15 +117,16 @@ export const Navbar: React.FC = () => {
                   </a>
                 </li>
               </ul>
-              <LocaleSwitcher />
               {auth.user === null ? (
                 <Login />
               ) : (
                 <>
-                  <p>Logged in as {auth.user.email}</p>
+                  <p className="mt-4 text-sm text-gray-600">
+                    Logged in as {auth.user.email}
+                  </p>
                   <button className="btn" onClick={auth.logout}>
-                    Logout
-                np  </button>
+                    Logout np{" "}
+                  </button>
                 </>
               )}
             </div>
@@ -231,7 +245,8 @@ export const Hero: React.FC = () => {
               subtitle="60.000 Ft"
             />
           </div>
-          <button
+          <Link
+            href="/booking"
             className="group mt-5 flex transform rounded-md bg-[#E7B181] px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
             aria-label="Book Now"
           >
@@ -243,7 +258,7 @@ export const Hero: React.FC = () => {
               height={12}
               className="ml-2 transform self-center transition-transform duration-500 ease-in-out group-hover:translate-x-1"
             />
-          </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -272,7 +287,10 @@ export const Intro: React.FC = () => {
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.second`)}</p>
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.third`)}</p>
         </div>
-        <button className="group flex transform font-roboto-mono transition-all duration-200 ease-in hover:scale-110">
+        <Link
+          href="/booking"
+          className="group flex transform font-roboto-mono transition-all duration-200 ease-in hover:scale-110"
+        >
           {t("home.enjoy.content.button")}
           <Image
             src={"/arrow.svg"}
@@ -281,7 +299,7 @@ export const Intro: React.FC = () => {
             height={35}
             className="ml-2 transform self-center transition-all duration-200 ease-in group-hover:translate-x-1.5"
           ></Image>
-        </button>
+        </Link>
       </div>
       <div className="my-20 flex justify-around">
         {images.map((image, index) => (
@@ -529,9 +547,7 @@ export const Gallery = () => {
             <PaginationRect key={i} isActive={i === currentPage} />
           ))}
         </div>
-        <Link href="#" className="">
-          {t("home.enjoy.gallery.button")}
-        </Link>
+        <Link href="/gallery">{t("home.enjoy.gallery.button")}</Link>
         <Image
           onClick={handleArrowClick}
           src={"/arrow.svg"}
@@ -736,17 +752,17 @@ export const Footer = () => {
               </h2>
               <ul>
                 <li className="mb-1">
-                  <Link href="/foglalas" className="underline">
+                  <Link href="/booking" className="underline">
                     {t("home.enjoy.footer.navigation.booking")}
                   </Link>
                 </li>
                 <li className="mb-1">
-                  <Link href="/galeria" className="underline">
+                  <Link href="/gallery" className="underline">
                     {t("home.enjoy.footer.navigation.gallery")}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/kapcsolat" className="underline">
+                  <Link href="/contact" className="underline">
                     {t("home.enjoy.footer.navigation.contact")}
                   </Link>
                 </li>

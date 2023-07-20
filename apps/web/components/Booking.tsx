@@ -1,12 +1,19 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
+import Link from "next/link";
 import faq from "../data/faq";
 import guestInfo from "../data/guestInfo";
 import services from "../data/services";
 import bookingherobg from "../public/bookingherobg.webp";
 import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 import { FC } from "react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "../components/ui/accordion";
 
 type IconTextProps = {
   imgSrc: string;
@@ -267,7 +274,27 @@ export const BookingInfo: React.FC = ({}) => {
         <h3 className="pt-2 text-xl font-semibold md:text-2xl 2xl:text-3xl">
           {t("booking.info.faq.title")}
         </h3>
-        <ul className="my-5 flex h-full w-11/12 flex-col items-center space-y-5 text-center text-sm sm:w-5/6 sm:text-base md:w-4/6 md:text-lg lg:text-xl xl:text-2xl">
+        <Accordion
+          type="single"
+          collapsible
+          className="flex flex-col items-center"
+        >
+          {faq.map((item, index) => (
+            <AccordionItem
+              key={index}
+              value={`item-${index}`}
+              className="my-5 flex h-full w-11/12 flex-col items-center space-y-5 text-center text-sm sm:w-5/6 sm:text-base md:w-4/6 md:text-lg lg:text-xl xl:text-2xl"
+            >
+              <AccordionTrigger className="tracking-widest">
+                {t(item.question)}
+              </AccordionTrigger>
+              <AccordionContent className="mb-2 text-xs md:text-sm 2xl:text-lg">
+                <p>{t(item.answer)}</p>
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+        {/* <ul className="my-5 flex h-full w-11/12 flex-col items-center space-y-5 text-center text-sm sm:w-5/6 sm:text-base md:w-4/6 md:text-lg lg:text-xl xl:text-2xl">
           <li>{t("booking.info.faq.titlequestions.q1")}</li>
           <li>{t("booking.info.faq.titlequestions.q2")}</li>
           <li>{t("booking.info.faq.titlequestions.q3")}</li>
@@ -316,14 +343,15 @@ export const BookingInfo: React.FC = ({}) => {
               </button>
             </div>
           </div>
-        )}
+        )} */}
       </div>
       <h3 className="text-xl font-semibold md:text-2xl 2xl:text-3xl">
         {t("booking.info.help.title")}
       </h3>
-      <button
+      <Link
+        href="/contact"
         className="md:text-md group flex transform rounded-md bg-[#E7B181] px-2 py-2 text-xs transition-transform duration-500 ease-in-out hover:scale-105 sm:text-sm lg:text-lg xl:text-2xl 2xl:text-3xl"
-        aria-label="Book Now"
+        aria-label="Contact Us Now"
       >
         {t("booking.info.help.button")}
         <Image
@@ -333,7 +361,7 @@ export const BookingInfo: React.FC = ({}) => {
           height={12}
           className="ml-2 mt-0.5 h-3 h-3 w-3 w-3 transform self-center transition-transform duration-500 ease-in-out group-hover:translate-x-1 sm:h-4 sm:w-4 lg:h-5 lg:w-5 xl:h-6 xl:w-6 2xl:h-7 2xl:w-7"
         />
-      </button>
+      </Link>
     </section>
   );
 };

@@ -16,6 +16,8 @@
     },
     "hamburger": {
       "booking": "Booking",
+      "gallery": "Gallery",
+      "contact": "Contact",
       "signin": "Sign in",
       "loginbutton": "Login"
     },

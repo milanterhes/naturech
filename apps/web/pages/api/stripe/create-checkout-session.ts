@@ -23,7 +23,7 @@ export default async function handler(
                 name: "Luxus Faház, Fakopáncs",
                 description: `Guest number: ${guests}`,
               },
-              unit_amount: 120000.0,
+              unit_amount: 12000000,
             },
 
             quantity: 1,
@@ -35,6 +35,11 @@ export default async function handler(
         customer_email: email,
       });
       const prisma = new PrismaClient();
+      await prisma.user.upsert({
+        where: { email: email },
+        update: {},
+        create: { email: email },
+      });
       const newBooking = await prisma.booking.create({
         data: {
           startDate: new Date(startDate),
@@ -47,7 +52,7 @@ export default async function handler(
           status: "PENDING",
           payment: "CARD",
           paymentAmount: {
-            deposit: 120000.0,
+            deposit: 1200000.0,
             cash: 0,
           },
           sessionId: session.id,
@@ -55,6 +60,7 @@ export default async function handler(
       });
       res.status(200).json({ sessionId: session.id });
     } catch (error) {
+      console.error("Error in create-checkout-session:", error); // Log the error details
       res.status(500).json({ statusCode: 500, message: error.message });
     }
   } else {

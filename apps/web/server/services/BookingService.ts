@@ -71,13 +71,20 @@ export type GetAvailableDatesInput = z.infer<typeof GetAvailableDatesSchema>;
 
 export type GetQuoteInput = z.infer<typeof GetQuoteSchema>;
 
-const overlappingCheck = (startDate: Date, endDate: Date) => ({
-  OR: [
-    { startDate: { lte: startDate }, endDate: { gte: startDate } }, // start date is between existing booking
-    { startDate: { lte: endDate }, endDate: { gte: endDate } }, // end date is between existing booking
-    { startDate: { gte: startDate }, endDate: { lte: endDate } }, // existing booking is between start and end date
-  ],
-});
+const overlappingCheck = (startDate: Date, endDate: Date) => {
+  const start = new Date(startDate.setUTCHours(14, 0, 0, 0));
+  const end = new Date(endDate.setUTCHours(12, 0, 0, 0));
+
+  return {
+    OR: [
+      { startDate: { lte: start }, endDate: { gte: start } }, // start date is within existing booking
+      { startDate: { lte: end }, endDate: { gte: end } }, // end date is within existing booking
+      { startDate: { gte: start }, endDate: { lte: end } }, // existing booking is within start and end date
+      { startDate: { equals: end } }, // booking starts on the same day as the end date
+      { endDate: { equals: start } }, // booking ends on the same day as the start date
+    ],
+  };
+};
 
 export class BookingService {
   static async getBookings(input: GetBookingsInput) {
@@ -326,7 +333,7 @@ export class BookingService {
       });
 
       if (!isWeekend && !isBooked) {
-        availableDates.push(currentDate);
+        currentDate.setDate(currentDate.getDate() + 1);
       }
 
       currentDate.setDate(currentDate.getDate() + 1);

@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import faq from "../data/faq";
 import guestInfo from "../data/guestInfo";
@@ -106,6 +106,7 @@ export const BookingMain: FC<BookingMainProps> = ({
                   : t("booking.introcard.arrival.detail")
               }
               onClick={onIconTextClick}
+              aria-label="Change date"
             />
             <IconText
               imgSrc={"/arrivalicon.svg"}
@@ -119,11 +120,18 @@ export const BookingMain: FC<BookingMainProps> = ({
                   : t("booking.introcard.arrival.detail")
               }
               onClick={onIconTextClick}
+              aria-label="Change date"
             />
           </div>
           <button
             aria-label="Search Dates"
-            onClick={() => setShowModalPage(true)}
+            onClick={() => {
+              if (isDateSelected) {
+                setShowModalPage(true);
+              } else {
+                onIconTextClick();
+              }
+            }}
           >
             <MagnifyingGlassCircleIcon className="h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20" />
           </button>
@@ -140,13 +148,13 @@ export const BookingInfo: React.FC = ({}) => {
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const [isFaqModalOpen, setIsFaqModalOpen] = useState(false);
 
-  const openServiceModal = () => {
+  const openServiceModal = useCallback(() => {
     setIsServiceModalOpen(true);
-  };
+  }, []);
 
-  const openFaqModal = () => {
+  const openFaqModal = useCallback(() => {
     setIsFaqModalOpen(true);
-  };
+  }, []);
 
   return (
     <section className="relative flex w-full flex-col items-center gap-10 pb-32">
@@ -205,6 +213,7 @@ export const BookingInfo: React.FC = ({}) => {
         ))}
         <button
           type="button"
+          aria-label="Open service modal"
           onClick={openServiceModal}
           className="hover:scale-102 group flex transform font-roboto-mono transition-all duration-200 ease-in"
         >
@@ -271,7 +280,7 @@ export const BookingInfo: React.FC = ({}) => {
         </ul>
       </div>
       <div className="flex h-full w-11/12 max-w-3xl flex-col items-center justify-between gap-5 rounded-lg border-2 px-4 py-3 sm:w-5/6 md:w-4/6 md:px-10 md:py-6 2xl:max-w-5xl">
-        <h3 className="pt-2 text-xl font-semibold md:text-2xl 2xl:text-3xl">
+        <h3 className="pt-2 text-2xl font-semibold md:text-3xl 2xl:text-4xl">
           {t("booking.info.faq.title")}
         </h3>
         <Accordion
@@ -294,56 +303,6 @@ export const BookingInfo: React.FC = ({}) => {
             </AccordionItem>
           ))}
         </Accordion>
-        {/* <ul className="my-5 flex h-full w-11/12 flex-col items-center space-y-5 text-center text-sm sm:w-5/6 sm:text-base md:w-4/6 md:text-lg lg:text-xl xl:text-2xl">
-          <li>{t("booking.info.faq.titlequestions.q1")}</li>
-          <li>{t("booking.info.faq.titlequestions.q2")}</li>
-          <li>{t("booking.info.faq.titlequestions.q3")}</li>
-          <li className="tracking-widest">...</li>
-        </ul>
-        <button onClick={openFaqModal}>
-          <Image
-            src={"/servicearrow.svg"}
-            alt="Arrow Icon Faq"
-            width={30}
-            height={30}
-            className={`h-6 w-6 transition-all duration-300 ease-in hover:rotate-180 md:h-8 md:w-8 lg:h-12 lg:w-12 ${
-              isFaqModalOpen ? "rotate-180" : ""
-            } cursor-pointer`}
-          />
-        </button>
-        {isFaqModalOpen && (
-          <div
-            role="dialog"
-            aria-modal="true"
-            className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-40"
-            onClick={(e) =>
-              e.target === e.currentTarget && setIsFaqModalOpen(false)
-            }
-          >
-            <div className="flex h-4/6 w-11/12 flex-col overflow-auto rounded-lg bg-white p-4 text-black sm:w-3/4 lg:w-1/2">
-              <h2 className="mb-4 text-3xl font-semibold md:text-5xl 2xl:text-6xl">
-                {t("booking.info.faq.title")}
-              </h2>
-              <ul>
-                {faq.map((item, index) => (
-                  <li
-                    key={index}
-                    className="mb-2 text-xs md:text-sm 2xl:text-lg"
-                  >
-                    <h3 className="font-bold">{t(item.question)}</h3>
-                    <p>{t(item.answer)}</p>
-                  </li>
-                ))}
-              </ul>
-              <button
-                onClick={() => setIsFaqModalOpen(false)}
-                className="mb-4 mt-auto inline-block rounded-md bg-main-theme px-3 py-2 text-sm text-white hover:bg-secondary-theme sm:text-base"
-              >
-                {t("booking.info.services.popup.popupclosebutton")}
-              </button>
-            </div>
-          </div>
-        )} */}
       </div>
       <h3 className="text-xl font-semibold md:text-2xl 2xl:text-3xl">
         {t("booking.info.help.title")}

@@ -6,7 +6,6 @@ import { PrismaClient, BookingStatus } from "@naturechill/db";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
 });
-
 export const config = {
   api: {
     bodyParser: false,
@@ -17,9 +16,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log("Webhook received");
   if (req.method === "POST") {
     const buf = await buffer(req);
     const sig = req.headers["stripe-signature"]!;
+    console.log("Stripe Signature:", req.headers["stripe-signature"]);
 
     let event: Stripe.Event;
 
@@ -29,8 +30,8 @@ export default async function handler(
         sig,
         process.env.STRIPE_WEBHOOK_SECRET!
       );
-      res.json({ received: true });
     } catch (err) {
+      console.error("Error constructing event:", err);
       res.status(400).send(`Webhook Error: ${err.message}`);
       return;
     }
@@ -38,7 +39,9 @@ export default async function handler(
     console.log(`Received event: ${event.type}`);
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
-      console.log(session);
+      console.log(
+        `Received checkout.session.completed event for session ${session}`
+      );
 
       const prisma = new PrismaClient();
       try {
@@ -48,6 +51,7 @@ export default async function handler(
         });
 
         console.log(`Booking updated for session ${session.id}`);
+        res.json({ received: true });
       } catch (error) {
         console.error(
           `Error updating booking for session ${session.id}:`,
@@ -56,6 +60,8 @@ export default async function handler(
         res.status(500).send(`Error updating booking: ${error.message}`);
         return;
       }
+    } else {
+      res.json({ received: true });
     }
   } else {
     res.setHeader("Allow", "POST");

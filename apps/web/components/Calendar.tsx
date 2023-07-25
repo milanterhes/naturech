@@ -75,23 +75,29 @@ const CalendarWrapper = ({
   }, [startDate]);
 
   function tileDisabled({ date, view }: { date: Date; view: string }) {
-    // if same day as today
+    // Disable today's date
     if (
       date.getDate() === new Date().getDate() &&
       date.getMonth() === new Date().getMonth() &&
       date.getFullYear() === new Date().getFullYear()
     ) {
-      console.log("today");
-      console.log(date);
       return true;
     }
+    console.log("Available dates: ", availableDates);
+
+    // If confirmedDates are not yet loaded, do not disable any dates
     if (!availableDates) return false;
+
+    // Here, it is assumed that the availableDates array contains 'confirmed' booked dates
     if (view === "month") {
-      return !availableDates.find((d) => d.getTime() === date.getTime());
+      return availableDates.some((date) => {
+        const confirmedDate = new Date(date);
+        return confirmedDate.getTime() === date.getTime();
+      });
     }
+
     return false;
   }
-
   if (!shouldDisplay) return null;
   const handleDateChange = (newDates: [Date, Date]) => {
     const differenceInDays = Math.round(

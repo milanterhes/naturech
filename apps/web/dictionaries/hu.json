@@ -120,7 +120,7 @@
         },
         "price": {
           "fourdays": "60.000,-Ft/éj",
-          "weekend": "75.000,-Ft/é",
+          "weekend": "75.000,-Ft/éj",
           "specialdays": "80.000,-Ft/éj"
         },
         "priceinfo": "Az árak magukban foglalják az idegenforgalmi adót és a teljes takarítást. Kiemelt ünnepnapok a karácsony, szilveszter, húsvét és az aug. 20.-a."
@@ -315,6 +315,9 @@
       },
       "button": {
         "title": "Küldés"
+      },
+      "submitmessage": {
+        "title": "E-mailjét sikeresen továbbítottuk. Várjuk, hogy megismerhessük elképzeléseit."
       }
     }
   }

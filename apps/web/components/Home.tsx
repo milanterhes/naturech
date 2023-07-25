@@ -219,7 +219,7 @@ export const Hero: React.FC = () => {
         <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-main-theme to-transparent backdrop-blur" />
       </div>
       <div className="flex justify-center px-12 py-24 text-center">
-        <h1 className="font-bowlby text-3xl uppercase tracking-[.25em] drop-shadow-2xl">
+        <h1 className="font-tangerine font-bold text-5xl tracking-[.25em] drop-shadow-2xl pt-2 md:text-7xl sm:text-6xl">
           {t("home.hero.header")}
         </h1>
       </div>

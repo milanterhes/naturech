@@ -1,7 +1,7 @@
 import { GetStaticProps, NextPage } from "next";
 import { BookingMain } from "../components/Booking";
 import { Footer, Navbar } from "../components/Home";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CalendarWrapper from "../components/Calendar";
 import { ProfileForm, ProfileFormPage2 } from "../components/BookingForm";
 
@@ -21,14 +21,9 @@ const BookingPage: NextPage = () => {
   const [showModalPage, setShowModalPage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [house1, setHouse1] = useState(true);
-  const [price, setPrice] = useState(120000);
   const [guests, setGuests] = useState("3");
 
-  const [endDate, setEndDate] = useState(() => {
-    const date = new Date();
-    date.setDate(date.getDate() + 1);
-    return date;
-  });
+  const [endDate, setEndDate] = useState(new Date());
 
   const handleNextPage = () => setCurrentPage((prev) => prev + 1);
   const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);

@@ -28,6 +28,7 @@ module.exports = {
       fontFamily: {
         bowlby: ["var(--font-bowlby)"],
         "roboto-mono": ["var(--font-roboto-mono)"],
+        tangerine: ["var(--font-tangerine)"],
       },
       backdropFilter: {
         // creates a new utility for backdrop filter

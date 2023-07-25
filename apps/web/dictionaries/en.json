@@ -313,7 +313,10 @@
         "week": "Mon-Fri 09:00 – 19:00",
         "weekend": "Sat-Sun 10:00 – 14:00"
       },
-      "button": { "title": "Submit" }
+      "button": { "title": "Submit" },
+      "submitmessage": {
+        "title": "Your email has been sent successfully. We look forward to exploring your ideas."
+      }
     }
   }
 }

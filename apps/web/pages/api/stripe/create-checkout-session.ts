@@ -60,7 +60,7 @@ export default async function handler(
       });
       res.status(200).json({ sessionId: session.id });
     } catch (error) {
-      console.error("Error in create-checkout-session:", error); // Log the error details
+      console.error("Error in create-checkout-session:", error);
       res.status(500).json({ statusCode: 500, message: error.message });
     }
   } else {

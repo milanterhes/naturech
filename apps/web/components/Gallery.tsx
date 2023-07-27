@@ -15,7 +15,7 @@ export const GalleryIntro = () => {
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
       ></iframe>
-      <div className="absolute inset-0 bg-[url('/gallerysmallscreen.webp')] bg-cover bg-center lg:hidden "></div>
+      <div className="absolute inset-0 bg-[url('/gallerysmallscreen.webp')] bg-cover bg-center bg-fixed lg:hidden "></div>
       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 text-center">
         <div>
           <h1 className="mb-4 text-3xl text-white lg:text-5xl">

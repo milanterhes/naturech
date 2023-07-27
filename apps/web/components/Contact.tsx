@@ -50,6 +50,7 @@ export const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (
       !formState.fullName ||
       !formState.email ||
@@ -82,48 +83,21 @@ export const Contact = () => {
 
   return (
     <>
-      <section className="flex flex-col items-center bg-gradient-to-b from-main-theme to-white pb-2 pt-20 drop-shadow-[0px_7px_2px_rgba(0,0,0,0.4)]">
-        <div className="grid h-[30rem] w-11/12 grid-cols-5 gap-4">
-          <div
-            className="pb-full octagon relative w-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: "url('/contactimg.webp')",
-              backgroundPosition: "0 0",
-            }}
-          ></div>
-          <div
-            className="pb-full octagon relative w-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: "url('/contactimg.webp')",
-              backgroundPosition: "25% 0",
-            }}
-          ></div>
-          <div
-            className="pb-full octagon relative w-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: "url('/contactimg.webp')",
-              backgroundPosition: "50% 0",
-            }}
-          ></div>
-          <div
-            className="pb-full octagon relative w-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: "url('/contactimg.webp')",
-              backgroundPosition: "75% 0",
-            }}
-          ></div>
-          <div
-            className="pb-full octagon relative w-full bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: "url('/contactimg.webp')",
-              backgroundPosition: "100% 0",
-            }}
-          ></div>
-        </div>
-        <div className="px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-14">
-          <h3 className="mx-auto py-10 text-center text-2xl leading-normal tracking-wide text-black md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-5xl">
+      <section className="flex flex-col sm:flex-row items-center justify-around bg-gradient-to-b from-main-theme to-white pb-2 pt-20 drop-shadow-[0px_7px_2px_rgba(0,0,0,0.4)]">
+        <div className="w-full sm:w-1/2 px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-14 py-10">
+          <h3 className="mx-auto py-10 font-regular text-center sm:text-left text-2xl leading-relaxed tracking-wider text-black text-shadow-md md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl">
             {t("contact.hero.title")}
           </h3>
+        </div>
+        <div className="w-full sm:w-1/2 h-[20rem] sm:h-[19rem] md:h-[21rem] lg:h-[30rem] xl:h-[40rem] 2xl:h-[54rem] sm:px-10">
+          <Image
+            src={"/ContactImage.webp"}
+            width={1366}
+            height={768}
+            alt={"Picture of a house for contacting us"}
+            quality={100}
+            className="object-cover w-full h-full"
+          ></Image>
         </div>
       </section>
       <section className="0 mt-10 flex flex-col">

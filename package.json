@@ -22,6 +22,7 @@
   "dependencies": {
     "@stripe/stripe-js": "^1.54.1",
     "flag-icons": "^6.7.0",
+    "framer-motion": "^10.15.0",
     "i18next": "^23.2.11",
     "lightbox.js-react": "^0.6.9",
     "micro": "^10.0.1",

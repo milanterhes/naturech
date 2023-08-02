@@ -9,13 +9,20 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { FC, useEffect, useState, useRef } from "react";
-import bgPic from "../public/background.jpeg";
+import bgPicFull from "../public/Image_full.webp";
+import bgPicBottom from "../public/Image_bottom.webp";
 import introPic from "../public/intro.png";
 import leafPic from "../public/leaf.png";
 import logoPic from "../public/naturechill-logo.png";
 import Login, { useAuth } from "./Auth";
 import LocaleSwitcher from "./LocaleSwitcher";
 import { useSwipeable } from "react-swipeable";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 
 const baseImage = {
   src: leafPic,
@@ -69,117 +76,148 @@ export const Navbar: React.FC = () => {
     };
   }, []);
   return (
-    <>
+    <div>
       <div ref={sentinelRef} />
-      <div
-        className={`fixed top-0 z-10 flex w-full items-center justify-between px-4 py-2 ${
-          isAtTop
-            ? "bg-black bg-opacity-30 backdrop-blur-xl"
-            : "bg-black bg-opacity-60 transition-colors duration-300 backdrop-blur-sm"
-        }`}
-      >
-        <Link href="/" className="cursor-pointer">
-          <Image src={logoPic} alt="Naturechill logo" width={50} height={50} />
-        </Link>
-        <div className="drawer drawer-end block w-auto md:hidden">
-          <input id="navbar-drawer" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content">
-            <label htmlFor="navbar-drawer">
-              <div className="rounded-md bg-white bg-opacity-50 p-1.5 text-main-theme">
-                <Bars3Icon className="h-6 w-6 drop-shadow-2xl" />
+      <AnimatePresence>
+        <motion.div
+          className={`fixed top-0 z-50 flex w-full items-center justify-between px-4 py-2 ${
+            isAtTop
+              ? "bg-black bg-opacity-30 backdrop-blur-xl"
+              : "bg-black bg-opacity-60 transition-colors duration-300 backdrop-blur-sm"
+          }`}
+          initial={{ y: 25, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            duration: 0.75,
+          }}
+        >
+          <Link href="/" className="cursor-pointer" scroll={false}>
+            <Image
+              src={logoPic}
+              alt="Naturechill logo"
+              width={50}
+              height={50}
+            />
+          </Link>
+          <div className="drawer drawer-end block w-auto md:hidden">
+            <input
+              id="navbar-drawer"
+              type="checkbox"
+              className="drawer-toggle"
+            />
+            <div className="drawer-content">
+              <label htmlFor="navbar-drawer">
+                <div className="rounded-md bg-white bg-opacity-50 p-1.5 text-main-theme">
+                  <Bars3Icon className="h-6 w-6 drop-shadow-2xl" />
+                </div>
+              </label>
+            </div>
+            <div className="drawer-side">
+              <label htmlFor="navbar-drawer" className="drawer-overlay"></label>
+              <div className="w-75 menu h-full bg-base-200 p-4 text-base-content">
+                <LocaleSwitcher />
+                <ul className="py-2 space-y-2">
+                  <li>
+                    <Link
+                      href="/booking"
+                      className="font-bold text-main-theme"
+                      scroll={false}
+                    >
+                      <CalendarDaysIcon className="h-4 w-4" />
+                      {t("home.hamburger.booking")}
+                    </Link>
+                    <Link
+                      href="/gallery"
+                      className="font-bold text-main-theme"
+                      scroll={false}
+                    >
+                      <PhotoIcon className="h-4 w-4" />
+                      {t("home.hamburger.gallery")}
+                    </Link>
+                    <Link
+                      href="/contact"
+                      className="font-bold text-main-theme"
+                      scroll={false}
+                    >
+                      <QuestionMarkCircleIcon className="h-4 w-4" />
+                      {t("home.hamburger.contact")}
+                    </Link>
+                  </li>
+                  <div className="divider" />
+                  <li>
+                    <a className="font-bold text-main-theme">
+                      <UserCircleIcon className="h-4 w-4" />
+                      {t("home.hamburger.signin")}
+                    </a>
+                  </li>
+                </ul>
+                {auth.user === null ? (
+                  <Login />
+                ) : (
+                  <>
+                    <p className="mt-4 text-sm text-gray-600">
+                      Logged in as {auth.user.email}
+                    </p>
+                    <button className="btn" onClick={auth.logout}>
+                      Logout np{" "}
+                    </button>
+                  </>
+                )}
               </div>
-            </label>
+            </div>
           </div>
-          <div className="drawer-side">
-            <label htmlFor="navbar-drawer" className="drawer-overlay"></label>
-            <div className="w-75 menu h-full bg-base-200 p-4 text-base-content">
+          <nav className="hidden w-full items-center justify-between px-6 py-3 transition-colors duration-300 md:flex">
+            <nav>
+              <div className="space-x-8">
+                <Link
+                  href="/booking"
+                  className="font-bold text-white transition-colors duration-300 hover:text-main-theme cursor-pointer"
+                  scroll={false}
+                >
+                  {t("home.pages.booking")}
+                </Link>
+                <Link
+                  href="/gallery"
+                  className="font-bold text-white transition-colors duration-300 hover:text-main-theme cursor-pointer"
+                  scroll={false}
+                >
+                  {t("home.pages.gallery")}
+                </Link>
+                <Link
+                  href="/contact"
+                  className="font-bold text-white transition-colors duration-300 hover:text-main-theme cursor-pointer"
+                  scroll={false}
+                >
+                  {t("home.pages.contact")}
+                </Link>
+              </div>
+            </nav>
+
+            <div className="flex items-center space-x-4">
               <LocaleSwitcher />
-              <ul className="py-2 space-y-2">
-                <li>
-                  <Link href="/booking" className="font-bold text-main-theme">
-                    <CalendarDaysIcon className="h-4 w-4" />
-                    {t("home.hamburger.booking")}
-                  </Link>
-                  <Link href="/gallery" className="font-bold text-main-theme">
-                    <PhotoIcon className="h-4 w-4" />
-                    {t("home.hamburger.gallery")}
-                  </Link>
-                  <Link href="/contact" className="font-bold text-main-theme">
-                    <QuestionMarkCircleIcon className="h-4 w-4" />
-                    {t("home.hamburger.contact")}
-                  </Link>
-                </li>
-                <div className="divider" />
-                <li>
-                  <a className="font-bold text-main-theme">
-                    <UserCircleIcon className="h-4 w-4" />
-                    {t("home.hamburger.signin")}
-                  </a>
-                </li>
-              </ul>
               {auth.user === null ? (
-                <Login />
+                <button className="flex items-center gap-1 font-bold text-white transition-colors duration-300 hover:text-main-theme">
+                  <UserCircleIcon className="h-4 w-4" />
+                  {t("home.hamburger.signin")}
+                </button>
               ) : (
                 <>
-                  <p className="mt-4 text-sm text-gray-600">
+                  <p className="mr-4 text-main-theme">
                     Logged in as {auth.user.email}
                   </p>
-                  <button className="btn" onClick={auth.logout}>
-                    Logout np{" "}
+                  <button
+                    className="btn rounded-md bg-main-theme px-4 py-1 text-white transition-colors duration-300 hover:bg-white hover:text-main-theme"
+                    onClick={auth.logout}
+                  >
+                    Logout
                   </button>
                 </>
               )}
             </div>
-          </div>
-        </div>
-        <nav className="hidden w-full items-center justify-between px-6 py-3 transition-colors duration-300 md:flex">
-          <nav>
-            <div className="space-x-8">
-              <Link
-                href="/booking"
-                className="font-bold text-white transition-colors duration-300 hover:text-main-theme cursor-pointer"
-              >
-                {t("home.pages.booking")}
-              </Link>
-              <Link
-                href="/gallery"
-                className="font-bold text-white transition-colors duration-300 hover:text-main-theme cursor-pointer"
-              >
-                {t("home.pages.gallery")}
-              </Link>
-              <Link
-                href="/contact"
-                className="font-bold text-white transition-colors duration-300 hover:text-main-theme cursor-pointer"
-              >
-                {t("home.pages.contact")}
-              </Link>
-            </div>
           </nav>
-
-          <div className="flex items-center space-x-4">
-            <LocaleSwitcher />
-            {auth.user === null ? (
-              <button className="flex items-center gap-1 font-bold text-white transition-colors duration-300 hover:text-main-theme">
-                <UserCircleIcon className="h-4 w-4" />
-                {t("home.hamburger.signin")}
-              </button>
-            ) : (
-              <>
-                <p className="mr-4 text-main-theme">
-                  Logged in as {auth.user.email}
-                </p>
-                <button
-                  className="btn rounded-md bg-main-theme px-4 py-1 text-white transition-colors duration-300 hover:bg-white hover:text-main-theme"
-                  onClick={auth.logout}
-                >
-                  Logout
-                </button>
-              </>
-            )}
-          </div>
-        </nav>
-      </div>
-    </>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 };
 
@@ -206,60 +244,97 @@ const IconInfo: React.FC<{
 );
 
 export const Hero: React.FC = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
   const t = useTranslations();
   return (
-    <div className="relative min-h-[85vh]">
-      <div className="absolute z-0 h-full w-full">
+    <div ref={ref} className="relative min-h-[105vh]">
+      <div className="flex justify-center px-12 py-24 text-center">
+        <AnimatePresence>
+          <motion.h1
+            className="z-30 font-tangerine font-bold text-5xl tracking-[.25em] drop-shadow-2xl pt-2 md:text-7xl sm:text-6xl"
+            initial={{ y: 25, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              delay: 0.2,
+              duration: 0.75,
+            }}
+          >
+            {t("home.hero.header")}
+          </motion.h1>
+        </AnimatePresence>
+      </div>
+      <div className="overflow-hidden absolute inset-0 z-0">
+        <motion.div className="absolute inset-0 z-0" style={{ y: backgroundY }}>
+          <Image
+            src={bgPicFull}
+            alt="profile"
+            fill
+            className="object-cover brightness-75"
+          />
+        </motion.div>
+      </div>
+      <div className="absolute inset-0 z-20">
         <Image
-          src={bgPic}
+          src={bgPicBottom}
           alt="profile"
           fill
           className="object-cover brightness-75"
         />
-        <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-main-theme to-transparent backdrop-blur" />
+        <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-main-theme to-transparent backdrop-blur z-30" />
       </div>
-      <div className="flex justify-center px-12 py-24 text-center">
-        <h1 className="font-tangerine font-bold text-5xl tracking-[.25em] drop-shadow-2xl pt-2 md:text-7xl sm:text-6xl">
-          {t("home.hero.header")}
-        </h1>
-      </div>
-      <div className="z-0 flex h-full w-full justify-center px-4 sm:px-0">
-        <div className="mx-auto flex h-[130px] w-full max-w-xl flex-col items-center justify-center rounded-xl bg-main-theme bg-opacity-40 backdrop-blur-sm backdrop-filter sm:w-5/6 md:w-3/4 lg:w-2/3 xl:w-1/2">
-          <div className="flex w-full flex-wrap justify-around p-2 sm:justify-evenly">
-            <IconInfo
-              src="/HeroHouse.svg"
-              alt="Our Style"
-              title={t("home.hero.info1.title")}
-              subtitle={t("home.hero.info1.detail")}
-            />
-            <IconInfo
-              src="/HeroLocation.svg"
-              alt="Our Location"
-              title={t("home.hero.info2.title")}
-              subtitle="Balf"
-            />
-            <IconInfo
-              src="/HeroPrice.svg"
-              alt="Our Price"
-              title={t("home.hero.info3.title")}
-              subtitle="60.000 Ft"
-            />
-          </div>
-          <Link
-            href="/booking"
-            className="group mt-5 flex transform rounded-md bg-[#E7B181] px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
-            aria-label="Book Now"
+      <div className="flex h-full w-full justify-center px-4 sm:px-0">
+        <AnimatePresence>
+          <motion.div
+            className="z-30 mx-auto flex h-[130px] w-full max-w-xl flex-col items-center justify-center rounded-xl bg-main-theme bg-opacity-40 backdrop-blur-sm backdrop-filter sm:w-5/6 md:w-3/4 lg:w-2/3 xl:w-1/2"
+            initial={{ y: 25, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              delay: 0.4,
+              duration: 0.75,
+            }}
           >
-            {t("home.hero.headerbutton")}
-            <Image
-              src={"/HeroButtonArrow.svg"}
-              alt="Booking Arrow CTA"
-              width={12}
-              height={12}
-              className="ml-2 transform self-center transition-transform duration-500 ease-in-out group-hover:translate-x-1"
-            />
-          </Link>
-        </div>
+            <div className="flex w-full flex-wrap justify-around p-2 sm:justify-evenly">
+              <IconInfo
+                src="/HeroHouse.svg"
+                alt="Our Style"
+                title={t("home.hero.info1.title")}
+                subtitle={t("home.hero.info1.detail")}
+              />
+              <IconInfo
+                src="/HeroLocation.svg"
+                alt="Our Location"
+                title={t("home.hero.info2.title")}
+                subtitle="Balf"
+              />
+              <IconInfo
+                src="/HeroPrice.svg"
+                alt="Our Price"
+                title={t("home.hero.info3.title")}
+                subtitle="60.000 Ft"
+              />
+            </div>
+            <Link
+              href="/booking"
+              className="group mt-5 flex transform rounded-md bg-[#E7B181] px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
+              aria-label="Book Now"
+              scroll={false}
+            >
+              {t("home.hero.headerbutton")}
+              <Image
+                src={"/HeroButtonArrow.svg"}
+                alt="Booking Arrow CTA"
+                width={12}
+                height={12}
+                className="ml-2 transform self-center transition-transform duration-500 ease-in-out group-hover:translate-x-1"
+              />
+            </Link>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
@@ -269,39 +344,74 @@ export const Intro: React.FC = () => {
   const t = useTranslations();
   return (
     <>
-      <div className="flex flex-col items-center justify-center px-6 py-3">
-        <h2 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl">
+      <div className="flex flex-col items-center justify-center px-6 py-3 z-30">
+        <motion.h2
+          className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
+          initial={{ y: 25, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{
+            delay: 0.2,
+            duration: 0.75,
+          }}
+        >
           {t.rich(`home.enjoy.title`, {
             large: (chunks) => <span className="text-xl">{chunks}</span>,
           })}
-        </h2>
-        <Image
-          src={introPic}
-          alt="intro TODO"
-          height={1024}
-          width={1024}
-          className="aspect-[4/3] rounded-[5px] object-cover brightness-75 drop-shadow-highlight"
-        />
-        <div className="text-md my-6 flex flex-col gap-4 text-center font-roboto-mono">
+        </motion.h2>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{
+            delay: 0.4,
+            duration: 0.75,
+          }}
+        >
+          <Image
+            src={introPic}
+            alt="intro TODO"
+            height={1024}
+            width={1024}
+            className="aspect-[4/3] rounded-[5px] object-cover brightness-75 drop-shadow-highlight"
+          />
+        </motion.div>
+        <motion.div
+          className="text-md my-6 flex flex-col gap-4 text-center font-roboto-mono"
+          initial={{ y: 25, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{
+            delay: 0.2,
+            duration: 0.75,
+          }}
+        >
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.first`)}</p>
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.second`)}</p>
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.third`)}</p>
-        </div>
-        <Link
-          href="/booking"
-          className="group flex transform font-roboto-mono transition-all duration-200 ease-in hover:scale-110"
+        </motion.div>
+        <motion.div
+          initial={{ y: 25, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{
+            delay: 0.4,
+            duration: 0.75,
+          }}
         >
-          {t("home.enjoy.content.button")}
-          <Image
-            src={"/arrow.svg"}
-            alt="Arrow Icon"
-            width={35}
-            height={35}
-            className="ml-2 transform self-center transition-all duration-200 ease-in group-hover:translate-x-1.5"
-          ></Image>
-        </Link>
+          <Link
+            href="/booking"
+            className="group flex transform font-roboto-mono transition-all duration-200 ease-in hover:scale-110"
+            scroll={false}
+          >
+            {t("home.enjoy.content.button")}
+            <Image
+              src={"/arrow.svg"}
+              alt="Arrow Icon"
+              width={35}
+              height={35}
+              className="ml-2 transform self-center transition-all duration-200 ease-in group-hover:translate-x-1.5"
+            ></Image>
+          </Link>
+        </motion.div>
       </div>
-      <div className="my-20 flex justify-around">
+      <div className="my-20 flex justify-around z-30">
         {images.map((image, index) => (
           <Image
             key={index}
@@ -446,11 +556,19 @@ export const Services = () => {
 
   return (
     <div className="flex flex-col items-center justify-around py-3 text-center">
-      <h2 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl">
+      <motion.h2
+        className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
+        initial={{ y: 25, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        transition={{
+          delay: 0.2,
+          duration: 0.75,
+        }}
+      >
         {t.rich(`home.enjoy.card.title`, {
           large: (chunks) => <span className="text-xl">{chunks}</span>,
         })}
-      </h2>
+      </motion.h2>
       {services.map((service, i) => (
         <ServiceCard
           key={i}
@@ -547,7 +665,9 @@ export const Gallery = () => {
             <PaginationRect key={i} isActive={i === currentPage} />
           ))}
         </div>
-        <Link href="/gallery">{t("home.enjoy.gallery.button")}</Link>
+        <Link href="/gallery" scroll={false}>
+          {t("home.enjoy.gallery.button")}
+        </Link>
         <Image
           onClick={handleArrowClick}
           src={"/arrow.svg"}
@@ -702,7 +822,7 @@ export const Footer = () => {
           <h2 className="mb-5 indent-5 text-lg md:max-w-[70%] md:text-xl lg:max-w-[75%]">
             {t("home.enjoy.footer.title")}
           </h2>
-          <Link href="/booking">
+          <Link href="/booking" scroll={false}>
             <button
               type="button"
               className="hover:scale-102 group flex transform font-roboto-mono transition-all duration-200 ease-in"
@@ -752,17 +872,17 @@ export const Footer = () => {
               </h2>
               <ul>
                 <li className="mb-1">
-                  <Link href="/booking" className="underline">
+                  <Link href="/booking" className="underline" scroll={false}>
                     {t("home.enjoy.footer.navigation.booking")}
                   </Link>
                 </li>
                 <li className="mb-1">
-                  <Link href="/gallery" className="underline">
+                  <Link href="/gallery" className="underline" scroll={false}>
                     {t("home.enjoy.footer.navigation.gallery")}
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="underline">
+                  <Link href="/contact" className="underline" scroll={false}>
                     {t("home.enjoy.footer.navigation.contact")}
                   </Link>
                 </li>
@@ -791,7 +911,7 @@ export const Footer = () => {
             <div className="flex justify-between">
               <div className="flex gap-2">
                 <a
-                  href="https://www.instagram.com/your_page/"
+                  href="https://www.instagram.com/naturechilltreehouses/"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

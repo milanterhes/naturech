@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import { Navbar, Footer } from "../components/Home";
 import { Contact } from "../components/Contact";
+import { useEffect } from "react";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
@@ -12,6 +13,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 const ContactPage: NextPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Navbar />

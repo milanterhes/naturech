@@ -1,5 +1,4 @@
 import { GetStaticProps, NextPage } from "next";
-import Calendar from "../components/Calendar";
 import {
   Footer,
   Gallery,
@@ -9,7 +8,6 @@ import {
   ReviewsContainer,
   Services,
 } from "../components/Home";
-
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
   return {
@@ -24,7 +22,6 @@ const HomePage: NextPage = () => {
     <>
       <Navbar />
       <Hero />
-      {/* <Calendar /> */}
       <Intro />
       <Services />
       <Gallery />

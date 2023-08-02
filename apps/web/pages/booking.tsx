@@ -24,6 +24,9 @@ const BookingPage: NextPage = () => {
   const [guests, setGuests] = useState("3");
 
   const [endDate, setEndDate] = useState(new Date());
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleNextPage = () => setCurrentPage((prev) => prev + 1);
   const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);

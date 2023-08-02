@@ -122,7 +122,7 @@ export const Contact = () => {
             {t("contact.hero.title")}
           </h3>
         </div>
-        <div className="w-full h-[30rem] sm:w-1/2 sm:h-[20rem] md:h-[21rem] lg:h-[30rem] xl:h-[40rem] 2xl:h-[54rem] sm:px-10">
+        <div className="w-full h-[22rem] sm:w-1/2 sm:h-[20rem] md:h-[21rem] lg:h-[30rem] xl:h-[40rem] 2xl:h-[54rem] sm:px-10">
           <Image
             src={"/ContactImage.webp"}
             width={1366}
@@ -295,7 +295,7 @@ export const Contact = () => {
           </div>
           <div className="flex space-x-4 md:space-x-8 lg:space-x-10">
             <a
-              href="https://www.instagram.com/your_page/"
+              href="https://www.instagram.com/naturechilltreehouses/"
               target="_blank"
               rel="noopener noreferrer"
             >

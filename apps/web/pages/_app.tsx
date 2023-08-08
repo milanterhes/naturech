@@ -6,8 +6,7 @@ import { AuthContextProvider } from "../components/Auth";
 import "react-calendar/dist/Calendar.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
-import Image from "next/image";
-import logoPic from "../public/naturechill-logo.png";
+import "../styles/globals.css";
 
 const bowlby = Bowlby_One_SC({
   weight: ["400"],

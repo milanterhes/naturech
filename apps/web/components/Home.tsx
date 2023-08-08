@@ -38,15 +38,24 @@ const images = [
     ...baseImage,
     rotate: 45,
     yPosition: -10,
+    duration: 5,
+    shake: 2,
+    mobile: true,
   },
   {
     ...baseImage,
     rotate: 180,
     yPosition: -16,
+    duration: 6,
+    shake: 3,
+    mobile: true,
   },
   {
     ...baseImage,
     rotate: 90,
+    duration: 7,
+    shake: 1,
+    mobile: false,
   },
 ];
 
@@ -343,7 +352,7 @@ export const Hero: React.FC = () => {
 export const Intro: React.FC = () => {
   const t = useTranslations();
   return (
-    <>
+    <AnimatePresence>
       <div className="flex flex-col items-center justify-center px-6 py-3 z-30">
         <motion.h2
           className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
@@ -353,6 +362,7 @@ export const Intro: React.FC = () => {
             delay: 0.2,
             duration: 0.75,
           }}
+          viewport={{ once: true }}
         >
           {t.rich(`home.enjoy.title`, {
             large: (chunks) => <span className="text-xl">{chunks}</span>,
@@ -365,10 +375,11 @@ export const Intro: React.FC = () => {
             delay: 0.4,
             duration: 0.75,
           }}
+          viewport={{ once: true }}
         >
           <Image
             src={introPic}
-            alt="intro TODO"
+            alt="Nature & Chill Woodhouse"
             height={1024}
             width={1024}
             className="aspect-[4/3] rounded-[5px] object-cover brightness-75 drop-shadow-highlight"
@@ -382,6 +393,7 @@ export const Intro: React.FC = () => {
             delay: 0.2,
             duration: 0.75,
           }}
+          viewport={{ once: true }}
         >
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.first`)}</p>
           <p className="drop-shadow-2xl">{t(`home.enjoy.content.second`)}</p>
@@ -394,6 +406,7 @@ export const Intro: React.FC = () => {
             delay: 0.4,
             duration: 0.75,
           }}
+          viewport={{ once: true }}
         >
           <Link
             href="/booking"
@@ -413,20 +426,51 @@ export const Intro: React.FC = () => {
       </div>
       <div className="my-20 flex justify-around z-30">
         {images.map((image, index) => (
-          <Image
+          <motion.div
+            className={`${image.mobile ? "" : "hidden lg:block"}`}
             key={index}
-            src={image.src}
-            alt={image.alt}
-            height={image.height}
-            width={image.width}
-            className={image.className}
-            style={{
-              transform: `rotate(${image.rotate}deg) translateY(${image.yPosition}px)`,
+            initial={{ y: 0, opacity: 1, x: 0, rotate: 0 }}
+            whileInView={{
+              y: [0, 10, 0],
+              opacity: 1,
+              x: [image.shake, -image.shake, image.shake],
+              rotate: 10,
             }}
-          />
+            transition={{
+              delay: 0.4,
+              y: {
+                repeat: 1,
+                duration: image.duration,
+                ease: "easeInOut",
+              },
+              x: {
+                repeat: 1,
+                duration: image.duration,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              },
+              rotate: {
+                repeat: 1,
+                duration: image.duration,
+                repeatType: "reverse",
+                ease: "easeInOut",
+              },
+            }}
+          >
+            <Image
+              src={image.src}
+              alt={image.alt}
+              height={image.height}
+              width={image.width}
+              className={image.className}
+              style={{
+                transform: `rotate(${image.rotate}deg) translateY(${image.yPosition}px)`,
+              }}
+            />
+          </motion.div>
         ))}
       </div>
-    </>
+    </AnimatePresence>
   );
 };
 
@@ -453,59 +497,85 @@ const ServiceCard = ({ servicePic, icons, title, details }) => {
   };
 
   return (
-    <div className="w-4/5 py-5" onClick={handleCardClick}>
-      <div className="relative flex flex-col items-center justify-center">
-        <Image
-          src={servicePic}
-          width={1024}
-          height={1024}
-          alt="Our Services on Card"
-          className={`object-cover brightness-${
-            showDetails ? "50" : "75"
-          } aspect-[4/3] rounded-[5px] drop-shadow-highlight-dark`}
-        />
-        <div className="absolute grid h-full grid-flow-row auto-rows-fr justify-between py-1">
-          <div></div>
-          <div
-            className={`flex flex-col justify-evenly gap-1 ${
-              !showDetails ? "" : "hidden"
-            }`}
-          >
-            <h2 className="text-xl font-semibold ">{title}</h2>
-            <div className="flex justify-center gap-2">
-              {icons.map((icon, i) => (
-                <ServiceIcon key={i} src={icon.src} alt={icon.alt} />
-              ))}
-            </div>
-          </div>
-          <div className="flex w-full justify-center self-end">
-            <Image
-              src={"/servicearrow.svg"}
-              alt="Arrow Icon Service Card"
-              width={20}
-              height={20}
-              className={`ml-2 transform justify-end self-center transition-all duration-200 ease-in ${
-                showDetails ? "rotate-180" : ""
-              } cursor-pointer`}
-              onClick={handleArrowClick}
-            />
-          </div>
-        </div>
-        <div
-          className={`${
-            showDetails ? "" : "hidden"
-          } absolute flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-black bg-opacity-50 text-center text-white xl:w-[64em]`}
+    <AnimatePresence>
+      <div className="w-4/5 py-5" onClick={handleCardClick}>
+        <motion.div
+          className="relative flex flex-col items-center justify-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{
+            delay: 0.1,
+            duration: 0.75,
+          }}
+          viewport={{ once: true }}
         >
-          <p className="text-sm md:text-lg">{details}</p>
-        </div>
+          <Image
+            src={servicePic}
+            width={1024}
+            height={1024}
+            alt="Our Services on Card"
+            className={`object-cover brightness-${
+              showDetails ? "50" : "75"
+            } aspect-[4/3] rounded-[5px] drop-shadow-highlight-dark`}
+          />
+          <div className="absolute grid h-full grid-flow-row auto-rows-fr justify-between py-1">
+            <div></div>
+            <motion.div
+              className={`flex flex-col justify-evenly gap-1 ${
+                !showDetails ? "" : "hidden"
+              }`}
+              initial={{ y: 25, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.75,
+              }}
+            >
+              <h2 className="text-xl font-semibold ">{title}</h2>
+              <div className="flex justify-center gap-2">
+                {icons.map((icon, i) => (
+                  <ServiceIcon key={i} src={icon.src} alt={icon.alt} />
+                ))}
+              </div>
+            </motion.div>
+            <motion.div
+              className="flex w-full justify-center self-end"
+              initial={{ y: 25, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{
+                delay: 0.4,
+                duration: 0.75,
+              }}
+              viewport={{ once: true }}
+            >
+              <Image
+                src={"/servicearrow.svg"}
+                alt="Arrow Icon Service Card"
+                width={20}
+                height={20}
+                className={`ml-2 transform justify-end self-center transition-all duration-200 ease-in ${
+                  showDetails ? "rotate-180" : ""
+                } cursor-pointer`}
+                onClick={handleArrowClick}
+              />
+            </motion.div>
+          </div>
+          <div
+            className={`${
+              showDetails ? "" : "hidden"
+            } absolute flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-black bg-opacity-50 text-center text-white xl:w-[64em]`}
+          >
+            <p className="text-sm md:text-lg">{details}</p>
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </AnimatePresence>
   );
 };
 
 const services = [
   {
-    servicePic: "/service1.png",
+    servicePic: "/service1.webp",
     icons: [
       { src: "/Wifi.svg", alt: "Wifi Icon" },
       { src: "/Tv.svg", alt: "Tv" },
@@ -517,7 +587,7 @@ const services = [
     },
   },
   {
-    servicePic: "/service2.png",
+    servicePic: "/service2.webp",
     icons: [
       { src: "/Terrace.svg", alt: "Terrace Icon" },
       { src: "/Jacuzzi.svg", alt: "Jacuzzi Icon" },
@@ -528,7 +598,7 @@ const services = [
     },
   },
   {
-    servicePic: "/service3.png",
+    servicePic: "/service3.webp",
     icons: [
       { src: "/Coffee.svg", alt: "Coffee Icon" },
       { src: "/Wine.svg", alt: "Wine Icon" },
@@ -555,37 +625,40 @@ export const Services = () => {
   const t = useTranslations() as any;
 
   return (
-    <div className="flex flex-col items-center justify-around py-3 text-center">
-      <motion.h2
-        className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
-        initial={{ y: 25, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        transition={{
-          delay: 0.2,
-          duration: 0.75,
-        }}
-      >
-        {t.rich(`home.enjoy.card.title`, {
-          large: (chunks) => <span className="text-xl">{chunks}</span>,
-        })}
-      </motion.h2>
-      {services.map((service, i) => (
-        <ServiceCard
-          key={i}
-          servicePic={service.servicePic}
-          icons={service.icons}
-          title={t(service.keys.title)}
-          details={t(service.keys.details)}
-        />
-      ))}
-    </div>
+    <AnimatePresence>
+      <div className="flex flex-col items-center justify-around py-3 text-center">
+        <motion.h2
+          className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
+          initial={{ y: 25, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{
+            delay: 0.2,
+            duration: 0.75,
+          }}
+          viewport={{ once: true }}
+        >
+          {t.rich(`home.enjoy.card.title`, {
+            large: (chunks) => <span className="text-xl">{chunks}</span>,
+          })}
+        </motion.h2>
+        {services.map((service, i) => (
+          <ServiceCard
+            key={i}
+            servicePic={service.servicePic}
+            icons={service.icons}
+            title={t(service.keys.title)}
+            details={t(service.keys.details)}
+          />
+        ))}
+      </div>
+    </AnimatePresence>
   );
 };
 
 const GalleryImage = ({
   src,
   alt,
-  width = 100,
+  width = 300,
   height = 300,
   className = "rounded w-2/6 h-auto sm:w-1/2 sm:h-auto m-0.5 sm:m-1",
 }) => (
@@ -623,12 +696,12 @@ export const Gallery = () => {
   });
 
   const imageSources = [
-    "/gal1.jpg",
-    "/gal2.jpg",
-    "/gal3.jpg",
-    "/gal4.jpg",
-    "/gal5.jpg",
-    "/gal6.jpg",
+    "/gal1.webp",
+    "/gal2.webp",
+    "/gal3.webp",
+    "/gal4.webp",
+    "/gal5.webp",
+    "/gal6.webp",
     "/gal7.jpg",
     "/gal8.jpg",
     "/gal9.jpg",
@@ -642,42 +715,71 @@ export const Gallery = () => {
   };
 
   return (
-    <div {...handlers} className="flex flex-col items-center py-3">
-      <h2 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl">
-        {t.rich(`home.enjoy.gallery.title`, {
-          large: (chunks) => <span className="text-xl">{chunks}</span>,
-        })}
-      </h2>
-      <div className="flex min-h-[30vh] w-5/6 justify-center justify-around">
-        {imageSources
-          .slice(currentPage * 3, (currentPage + 1) * 3)
-          .map((src, index) => (
-            <GalleryImage
-              key={index}
-              src={src}
-              alt={`Gallery Image ${index + 1}`}
-            />
-          ))}
+    <AnimatePresence>
+      <div {...handlers} className="flex flex-col items-center py-3">
+        <motion.h2
+          className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
+          initial={{ y: 25, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{
+            delay: 0.2,
+            duration: 0.75,
+          }}
+          viewport={{ once: true }}
+        >
+          {t.rich(`home.enjoy.gallery.title`, {
+            large: (chunks) => <span className="text-xl">{chunks}</span>,
+          })}
+        </motion.h2>
+        <motion.div
+          className="flex min-h-[30vh] w-5/6 justify-center justify-around"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{
+            delay: 0.1,
+            duration: 0.75,
+          }}
+          viewport={{ once: true }}
+        >
+          {imageSources
+            .slice(currentPage * 3, (currentPage + 1) * 3)
+            .map((src, index) => (
+              <GalleryImage
+                key={index}
+                src={src}
+                alt={`Gallery Image ${index + 1}`}
+              />
+            ))}
+        </motion.div>
+        <motion.div
+          className="flex w-5/6 justify-between py-2 lg:justify-around"
+          initial={{ y: 25, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{
+            delay: 0.4,
+            duration: 0.75,
+          }}
+          viewport={{ once: true }}
+        >
+          <div className="flex">
+            {[0, 1, 2, 3].map((i) => (
+              <PaginationRect key={i} isActive={i === currentPage} />
+            ))}
+          </div>
+          <Link href="/gallery" scroll={false}>
+            {t("home.enjoy.gallery.button")}
+          </Link>
+          <Image
+            onClick={handleArrowClick}
+            src={"/arrow.svg"}
+            alt="Arrow Icon"
+            width={35}
+            height={35}
+            className="ml-2 hidden transform self-center transition-all duration-200 ease-in hover:scale-110 active:translate-x-1.5 lg:block"
+          />
+        </motion.div>
       </div>
-      <div className="flex w-5/6 justify-between py-2 lg:justify-around">
-        <div className="flex">
-          {[0, 1, 2, 3].map((i) => (
-            <PaginationRect key={i} isActive={i === currentPage} />
-          ))}
-        </div>
-        <Link href="/gallery" scroll={false}>
-          {t("home.enjoy.gallery.button")}
-        </Link>
-        <Image
-          onClick={handleArrowClick}
-          src={"/arrow.svg"}
-          alt="Arrow Icon"
-          width={35}
-          height={35}
-          className="ml-2 hidden transform self-center transition-all duration-200 ease-in hover:scale-110 active:translate-x-1.5 lg:block"
-        />
-      </div>
-    </div>
+    </AnimatePresence>
   );
 };
 
@@ -717,7 +819,7 @@ export const Review: FC<ReviewProps> = ({
           ❮
         </button>
       </div>
-      <div className="flex w-full flex-col items-center justify-center space-y-4 rounded-xl bg-main-theme bg-opacity-20 p-6 backdrop-blur-md backdrop-filter sm:w-4/5 md:w-2/3 lg:w-1/2 xl:w-1/3">
+      <div className="flex w-full flex-col items-center justify-center space-y-4 rounded-xl bg-black bg-opacity-20 p-6 backdrop-blur-md backdrop-filter sm:w-4/5 md:w-2/3 lg:w-1/2 xl:w-1/3">
         <ul className="relative flex items-center justify-center">
           {Array.from({ length: rating }).map((_, i) => (
             <li key={`${name}-star-${i.toString()}`}>
@@ -782,204 +884,256 @@ export const ReviewsContainer: FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center py-3">
-      <h2 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl">
-        {t.rich(`home.enjoy.review.title`, {
-          large: (chunks) => <span className="text-xl">{chunks}</span>,
-        })}
-      </h2>
-      <div
-        className="carousel flex min-h-[20rem] w-full items-center justify-center bg-cover bg-center"
-        style={{ backgroundImage: `url("/gal7.jpg")` }}
-      >
-        {reviews.map((review, index) => (
-          <Review
-            key={review.text}
-            name={review.author_name}
-            text={review.text}
-            rating={review.rating}
-            slideId={index + 1}
-            nextSlideId={index + 2 > reviews.length ? 1 : index + 2}
-            prevSlideId={index === 0 ? reviews.length : index}
-            setCurrentSlideId={setCurrentSlideId}
-            currentSlideId={currentSlideId}
-          />
-        ))}
+    <AnimatePresence>
+      <div className="flex flex-col items-center py-3">
+        <motion.h2
+          className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
+          initial={{ y: 25, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{
+            delay: 0.2,
+            duration: 0.75,
+          }}
+          viewport={{ once: true }}
+        >
+          {t.rich(`home.enjoy.review.title`, {
+            large: (chunks) => <span className="text-xl">{chunks}</span>,
+          })}
+        </motion.h2>
+        <div
+          className="carousel flex min-h-[20rem] w-full items-center justify-center bg-cover bg-center"
+          style={{ backgroundImage: `url("/reviewImg.webp")` }}
+        >
+          {reviews.map((review, index) => (
+            <Review
+              key={review.text}
+              name={review.author_name}
+              text={review.text}
+              rating={review.rating}
+              slideId={index + 1}
+              nextSlideId={index + 2 > reviews.length ? 1 : index + 2}
+              prevSlideId={index === 0 ? reviews.length : index}
+              setCurrentSlideId={setCurrentSlideId}
+              currentSlideId={currentSlideId}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </AnimatePresence>
   );
 };
 
 export const Footer = () => {
   const t = useTranslations();
   return (
-    <footer
-      className="w-full bg-gradient-to-b from-main-theme to-white/25 px-4 py-3 border-t border-white/30"
-      role="contentinfo"
-    >
-      <div className="flex flex-col md:flex-row md:justify-evenly">
-        <div className="mb-5 flex flex-col justify-center">
-          <h2 className="mb-5 indent-5 text-lg md:max-w-[70%] md:text-xl lg:max-w-[75%]">
-            {t("home.enjoy.footer.title")}
-          </h2>
-          <Link href="/booking" scroll={false}>
-            <button
-              type="button"
-              className="hover:scale-102 group flex transform font-roboto-mono transition-all duration-200 ease-in"
+    <AnimatePresence>
+      <footer
+        className="w-full bg-gradient-to-b from-main-theme to-white/25 px-4 py-3 border-t border-white/30"
+        role="contentinfo"
+      >
+        <div className="flex flex-col md:flex-row md:justify-evenly">
+          <div className="mb-5 flex flex-col justify-center">
+            <motion.h2
+              className="mb-5 indent-5 text-lg md:max-w-[70%] md:text-xl lg:max-w-[75%]"
+              initial={{ x: -25, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.75,
+              }}
+              viewport={{ once: true }}
             >
-              <Image
-                src={"/footerarrow.svg"}
-                alt="Footer Arrow Icon"
-                width={35}
-                height={35}
-                className="mx-1 transform self-center transition-all duration-200 ease-in group-hover:translate-x-1"
-              />
-              {t("home.enjoy.footer.button")}
-            </button>
-          </Link>
-        </div>
-        <div className="flex flex-col">
-          <div className="mb-5 flex flex-col gap-10 md:flex-row md:justify-evenly">
-            <nav role="navigation">
-              <h2 className="mb-2 text-lg font-bold">
-                {t("home.enjoy.footer.contact")}
-              </h2>
-              <div>
-                <address className="mb-1">9400 Sopron, Kőhalom utca 40</address>
-                <p className="mb-1">
-                  <a
-                    href="tel:+36703928177"
-                    className="underline"
-                    aria-label="Call us at +36 70 392 8177"
-                  >
-                    +36 70 392 8177
-                  </a>
-                </p>
-                <p>
-                  <a
-                    href="mailto:nc3houses@gmail.com"
-                    className="underline"
-                    aria-label="Email us at nc3houses@gmail.com"
-                  >
-                    nc3houses@gmail.com
-                  </a>
-                </p>
-              </div>
-            </nav>
-            <nav role="navigation">
-              <h2 className="mb-2 text-lg font-bold">
-                {t("home.enjoy.footer.navigation.title")}
-              </h2>
-              <ul>
-                <li className="mb-1">
-                  <Link href="/booking" className="underline" scroll={false}>
-                    {t("home.enjoy.footer.navigation.booking")}
-                  </Link>
-                </li>
-                <li className="mb-1">
-                  <Link href="/gallery" className="underline" scroll={false}>
-                    {t("home.enjoy.footer.navigation.gallery")}
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="underline" scroll={false}>
-                    {t("home.enjoy.footer.navigation.contact")}
-                  </Link>
-                </li>
-              </ul>
-            </nav>
-            <nav role="navigation">
-              <h2 className="mb-2 text-lg font-bold">
-                {t("home.enjoy.footer.information.title")}
-              </h2>
-              <ul>
-                <li className="mb-1">
-                  <Link href="/aszf" className="underline">
-                    {t("home.enjoy.footer.information.contract")}
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/adatvedelmi-tajekoztato" className="underline">
-                    {t("home.enjoy.footer.information.data")}
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+              {t("home.enjoy.footer.title")}
+            </motion.h2>
+            <motion.div
+              initial={{ x: -50, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{
+                delay: 0.6,
+                duration: 0.75,
+              }}
+              viewport={{ once: true }}
+            >
+              <Link href="/booking" scroll={false}>
+                <button
+                  type="button"
+                  className="hover:scale-102 group flex transform font-roboto-mono transition-all duration-200 ease-in"
+                >
+                  <Image
+                    src={"/footerarrow.svg"}
+                    alt="Footer Arrow Icon"
+                    width={35}
+                    height={35}
+                    className="mx-1 transform self-center transition-all duration-200 ease-in group-hover:translate-x-1"
+                  />
+                  {t("home.enjoy.footer.button")}
+                </button>
+              </Link>
+            </motion.div>
           </div>
-          <div className="flex flex-col">
-            <div className="mb-1 h-px w-full bg-white bg-opacity-40"></div>
-            <div className="flex justify-between">
-              <div className="flex gap-2">
-                <a
-                  href="https://www.instagram.com/naturechilltreehouses/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+          <motion.div
+            className="flex flex-col"
+            initial={{ y: 25, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{
+              delay: 0.2,
+              duration: 0.75,
+            }}
+            viewport={{ once: true }}
+          >
+            <div className="mb-5 flex flex-col gap-10 md:flex-row md:justify-evenly">
+              <nav role="navigation">
+                <h2 className="mb-2 text-lg font-bold">
+                  {t("home.enjoy.footer.contact")}
+                </h2>
+                <div>
+                  <address className="mb-1">
+                    9400 Sopron, Kőhalom utca 40
+                  </address>
+                  <p className="mb-1">
+                    <a
+                      href="tel:+36703928177"
+                      className="underline"
+                      aria-label="Call us at +36 70 392 8177"
+                    >
+                      +36 70 392 8177
+                    </a>
+                  </p>
+                  <p>
+                    <a
+                      href="mailto:nc3houses@gmail.com"
+                      className="underline"
+                      aria-label="Email us at nc3houses@gmail.com"
+                    >
+                      nc3houses@gmail.com
+                    </a>
+                  </p>
+                </div>
+              </nav>
+              <nav role="navigation">
+                <h2 className="mb-2 text-lg font-bold">
+                  {t("home.enjoy.footer.navigation.title")}
+                </h2>
+                <ul>
+                  <li className="mb-1">
+                    <Link href="/booking" className="underline" scroll={false}>
+                      {t("home.enjoy.footer.navigation.booking")}
+                    </Link>
+                  </li>
+                  <li className="mb-1">
+                    <Link href="/gallery" className="underline" scroll={false}>
+                      {t("home.enjoy.footer.navigation.gallery")}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/contact" className="underline" scroll={false}>
+                      {t("home.enjoy.footer.navigation.contact")}
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+              <nav role="navigation">
+                <h2 className="mb-2 text-lg font-bold">
+                  {t("home.enjoy.footer.information.title")}
+                </h2>
+                <ul>
+                  <li className="mb-1">
+                    <Link href="/aszf" className="underline">
+                      {t("home.enjoy.footer.information.contract")}
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/adatvedelmi-tajekoztato" className="underline">
+                      {t("home.enjoy.footer.information.data")}
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div className="flex flex-col">
+              <div className="mb-1 h-px w-full bg-white bg-opacity-40"></div>
+              <div className="flex justify-between">
+                <div className="flex gap-2">
+                  <a
+                    href="https://www.instagram.com/naturechilltreehouses/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={"/instagram.svg"}
+                      alt="Link to our Instagram page"
+                      width={15}
+                      height={15}
+                    />
+                  </a>
+                  <a
+                    href="https://www.facebook.com/your_page/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={"/facebook.svg"}
+                      alt="Link to our Facebook page"
+                      width={13}
+                      height={13}
+                    />
+                  </a>
+                  <a
+                    href="https://www.tiktok.com/@your_page/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src={"/tiktok.svg"}
+                      alt="Link to our TikTok page"
+                      width={15}
+                      height={15}
+                    />
+                  </a>
+                </div>
+                <div className="flex gap-2">
                   <Image
-                    src={"/instagram.svg"}
-                    alt="Link to our Instagram page"
-                    width={15}
-                    height={15}
+                    src={"/PayPal.svg"}
+                    alt="We accept PayPal"
+                    width={28}
+                    height={28}
                   />
-                </a>
-                <a
-                  href="https://www.facebook.com/your_page/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
                   <Image
-                    src={"/facebook.svg"}
-                    alt="Link to our Facebook page"
-                    width={13}
-                    height={13}
+                    src={"/Visa.svg"}
+                    alt="We accept Visa"
+                    width={28}
+                    height={28}
                   />
-                </a>
-                <a
-                  href="https://www.tiktok.com/@your_page/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
                   <Image
-                    src={"/tiktok.svg"}
-                    alt="Link to our TikTok page"
-                    width={15}
-                    height={15}
+                    src={"/Mastercard.svg"}
+                    alt="We accept Mastercard"
+                    width={28}
+                    height={28}
                   />
-                </a>
-              </div>
-              <div className="flex gap-2">
-                <Image
-                  src={"/PayPal.svg"}
-                  alt="We accept PayPal"
-                  width={28}
-                  height={28}
-                />
-                <Image
-                  src={"/Visa.svg"}
-                  alt="We accept Visa"
-                  width={28}
-                  height={28}
-                />
-                <Image
-                  src={"/Mastercard.svg"}
-                  alt="We accept Mastercard"
-                  width={28}
-                  height={28}
-                />
-                <Image
-                  src={"/Maestro.svg"}
-                  alt="We accept Maestro"
-                  width={28}
-                  height={28}
-                />
+                  <Image
+                    src={"/Maestro.svg"}
+                    alt="We accept Maestro"
+                    width={28}
+                    height={28}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
-      </div>
-      <div className="flex justify-center py-10">
-        <small>{t("home.enjoy.footer.information.copyright")}</small>
-      </div>
-    </footer>
+        <motion.div
+          className="flex justify-center py-10"
+          initial={{ y: 15, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{
+            delay: 0.4,
+            duration: 0.75,
+          }}
+          viewport={{ once: true }}
+        >
+          <small>{t("home.enjoy.footer.information.copyright")}</small>
+        </motion.div>
+      </footer>
+    </AnimatePresence>
   );
 };

@@ -41,6 +41,9 @@ import { Input } from "./ui/input";
 import { useTranslations } from "next-intl";
 
 import { loadStripe } from "@stripe/stripe-js";
+import { trpc } from "../utils/trpc";
+import { Payment } from "@naturechill/db";
+import { useDateSelector } from "./DateSelector";
 
 let required_guestError_message = "Nincs kiválasztva a vendégek száma.";
 let required_paymentError_message = "Nincs kiválasztva fizetési mód.";
@@ -70,36 +73,30 @@ const formSchema = z.object({
   guests: z.string({
     required_error: required_guestError_message,
   }),
-  house_number_1: z.boolean().default(false),
   paymentType: z.enum(["fullPrice", "halfPrice"], {
     required_error: required_paymentError_message,
   }),
 });
 
 interface ProfileFormProps {
-  startDate: Date;
-  endDate: Date;
   showModalPage: boolean;
   setShowModalPage: React.Dispatch<React.SetStateAction<boolean>>;
   onNextPage: () => void;
-  setHouse1: React.Dispatch<React.SetStateAction<boolean>>;
-  setGuests: React.Dispatch<React.SetStateAction<string>>;
+  setGuests: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({
-  startDate,
-  endDate,
   showModalPage,
   setShowModalPage,
   onNextPage,
-  setHouse1,
   setGuests,
 }) => {
   const t = useTranslations();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: { house_number_1: true },
   });
+
+  const { endDate, startDate } = useDateSelector();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -107,8 +104,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     setIsLoading(true);
     console.log(values);
     const isValid = await form.trigger();
-    setHouse1(values.house_number_1);
-    setGuests(values.guests);
+    setGuests(Number(values.guests));
 
     if (isValid) {
       onNextPage();
@@ -128,19 +124,19 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             <p className="mr-1 font-semibold">
               {t("booking.bookingmodal.page1.date.arrival")}:
             </p>
-            <p>{startDate.toLocaleDateString()}</p>
+            <p>{startDate?.format("ll")}</p>
           </div>
           <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
             <p className="mr-1 font-semibold">
               {t("booking.bookingmodal.page1.date.departure")}:
             </p>
-            <p>{endDate.toLocaleDateString()}</p>
+            <p>{endDate?.format("ll")}</p>
           </div>
         </div>
         <div className="flex flex-col items-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
           <div className="md:w-42 md:h-42 h-24 w-24 overflow-hidden rounded-full sm:h-28 sm:w-28">
             <Image
-              src="/gal5.jpg"
+              src="/gal5.webp"
               alt="Circle Image"
               style={{ objectFit: "cover" }}
               width={300}
@@ -166,38 +162,17 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             <TableBody>
               <TableRow>
                 <TableCell className="flex items-center font-medium">
-                  <FormField
-                    control={form.control}
-                    name="house_number_1"
-                    render={({ field }) => (
-                      <FormItem className="flex flex-row items-center space-x-2">
-                        <FormControl>
-                          <Checkbox
-                            defaultChecked
-                            disabled
-                            checked={field.value}
-                            onCheckedChange={(checked) => {
-                              if (typeof checked === "boolean") {
-                                field.onChange(checked);
-                              }
-                            }}
-                          />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                          <FormLabel>
-                            {t(
-                              "booking.bookingmodal.page1.tablebody.woodhouse1"
-                            )}
-                          </FormLabel>
-                          <FormDescription>
-                            {t(
-                              "booking.bookingmodal.page1.tablebody.description"
-                            )}
-                          </FormDescription>
-                        </div>
-                      </FormItem>
-                    )}
-                  />
+                  <FormItem className="flex flex-row items-center space-x-2">
+                    <Checkbox defaultChecked disabled checked />
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>
+                        {t("booking.bookingmodal.page1.tablebody.woodhouse1")}
+                      </FormLabel>
+                      <FormDescription>
+                        {t("booking.bookingmodal.page1.tablebody.description")}
+                      </FormDescription>
+                    </div>
+                  </FormItem>
                 </TableCell>
                 <TableCell className="font-medium">120.000 Ft</TableCell>
               </TableRow>
@@ -343,18 +318,12 @@ const formSchemaPage2 = z.object({
 });
 
 type ProfileFormPage2Props = {
-  startDate: Date;
-  endDate: Date;
   onPrevPage: () => void;
-  house1: string;
   guests: number;
 };
 
-export const ProfileFormPage2 = ({
-  startDate,
-  endDate,
+export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
   onPrevPage,
-  house1,
   guests,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -364,6 +333,7 @@ export const ProfileFormPage2 = ({
     resolver: zodResolver(formSchemaPage2),
     defaultValues: {},
   });
+  const { endDate, startDate } = useDateSelector();
 
   async function onSubmitPage2(values: z.infer<typeof formSchemaPage2>) {
     setIsLoading(true);
@@ -376,7 +346,13 @@ export const ProfileFormPage2 = ({
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, house1, guests, endDate, startDate }),
+      body: JSON.stringify({
+        email,
+        house1: true,
+        guests,
+        endDate: endDate?.toISOString(),
+        startDate: startDate?.toISOString(),
+      }),
     });
     const { sessionId } = await response.json();
 
@@ -406,10 +382,28 @@ export const ProfileFormPage2 = ({
     return <p>Thank you for your submission!</p>;
   }
 
+  const trpcUtils = trpc.useContext();
+
+  const { mutate, data } = trpc.booking.book.useMutation({
+    onSettled: () => {
+      trpcUtils.booking.getBookings.invalidate();
+    },
+  });
+
+  function test() {
+    if (endDate && startDate) {
+      mutate({
+        endDate: endDate.valueOf(),
+        startDate: startDate.valueOf(),
+        paymentKind: Payment.CARD,
+      });
+    }
+  }
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmitPage2)}
+        onSubmit={form.handleSubmit(test)}
         className="max-h-screen w-10/12 space-y-4 overflow-auto rounded-xl bg-white p-4 text-black drop-shadow-[0px_5px_2px_rgba(0,0,0,0.4)] backdrop-blur-[2px] backdrop-filter sm:w-max sm:space-y-5 sm:p-6"
       >
         {" "}
@@ -418,19 +412,19 @@ export const ProfileFormPage2 = ({
             <p className="mr-1 font-semibold">
               {t("booking.bookingmodal.page2.date.arrival")}:
             </p>
-            <p>{startDate.toLocaleDateString()}</p>
+            <p>{startDate?.format("ll")}</p>
           </div>
           <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
             <p className="mr-1 font-semibold">
               {t("booking.bookingmodal.page2.date.departure")}:
             </p>
-            <p>{endDate.toLocaleDateString()}</p>
+            <p>{endDate?.format("ll")}</p>
           </div>
         </div>
         <div className="flex w-full flex-col items-stretch space-y-6 sm:flex-row sm:space-x-4 sm:space-y-0">
           <div className="flex flex-col rounded-md bg-gray-400 p-3">
             <h2>{t("booking.bookingmodal.page2.house.title")}</h2>
-            <span>{house1 ? "Ház Fakopáncs" : "Nincs kiválasztva ház"}</span>
+            <span>Ház Fakopáncs</span>
           </div>
           <div className="flex flex-col rounded-md bg-gray-400 p-3">
             <h2>{t("booking.bookingmodal.page2.price.title")}</h2>

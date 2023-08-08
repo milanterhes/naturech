@@ -1,84 +1,47 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { trpc } from "../utils/trpc";
 import Calendar from "react-calendar";
-import { FC, SetStateAction } from "react";
-
-// interface CalendarProps {
-//   minDate: Date;
-//   maxDate: Date;
-//   tileDisabled: TileDisabledFunc;
-// }
-
-// const Calendar: React.FC<CalendarProps> = ({
-//   maxDate,
-//   minDate,
-//   tileDisabled,
-// }) => {
-//   return (
-//     <RCalendar
-//       maxDate={maxDate}
-//       minDate={minDate}
-//       tileDisabled={tileDisabled}
-//     />
-//   );
-// };
+import moment from "moment-timezone";
+import { useDateSelector } from "./DateSelector";
+import { TileDisabledFunc } from "react-calendar/dist/cjs/shared/types";
 
 interface CalendarWrapperProps {
-  startDate: Date;
-  endDate: Date;
-  setStartDate: React.Dispatch<SetStateAction<Date>>;
-  setEndDate: React.Dispatch<SetStateAction<Date>>;
   setShowCalendar: React.Dispatch<React.SetStateAction<boolean>>;
-  setIsDateSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CalendarWrapper: React.FC<CalendarWrapperProps> = ({
-  startDate,
-  setStartDate,
-  endDate,
-  setEndDate,
   setShowCalendar,
-  setIsDateSelected,
 }) => {
   const [shouldDisplay, setShouldDisplay] = useState(false);
+  const { endDate, startDate, setDates } = useDateSelector();
 
   useEffect(() => {
     // making sure that the calendar is not displayed server side
     setShouldDisplay(true);
   }, []);
 
-  // 3 months later
-  const maxDate = useMemo(() => {
-    const date = new Date(startDate);
-    date.setMonth(date.getMonth() + 3);
-    return date;
-  }, [startDate]);
+  const { data: bookings } = trpc.booking.getBookings.useQuery();
 
-  // Prev Month
-  const minDate = useMemo(() => {
-    const date = new Date(startDate);
-    date.setMonth(date.getMonth() - 1);
-    return date;
-  }, [startDate]);
-
-  const { data: bookings } = trpc.booking.getBookings.useQuery({
-    startDate: minDate.toString(),
-    endDate: maxDate.toString(),
-  });
-
-  function tileDisabled({ date, view }: { date: Date; view: string }) {
+  const tileDisabled: TileDisabledFunc = ({ date, view }) => {
     if (view === "month") {
-      const dateToCheck = new Date(date);
-      dateToCheck.setHours(0, 0, 0, 0);
-      const isBooked = bookings?.some(
-        (booking) =>
-          new Date(booking.startDate).getTime() <= dateToCheck.getTime() &&
-          new Date(booking.endDate).getTime() >= dateToCheck.getTime()
-      );
+      const target = moment(date).hours(14);
+      const isBooked = bookings?.some((booking) => {
+        const start = moment(booking.startDate);
+        const end = moment(booking.endDate);
+
+        console.log({
+          s: start.format("llll"),
+          e: end.format("llll"),
+          t: target.format("llll"),
+        });
+
+        return target.isBetween(start, end, "minutes", "[]");
+      });
       return Boolean(isBooked);
     }
     return false;
-  }
+  };
+
   const handleDateChange = (newDates: [Date, Date]) => {
     const differenceInDays = Math.round(
       Math.abs(
@@ -90,10 +53,11 @@ const CalendarWrapper: React.FC<CalendarWrapperProps> = ({
       return;
     }
 
-    setStartDate(newDates[0]);
-    setEndDate(newDates[1]);
+    const start = moment(newDates[0]).hour(14).minute(0).tz("Europe/Budapest");
+    const end = moment(newDates[1]).hour(12).minute(0).tz("Europe/Budapest");
+
+    setDates(start, end);
     setShowCalendar(false);
-    setIsDateSelected(true);
   };
 
   if (!shouldDisplay) return null;
@@ -106,15 +70,16 @@ const CalendarWrapper: React.FC<CalendarWrapperProps> = ({
       <div className="flex items-center justify-center overflow-hidden rounded-lg">
         <div className="w-full">
           <Calendar
-            maxDate={maxDate}
-            minDate={minDate}
             tileDisabled={tileDisabled}
+            tileClassName={(props) =>
+              tileDisabled(props) ? "line-through" : ""
+            }
             returnValue="range"
             selectRange
             onChange={handleDateChange}
             onViewChange={console.log}
             className={"text-secondary-theme"}
-            value={[startDate, endDate]}
+            value={[startDate?.toDate() ?? null, endDate?.toDate() ?? null]}
           />
         </div>
       </div>

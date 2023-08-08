@@ -2,39 +2,36 @@ import { Payment } from "@naturechill/db";
 import { z } from "zod";
 import {
   BookingService,
-  GetBookingsSchema,
   GetQuoteSchema,
   validateDateRange,
 } from "../services/BookingService";
 import { authenticatedMiddleware, t } from "../trpc";
+import moment from "moment-timezone";
 
-const getBookings = t.procedure
-  .input(GetBookingsSchema)
-  .query(async ({ input: { startDate, endDate } }) => {
-    validateDateRange(new Date(startDate), new Date(endDate));
-    const bookings = await BookingService.getBookings({
-      startDate,
-      endDate,
-    });
+const getBookings = t.procedure.query(async () => {
+  const bookings = await BookingService.getBookings();
 
-    return bookings;
-  });
+  return bookings;
+});
 
 const book = t.procedure
   .use(authenticatedMiddleware)
   .input(
     z.object({
-      startDate: z.string().nonempty(),
-      endDate: z.string().nonempty(),
+      startDate: z.number(),
+      endDate: z.number(),
       paymentKind: z.nativeEnum(Payment),
     })
   )
   .mutation(async ({ input: { startDate, endDate, paymentKind }, ctx }) => {
     validateDateRange(new Date(startDate), new Date(endDate));
 
+    const start = moment(startDate).tz("Europe/Budapest").hour(14).minute(0);
+    const end = moment(endDate).tz("Europe/Budapest").hour(12).minute(0);
+
     const booking = await BookingService.book({
-      startDate,
-      endDate,
+      startDate: start.toDate(),
+      endDate: end.toDate(),
       paymentKind,
       email: ctx.user!.email,
     });

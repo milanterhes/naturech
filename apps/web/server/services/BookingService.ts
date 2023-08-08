@@ -42,15 +42,13 @@ export function validateDateRange(startDate: Date, endDate: Date) {
 }
 
 export const GetBookingsSchema = z.object({
-  startDate: z.string().nonempty(),
-  endDate: z.string().nonempty(),
+  startDate: z.number(),
+  endDate: z.number(),
 });
 
-export type GetBookingsInput = z.infer<typeof GetBookingsSchema>;
-
 export const BookSchema = z.object({
-  startDate: z.string().nonempty(),
-  endDate: z.string().nonempty(),
+  startDate: z.date(),
+  endDate: z.date(),
   paymentKind: z.nativeEnum(Payment),
 });
 
@@ -77,16 +75,10 @@ const overlappingCheck = (startDate: Date, endDate: Date) => {
 };
 
 export class BookingService {
-  static async getBookings(input: GetBookingsInput) {
-    const { startDate, endDate } = input;
+  static async getBookings() {
     const bookings = await prisma.booking.findMany({
       where: {
-        AND: [
-          {
-            ...overlappingCheck(new Date(startDate), new Date(endDate)),
-          },
-          { status: { not: BookingStatus.CANCELLED } },
-        ],
+        status: { not: BookingStatus.CANCELLED },
       },
       select: {
         endDate: true,
@@ -150,6 +142,7 @@ export class BookingService {
           new Date(endDate),
           paymentKind
         ),
+        sessionId: "ASJOKBDPAOJBSDPJOLBAPSJOKDBPJOKLABSDSPJKLBD",
       },
       select: {
         endDate: true,

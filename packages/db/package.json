@@ -13,10 +13,9 @@
   "description": "",
   "dependencies": {
     "@naturechill/utils": "*",
-    "@prisma/client": "^4.16.1",
-    "mongoose": "^7.2.4"
+    "@prisma/client": "^4.16.2"
   },
   "devDependencies": {
-    "prisma": "^4.15.0"
+    "prisma": "^5.1.1"
   }
 }

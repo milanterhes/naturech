@@ -15,6 +15,7 @@ import {
   AccordionTrigger,
 } from "../components/ui/accordion";
 import { AnimatePresence, motion } from "framer-motion";
+import { useDateSelector } from "./DateSelector";
 
 type IconTextProps = {
   imgWidth: number;
@@ -71,23 +72,17 @@ const IconText: React.FC<IconTextProps> = ({
 };
 
 interface BookingMainProps {
-  startDate: Date;
-  endDate: Date;
   onIconTextClick: () => void;
-  isDateSelected: boolean;
-  setIsDateSelected: React.Dispatch<React.SetStateAction<boolean>>;
   showModalPage: boolean;
   setShowModalPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const BookingMain: FC<BookingMainProps> = ({
-  startDate,
-  endDate,
   onIconTextClick,
-  isDateSelected,
   setShowModalPage,
 }) => {
   const t = useTranslations();
+  const { endDate, startDate } = useDateSelector();
   return (
     <AnimatePresence>
       <div className="relative flex flex-col items-center bg-[url('/bookingbg.webp')] bg-cover bg-top pt-[80px]">
@@ -138,8 +133,8 @@ export const BookingMain: FC<BookingMainProps> = ({
                 imgHeight={50}
                 title={t("booking.introcard.arrival.title")}
                 subtitle={
-                  isDateSelected
-                    ? startDate.toLocaleDateString()
+                  startDate
+                    ? startDate.format("ll")
                     : t("booking.introcard.arrival.detail")
                 }
                 onClick={onIconTextClick}
@@ -152,8 +147,8 @@ export const BookingMain: FC<BookingMainProps> = ({
                 imgHeight={50}
                 title={t("booking.introcard.arrival.title")}
                 subtitle={
-                  isDateSelected
-                    ? endDate.toLocaleDateString()
+                  endDate
+                    ? endDate.format("ll")
                     : t("booking.introcard.arrival.detail")
                 }
                 onClick={onIconTextClick}
@@ -169,7 +164,7 @@ export const BookingMain: FC<BookingMainProps> = ({
                 duration: 0.75,
               }}
               onClick={() => {
-                if (isDateSelected) {
+                if (startDate && endDate) {
                   setShowModalPage(true);
                 } else {
                   onIconTextClick();

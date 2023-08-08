@@ -4,6 +4,7 @@ import { Footer, Navbar } from "../components/Home";
 import { useState, useEffect } from "react";
 import CalendarWrapper from "../components/Calendar";
 import { ProfileForm, ProfileFormPage2 } from "../components/BookingForm";
+import { DateSelectorProvider } from "../components/DateSelector";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
@@ -15,15 +16,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 const BookingPage: NextPage = () => {
-  const [startDate, setStartDate] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
-  const [isDateSelected, setIsDateSelected] = useState(false);
   const [showModalPage, setShowModalPage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [house1, setHouse1] = useState(true);
-  const [guests, setGuests] = useState("3");
+  const [guests, setGuests] = useState(3);
 
-  const [endDate, setEndDate] = useState(new Date());
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -32,53 +29,30 @@ const BookingPage: NextPage = () => {
   const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);
 
   return (
-    <>
+    <DateSelectorProvider>
       <Navbar />
       {!showCalendar && showModalPage && (
         <div className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-40">
           {currentPage === 1 ? (
             <ProfileForm
-              startDate={startDate}
-              endDate={endDate}
               showModalPage={showModalPage}
               setShowModalPage={setShowModalPage}
               onNextPage={handleNextPage}
-              setHouse1={setHouse1}
               setGuests={setGuests}
             />
           ) : (
-            <ProfileFormPage2
-              startDate={startDate}
-              endDate={endDate}
-              onPrevPage={handlePreviousPage}
-              house1={house1}
-              guests={guests}
-            />
+            <ProfileFormPage2 onPrevPage={handlePreviousPage} guests={guests} />
           )}
         </div>
       )}
-      {showCalendar && (
-        <CalendarWrapper
-          startDate={startDate}
-          setStartDate={setStartDate}
-          endDate={endDate}
-          setEndDate={setEndDate}
-          setShowCalendar={setShowCalendar}
-          isDateSelected={isDateSelected}
-          setIsDateSelected={setIsDateSelected}
-        />
-      )}
+      {showCalendar && <CalendarWrapper setShowCalendar={setShowCalendar} />}
       <BookingMain
-        startDate={startDate}
-        endDate={endDate}
         onIconTextClick={() => setShowCalendar(!showCalendar)}
-        isDateSelected={isDateSelected}
-        setIsDateSelected={setIsDateSelected}
         showModalPage={showModalPage}
         setShowModalPage={setShowModalPage}
       />
       <Footer />
-    </>
+    </DateSelectorProvider>
   );
 };
 

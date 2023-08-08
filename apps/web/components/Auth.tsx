@@ -123,6 +123,8 @@ const Login = () => {
           <button
             className="bg-main-theme text-white group mt-5 flex transform rounded-md bg-[#E7B181] px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
             aria-label="Login Now"
+            type="submit"
+            onClick={submit}
           >
             {t("home.hamburger.loginbutton")}
             <Image

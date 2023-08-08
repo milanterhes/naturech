@@ -44,7 +44,14 @@ function sendLoginEmail({ to, token, lang }: LoginEmailInput) {
 async function handleLogin(email: string, lang: Locale) {
   const token = makeToken(email);
 
-  return sendLoginEmail({ to: email, token, lang });
+  try {
+    return sendLoginEmail({ to: email, token, lang });
+  } catch (error) {
+    throw new TRPCError({
+      code: "INTERNAL_SERVER_ERROR",
+      message: "Failed to login",
+    });
+  }
 }
 
 const login = t.procedure

@@ -2,7 +2,6 @@ import { Payment } from "@naturechill/db";
 import { z } from "zod";
 import {
   BookingService,
-  GetAvailableDatesSchema,
   GetBookingsSchema,
   GetQuoteSchema,
   validateDateRange,
@@ -59,24 +58,10 @@ const getQuote = t.procedure
     };
   });
 
-const getAvailableDates = t.procedure
-  .input(GetAvailableDatesSchema)
-  .query(async ({ input: { startDate, endDate } }) => {
-    validateDateRange(new Date(startDate), new Date(endDate));
-
-    const availableDates = await BookingService.getAvailableDates(
-      new Date(startDate),
-      new Date(endDate)
-    );
-
-    return availableDates;
-  });
-
 const bookingRouter = t.router({
   getBookings,
   book,
   getQuote,
-  getAvailableDates,
 });
 
 export default bookingRouter;

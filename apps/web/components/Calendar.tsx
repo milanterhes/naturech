@@ -29,36 +29,23 @@ interface CalendarWrapperProps {
   setStartDate: React.Dispatch<SetStateAction<Date>>;
   setEndDate: React.Dispatch<SetStateAction<Date>>;
   setShowCalendar: React.Dispatch<React.SetStateAction<boolean>>;
-  isDateSelected: boolean;
   setIsDateSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const CalendarWrapper = ({
+const CalendarWrapper: React.FC<CalendarWrapperProps> = ({
   startDate,
   setStartDate,
   endDate,
   setEndDate,
   setShowCalendar,
-  isDateSelected,
   setIsDateSelected,
 }) => {
   const [shouldDisplay, setShouldDisplay] = useState(false);
 
   useEffect(() => {
+    // making sure that the calendar is not displayed server side
     setShouldDisplay(true);
   }, []);
-
-  const { data: availableDates, status } =
-    trpc.booking.getAvailableDates.useQuery(
-      {
-        startDate: startDate.toString(),
-        endDate: endDate.toString(),
-      },
-      {
-        refetchInterval: 1000 * 30, // 30 seconds
-        refetchOnWindowFocus: false,
-      }
-    );
 
   // 3 months later
   const maxDate = useMemo(() => {
@@ -74,31 +61,24 @@ const CalendarWrapper = ({
     return date;
   }, [startDate]);
 
+  const { data: bookings } = trpc.booking.getBookings.useQuery({
+    startDate: minDate.toString(),
+    endDate: maxDate.toString(),
+  });
+
   function tileDisabled({ date, view }: { date: Date; view: string }) {
-    // Disable today's date
-    if (
-      date.getDate() === new Date().getDate() &&
-      date.getMonth() === new Date().getMonth() &&
-      date.getFullYear() === new Date().getFullYear()
-    ) {
-      return true;
-    }
-    console.log("Available dates: ", availableDates);
-
-    // If confirmedDates are not yet loaded, do not disable any dates
-    if (!availableDates) return false;
-
-    // Here, it is assumed that the availableDates array contains 'confirmed' booked dates
     if (view === "month") {
-      return availableDates.some((date) => {
-        const confirmedDate = new Date(date);
-        return confirmedDate.getTime() === date.getTime();
-      });
+      const dateToCheck = new Date(date);
+      dateToCheck.setHours(0, 0, 0, 0);
+      const isBooked = bookings?.some(
+        (booking) =>
+          new Date(booking.startDate).getTime() <= dateToCheck.getTime() &&
+          new Date(booking.endDate).getTime() >= dateToCheck.getTime()
+      );
+      return Boolean(isBooked);
     }
-
     return false;
   }
-  if (!shouldDisplay) return null;
   const handleDateChange = (newDates: [Date, Date]) => {
     const differenceInDays = Math.round(
       Math.abs(
@@ -115,6 +95,8 @@ const CalendarWrapper = ({
     setShowCalendar(false);
     setIsDateSelected(true);
   };
+
+  if (!shouldDisplay) return null;
 
   return (
     <div

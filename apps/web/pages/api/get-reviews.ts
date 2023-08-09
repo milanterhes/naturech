@@ -18,6 +18,9 @@ const getReviews = async (
     const details = await fetch(url);
     const data = await details.json();
 
+    console.log(url);
+    console.log(data);
+
     if (!data || !data.result) {
       res.status(500).json({ error: "Invalid data from Places API" });
       return;

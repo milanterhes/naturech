@@ -7,16 +7,23 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export const GalleryIntro = () => {
   const t = useTranslations();
+  const [shouldDisplay, setShouldDisplay] = useState(false);
+
+  useEffect(() => {
+    setShouldDisplay(true);
+  }, []);
   return (
     <AnimatePresence>
       <div className="relative h-screen w-screen overflow-hidden">
-        <iframe
-          className="top-50 left-50 -translate-x-50% -translate-y-50% absolute hidden h-auto min-h-full w-auto min-w-full transform lg:block"
-          src="https://www.youtube.com/embed/pY2CWYxUbrM?start=60&autoplay=1&mute=1&controls=0&showinfo=0&loop=1&playlist=pY2CWYxUbrM"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe>
+        {shouldDisplay && window.innerWidth >= 768 && (
+          <iframe
+            className="top-50 left-50 -translate-x-50% -translate-y-50% absolute h-auto min-h-full w-auto min-w-full transform"
+            src="https://www.youtube.com/embed/pY2CWYxUbrM?start=60&autoplay=1&mute=1&controls=0&showinfo=0&loop=1&playlist=pY2CWYxUbrM"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        )}
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 text-center">
           <div>
             <motion.h1
@@ -64,6 +71,45 @@ const ImageGridItem: React.FC<ImageGridItemProps> = ({
     />
   </div>
 );
+const SlideshowLightboxComponent = SlideshowLightbox as React.ElementType;
+const images = [
+  {
+    src: "/gal1.webp",
+    alt: "Image 1",
+  },
+  {
+    src: "/gal2.webp",
+    alt: "Image 2",
+  },
+  {
+    src: "/gal3.webp",
+    alt: "Image 3",
+  },
+  {
+    src: "/gal4.webp",
+    alt: "Image 4",
+  },
+  {
+    src: "/gal5.webp",
+    alt: "Image 5",
+  },
+  {
+    src: "/gal6.webp",
+    alt: "Image 6",
+  },
+  {
+    src: "/gal7.webp",
+    alt: "Image 7",
+  },
+  {
+    src: "/gal8.webp",
+    alt: "Image 8",
+  },
+  {
+    src: "/gal9.webp",
+    alt: "Image 9",
+  },
+];
 
 export const GalleryGrid = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -73,49 +119,10 @@ export const GalleryGrid = () => {
     initLightboxJS(`${process.env.NEXT_PUBLIC_LIGHTBOX_KEY}`, "individual");
   });
 
-  const images = [
-    {
-      src: "/gal1.webp",
-      alt: "Image 1",
-    },
-    {
-      src: "/gal2.webp",
-      alt: "Image 2",
-    },
-    {
-      src: "/gal3.webp",
-      alt: "Image 3",
-    },
-    {
-      src: "/gal4.webp",
-      alt: "Image 4",
-    },
-    {
-      src: "/gal5.webp",
-      alt: "Image 5",
-    },
-    {
-      src: "/gal6.webp",
-      alt: "Image 6",
-    },
-    {
-      src: "/gal7.webp",
-      alt: "Image 7",
-    },
-    {
-      src: "/gal8.webp",
-      alt: "Image 8",
-    },
-    {
-      src: "/gal9.webp",
-      alt: "Image 9",
-    },
-  ];
   const handleImageClick = (index) => {
     setStartingIndex(index);
     setIsOpen(true);
   };
-  const SlideshowLightboxComponent = SlideshowLightbox as React.ElementType;
 
   return (
     <AnimatePresence>
@@ -123,11 +130,11 @@ export const GalleryGrid = () => {
         <SlideshowLightboxComponent
           open={isOpen}
           startingSlideIndex={startingIndex}
-          images={images}
           onClose={() => setIsOpen(false)}
           lightboxIdentifier="lbox1"
           theme="lightbox"
           iconColor="#DDA771"
+          images={images}
         />
         <motion.div
           className="my-10 grid h-screen w-full grid-cols-2 grid-rows-6 gap-4 p-4 md:w-11/12 md:grid-cols-3 md:grid-rows-4 md:p-10"

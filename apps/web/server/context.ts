@@ -5,6 +5,7 @@ import { TokenPayload } from "../utils/client-jwt";
 
 interface ContextPayload {
   user?: TokenPayload;
+  origin?: string;
 }
 
 /**
@@ -15,7 +16,8 @@ export async function createContextInner(
   opts: trpcNext.CreateNextContextOptions
 ): Promise<ContextPayload> {
   const token = opts?.req.cookies?.token;
-  const result = {};
+  const origin = opts?.req.headers.origin;
+  const result = { origin };
 
   if (token) {
     try {

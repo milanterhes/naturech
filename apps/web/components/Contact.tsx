@@ -114,7 +114,6 @@ export const Contact = () => {
       alert("All fields must be filled and valid");
     }
   };
-
   return (
     <>
       <section className="flex flex-col-reverse sm:flex-row items-center justify-around bg-gradient-to-b from-main-theme to-white pb-2 pt-20 drop-shadow-[0px_7px_2px_rgba(0,0,0,0.4)]">
@@ -574,7 +573,7 @@ export const Contact = () => {
               </motion.a>
             </div>
             <motion.iframe
-              src="https://www.google.com/maps/embed/v1/place?q=Nature%26Chill+Treehouses"
+              src={process.env.NEXT_PUBLIC_PLACES_KEY2}
               width="600"
               height="450"
               loading="lazy"

@@ -83,6 +83,7 @@ interface ProfileFormProps {
   setShowModalPage: React.Dispatch<React.SetStateAction<boolean>>;
   onNextPage: () => void;
   setGuests: React.Dispatch<React.SetStateAction<number>>;
+  totalPrice: number;
 }
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({
@@ -90,6 +91,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
   setShowModalPage,
   onNextPage,
   setGuests,
+  totalPrice,
 }) => {
   const t = useTranslations();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -174,7 +176,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                     </div>
                   </FormItem>
                 </TableCell>
-                <TableCell className="font-medium">120.000 Ft</TableCell>
+                <TableCell className="font-medium">{totalPrice}HUF</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>
@@ -235,7 +237,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                       >
                         <Label
                           htmlFor="fullPrice"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:border-secondary-theme"
+                          className="flex flex-col items-center justify-between rounded-md border-2 border-main-theme bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:bg-main-theme"
                         >
                           <RadioGroupItem
                             value="fullPrice"
@@ -246,11 +248,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                             "booking.bookingmodal.page1.fullhalfpriceselect.fullprice"
                           )}{" "}
                           <br /> <br />
-                          (120.000 Ft)
+                          {totalPrice} HUF
                         </Label>
                         <Label
                           htmlFor="halfPrice"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:border-secondary-theme"
+                          className="flex flex-col items-center justify-between rounded-md border-2 border-main-theme bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:bg-main-theme "
                         >
                           <RadioGroupItem
                             value="halfPrice"
@@ -262,7 +264,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           )}{" "}
                           <br />
                           <br />
-                          (60.000 Ft)
+                          {totalPrice / 2} HUF
                         </Label>
                         <FormMessage />
                       </RadioGroup>
@@ -320,11 +322,13 @@ const formSchemaPage2 = z.object({
 type ProfileFormPage2Props = {
   onPrevPage: () => void;
   guests: number;
+  totalPrice: number;
 };
 
 export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
   onPrevPage,
   guests,
+  totalPrice,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -422,15 +426,15 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
           </div>
         </div>
         <div className="flex w-full flex-col items-stretch space-y-6 sm:flex-row sm:space-x-4 sm:space-y-0">
-          <div className="flex flex-col rounded-md bg-gray-400 p-3">
+          <div className="flex flex-col rounded-md bg-gray-300 p-3">
             <h2>{t("booking.bookingmodal.page2.house.title")}</h2>
             <span>Ház Fakopáncs</span>
           </div>
-          <div className="flex flex-col rounded-md bg-gray-400 p-3">
+          <div className="flex flex-col rounded-md bg-gray-300 p-3">
             <h2>{t("booking.bookingmodal.page2.price.title")}</h2>
-            <span>120.000 Ft</span>
+            <span>{totalPrice} HUF</span>
           </div>
-          <div className="flex flex-col rounded-md bg-gray-400 p-3">
+          <div className="flex flex-col rounded-md bg-gray-300 p-3">
             <h2>{t("booking.bookingmodal.page2.guests.title")}</h2>
             <span>{guests}</span>
           </div>
@@ -445,8 +449,12 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
                   <FormLabel>
                     {t("booking.bookingmodal.page2.form.name")}
                   </FormLabel>
-                  <FormControl className="border border-main-theme/50">
-                    <Input {...field} aria-label="Full Name" />
+                  <FormControl>
+                    <Input
+                      {...field}
+                      aria-label="Full Name"
+                      className="border-main-theme bg-white"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -460,8 +468,12 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
                   <FormLabel>
                     {t("booking.bookingmodal.page2.form.email")}
                   </FormLabel>
-                  <FormControl className="border border-main-theme/50">
-                    <Input {...field} aria-label="Email" />
+                  <FormControl>
+                    <Input
+                      {...field}
+                      aria-label="Email"
+                      className="border-main-theme bg-white"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -477,8 +489,12 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
                   <FormLabel>
                     {t("booking.bookingmodal.page2.form.street")}
                   </FormLabel>
-                  <FormControl className="border border-main-theme/50">
-                    <Input {...field} aria-label="Street" />
+                  <FormControl>
+                    <Input
+                      {...field}
+                      aria-label="Street"
+                      className="border-main-theme bg-white"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -492,8 +508,12 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
                   <FormLabel>
                     {t("booking.bookingmodal.page2.form.city")}
                   </FormLabel>
-                  <FormControl className="border border-main-theme/50">
-                    <Input {...field} aria-label="City" />
+                  <FormControl>
+                    <Input
+                      {...field}
+                      aria-label="City"
+                      className="border-main-theme bg-white"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -509,8 +529,12 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
                   <FormLabel>
                     {t("booking.bookingmodal.page2.form.phone")}
                   </FormLabel>
-                  <FormControl className="border border-main-theme/50">
-                    <Input {...field} aria-label="Phone Number" />
+                  <FormControl>
+                    <Input
+                      {...field}
+                      aria-label="Phone Number"
+                      className="border-main-theme bg-white"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -524,8 +548,12 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
                   <FormLabel>
                     {t("booking.bookingmodal.page2.form.country")}
                   </FormLabel>
-                  <FormControl className="border border-main-theme/50">
-                    <Input {...field} aria-label="Country" />
+                  <FormControl>
+                    <Input
+                      {...field}
+                      aria-label="Country"
+                      className="border-main-theme bg-white"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -538,7 +566,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
             render={({ field }) => (
               <Textarea
                 placeholder={t("booking.bookingmodal.page2.form.textarea")}
-                className="border border-main-theme/50 my-10 w-full"
+                className="my-10 w-full border-main-theme bg-white"
               />
             )}
           />
@@ -549,6 +577,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="terms"
+                  className="border-main-theme bg-white"
                   aria-label="Accept terms and conditions"
                   checked={field.value}
                   onCheckedChange={(checked) =>

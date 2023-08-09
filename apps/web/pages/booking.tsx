@@ -4,7 +4,10 @@ import { Footer, Navbar } from "../components/Home";
 import { useState, useEffect } from "react";
 import CalendarWrapper from "../components/Calendar";
 import { ProfileForm, ProfileFormPage2 } from "../components/BookingForm";
-import { DateSelectorProvider } from "../components/DateSelector";
+import {
+  DateSelectorProvider,
+  useDateSelector,
+} from "../components/DateSelector";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
@@ -20,6 +23,7 @@ const BookingPage: NextPage = () => {
   const [showModalPage, setShowModalPage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [guests, setGuests] = useState(3);
+  const { startDate, endDate, totalPrice } = useDateSelector();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -39,9 +43,14 @@ const BookingPage: NextPage = () => {
               setShowModalPage={setShowModalPage}
               onNextPage={handleNextPage}
               setGuests={setGuests}
+              totalPrice={totalPrice}
             />
           ) : (
-            <ProfileFormPage2 onPrevPage={handlePreviousPage} guests={guests} />
+            <ProfileFormPage2
+              totalPrice={totalPrice}
+              onPrevPage={handlePreviousPage}
+              guests={guests}
+            />
           )}
         </div>
       )}

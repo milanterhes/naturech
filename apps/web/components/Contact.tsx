@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { trpc } from "../utils/trpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   MapPinIcon,
@@ -90,18 +91,16 @@ export const Contact = () => {
     }
   }, [showSuccess]);
 
+  const mutation = trpc.contact.sendMessage.useMutation();
+
   const handleSubmit = async (values) => {
     setIsSubmitting(true);
     console.log(values);
 
     try {
-      const res = await fetch("/api/sendcontact/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
+      mutation.mutate(values);
 
-      if (res.ok) {
+      if (mutation.isSuccess) {
         console.log("Email sent successfully");
         setIsSubmitting(false);
         form.reset(initialFormState);
@@ -575,7 +574,7 @@ export const Contact = () => {
               </motion.a>
             </div>
             <motion.iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2695.506748916146!2d16.590650315976607!3d47.681354979192455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x476aae84e8a6a1b7%3A0x400c4290c1e1160!2s9400%20Sopron%2C%20K%C5%91halom%20utca%2040%2C%20Hungary!5e0!3m2!1sen!2sus!4v1626096473969!5m2!1sen!2sus"
+              src="https://www.google.com/maps/embed/v1/place?q=Nature%26Chill+Treehouses"
               width="600"
               height="450"
               loading="lazy"

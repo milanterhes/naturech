@@ -72,7 +72,7 @@ const CalendarWrapper: React.FC<CalendarWrapperProps> = ({
           <Calendar
             tileDisabled={tileDisabled}
             tileClassName={(props) =>
-              tileDisabled(props) ? "line-through" : ""
+              tileDisabled(props) ? "line-through opacity-70 text-gray-500" : ""
             }
             returnValue="range"
             selectRange

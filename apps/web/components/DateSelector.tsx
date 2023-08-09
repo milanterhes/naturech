@@ -1,9 +1,15 @@
 import moment from "moment-timezone";
-import React, { PropsWithChildren, useContext, useState } from "react";
+import React, {
+  PropsWithChildren,
+  useContext,
+  useState,
+  useEffect,
+} from "react";
 
 interface IDateSelectorContext {
   startDate: moment.Moment | null;
   endDate: moment.Moment | null;
+  totalPrice: number;
   setDates: (start: moment.Moment, end: moment.Moment) => void;
 }
 
@@ -11,6 +17,7 @@ const DateSelectorContext = React.createContext<IDateSelectorContext>({
   endDate: null,
   setDates: () => {},
   startDate: null,
+  totalPrice: 0,
 });
 
 export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
@@ -19,6 +26,7 @@ export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
   const [startDate, setStartDate] =
     useState<IDateSelectorContext["startDate"]>(null);
   const [endDate, setEndDate] = useState<IDateSelectorContext["endDate"]>(null);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
   const setDates: IDateSelectorContext["setDates"] = (start, end) => {
     setStartDate(start.tz("Europe/Budapest"));
@@ -26,7 +34,9 @@ export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
   };
 
   return (
-    <DateSelectorContext.Provider value={{ startDate, endDate, setDates }}>
+    <DateSelectorContext.Provider
+      value={{ startDate, endDate, setDates, totalPrice }}
+    >
       {children}
     </DateSelectorContext.Provider>
   );

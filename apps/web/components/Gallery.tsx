@@ -17,7 +17,6 @@ export const GalleryIntro = () => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe>
-        <div className="absolute inset-0 bg-[url('/gallerysmallscreen.webp')] bg-cover bg-center bg-fixed lg:hidden "></div>
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4 text-center">
           <div>
             <motion.h1
@@ -71,7 +70,7 @@ export const GalleryGrid = () => {
   let [startingIndex, setStartingIndex] = useState(0);
   const t = useTranslations();
   useEffect(() => {
-    initLightboxJS(`${process.env.LIGHTBOX_KEY}`, "individual");
+    initLightboxJS(`${process.env.NEXT_PUBLIC_LIGHTBOX_KEY}`, "individual");
   });
 
   const images = [
@@ -100,15 +99,15 @@ export const GalleryGrid = () => {
       alt: "Image 6",
     },
     {
-      src: "/gal7.jpg",
+      src: "/gal7.webp",
       alt: "Image 7",
     },
     {
-      src: "/gal8.jpg",
+      src: "/gal8.webp",
       alt: "Image 8",
     },
     {
-      src: "/gal9.jpg",
+      src: "/gal9.webp",
       alt: "Image 9",
     },
   ];
@@ -188,19 +187,19 @@ export const GalleryGrid = () => {
             />
           </motion.div>
           <ImageGridItem
-            src="/gal7.jpg"
+            src="/gal7.webp"
             alt="Image 7"
             className="col-start-1 col-end-2 row-start-5 row-end-7 rounded md:col-start-2 md:col-end-3 md:row-start-4 md:row-end-5"
             onClick={() => handleImageClick(6)}
           />
           <ImageGridItem
-            src="/gal8.jpg"
+            src="/gal8.webp"
             alt="Image 8"
             className="col-start-1 col-end-3 row-start-1 row-end-3 rounded md:col-start-3 md:col-end-4 md:row-start-1 md:row-end-2"
             onClick={() => handleImageClick(7)}
           />
           <ImageGridItem
-            src="/gal9.jpg"
+            src="/gal9.webp"
             alt="Image 9"
             className="col-start-2 col-end-3 row-start-4 row-end-7 rounded md:col-start-3 md:col-end-4 md:row-start-3 md:row-end-5"
             onClick={() => handleImageClick(8)}

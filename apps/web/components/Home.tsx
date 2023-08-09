@@ -5,7 +5,7 @@ import {
   PhotoIcon,
   QuestionMarkCircleIcon,
 } from "@heroicons/react/24/solid";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { FC, useEffect, useState, useRef } from "react";
@@ -205,10 +205,10 @@ export const Navbar: React.FC = () => {
             <div className="flex items-center space-x-4">
               <LocaleSwitcher />
               {auth.user === null ? (
-                <button className="flex items-center gap-1 font-bold text-white transition-colors duration-300 hover:text-main-theme">
+                <div className="flex items-center gap-1 font-bold text-white">
                   <UserCircleIcon className="h-4 w-4" />
                   {t("home.hamburger.signin")}
-                </button>
+                </div>
               ) : (
                 <>
                   <p className="mr-4 text-main-theme">
@@ -258,7 +258,29 @@ export const Hero: React.FC = () => {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const backgroundYDesktop = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["0%", "12%"]
+  );
+  const backgroundYMobile = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
+  const currentBackgroundY =
+    windowWidth >= 640 ? backgroundYDesktop : backgroundYMobile;
   const t = useTranslations();
   return (
     <div ref={ref} className="relative min-h-[105vh]">
@@ -278,7 +300,10 @@ export const Hero: React.FC = () => {
         </AnimatePresence>
       </div>
       <div className="overflow-hidden absolute inset-0 z-0">
-        <motion.div className="absolute inset-0 z-0" style={{ y: backgroundY }}>
+        <motion.div
+          className="absolute inset-0 z-0"
+          style={{ y: currentBackgroundY }}
+        >
           <Image
             src={bgPicFull}
             alt="profile"
@@ -702,11 +727,11 @@ export const Gallery = () => {
     "/gal4.webp",
     "/gal5.webp",
     "/gal6.webp",
-    "/gal7.jpg",
-    "/gal8.jpg",
-    "/gal9.jpg",
-    "/gal10.jpg",
-    "/gal11.jpg",
+    "/gal7.webp",
+    "/gal8.webp",
+    "/gal9.webp",
+    "/gal10.webp",
+    "/gal11.webp",
     "/gal12.jpg",
   ];
 
@@ -745,7 +770,7 @@ export const Gallery = () => {
             .slice(currentPage * 3, (currentPage + 1) * 3)
             .map((src, index) => (
               <GalleryImage
-                key={index}
+                key={src}
                 src={src}
                 alt={`Gallery Image ${index + 1}`}
               />
@@ -863,12 +888,13 @@ type ReviewData = {
 
 export const ReviewsContainer: FC = () => {
   const t = useTranslations();
+  const locale = useLocale();
   const [reviews, setReviews] = useState<ReviewData[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [currentSlideId, setCurrentSlideId] = useState(1);
 
   useEffect(() => {
-    fetch("/api/get-reviews")
+    fetch(`/api/get-reviews?language=${locale}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -877,7 +903,7 @@ export const ReviewsContainer: FC = () => {
       })
       .then((data) => setReviews(data))
       .catch((error) => setError(error.message));
-  }, []);
+  }, [locale]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -900,10 +926,14 @@ export const ReviewsContainer: FC = () => {
             large: (chunks) => <span className="text-xl">{chunks}</span>,
           })}
         </motion.h2>
-        <div
-          className="carousel flex min-h-[20rem] w-full items-center justify-center bg-cover bg-center"
-          style={{ backgroundImage: `url("/reviewImg.webp")` }}
-        >
+        <div className="carousel flex min-h-[20rem] w-full items-center justify-center bg-cover bg-center relative">
+          <Image
+            src={"/reviewImg.webp"}
+            fill
+            alt="Our best reviews"
+            style={{ objectFit: "cover" }}
+            className="absolute inset-0"
+          ></Image>
           {reviews.map((review, index) => (
             <Review
               key={review.text}

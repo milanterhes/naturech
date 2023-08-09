@@ -54,7 +54,7 @@ const IconText: React.FC<IconTextProps> = ({
           style={{
             strokeDasharray: pathLength,
             strokeDashoffset: pathLength,
-            animation: `draw 5s ease-in-out both`,
+            animation: `draw 2s ease-in-out both`,
           }}
         />
       </svg>
@@ -186,7 +186,7 @@ export const BookingMain: FC<BookingMainProps> = ({
                   style={{
                     strokeDasharray: 81.292,
                     strokeDashoffset: 81.292,
-                    animation: `draw 5s ease-in-out forwards`,
+                    animation: `draw 3s ease-in-out forwards`,
                   }}
                 />
               </svg>

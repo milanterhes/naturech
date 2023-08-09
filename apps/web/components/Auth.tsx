@@ -98,7 +98,7 @@ const Login = () => {
   return (
     <Form<FormData> onSubmit={submitHandler}>
       {({ submit }) => (
-        <div className="flex flex-col gap-1 items-center">
+        <div className="flex flex-col  gap-1 items-center">
           <Field
             name="email"
             onChangeValidate={z
@@ -113,7 +113,7 @@ const Login = () => {
                   onChange={(e) => setValue(e.target.value)}
                   onBlur={onBlur}
                   required
-                  className={`border ${
+                  className={`border w-44 h-10 ${
                     errors.length > 0 ? "border-red-500" : "border-gray-300"
                   } rounded-md p-2 focus:outline-none`}
                 />

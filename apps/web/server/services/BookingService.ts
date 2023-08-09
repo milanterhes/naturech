@@ -177,14 +177,35 @@ export class BookingService {
   ) {
     let totalCost = 0;
 
+    const specialHolidays = [
+      new Date(startDate.getFullYear(), 11, 25), // Christmas
+      new Date(startDate.getFullYear(), 11, 31), // New Year's Eve
+      // Placeholder for Easter (this requires additional logic based on the year)
+      new Date(startDate.getFullYear(), 3, 4),
+      new Date(startDate.getFullYear(), 7, 20), // August 20th
+    ];
+    const specialHolidaysRate = 80000;
+
     const currentDate = new Date(startDate);
     while (currentDate < endDate) {
       const currentDayOfWeek = currentDate.getDay();
-      const nightlyRate =
-        currentDayOfWeek >= 1 && currentDayOfWeek <= 4
-          ? weekdaysNightlyRate
-          : weekendsNightlyRate;
-      totalCost += nightlyRate;
+
+      // Check if the date is a special holiday
+      if (
+        specialHolidays.some(
+          (holiday) =>
+            holiday.getDate() === currentDate.getDate() &&
+            holiday.getMonth() === currentDate.getMonth()
+        )
+      ) {
+        totalCost += specialHolidaysRate;
+      } else {
+        const nightlyRate =
+          currentDayOfWeek >= 1 && currentDayOfWeek <= 4
+            ? weekdaysNightlyRate
+            : weekendsNightlyRate;
+        totalCost += nightlyRate;
+      }
 
       currentDate.setDate(currentDate.getDate() + 1);
     }

@@ -59,14 +59,16 @@ export const LoginEmail = ({
 }: LoginEmailProps) => {
   return (
     <Tailwind logo={logo}>
-      <h1 className="text-3xl font-bold text-white">{intro}</h1>
-      <p className="text-white">{content}</p>
-      <Button
-        href={link}
-        className="px-8 py-3 font-semibold rounded-xl bg-white text-main-theme shadow-highlight"
-      >
-        {button}
-      </Button>
+      <div className="flex flex-col items-center gap-4">
+        <h1 className="text-3xl font-bold text-white">{intro}</h1>
+        <p className="text-white">{content}</p>
+        <Button
+          href={link}
+          className="px-8 py-3 font-semibold rounded-xl bg-white text-main-theme shadow-highlight"
+        >
+          {button}
+        </Button>
+      </div>
     </Tailwind>
   );
 };

@@ -97,8 +97,7 @@
     },
     "introcard": {
       "arrival": {
-        "title": "Ankunft",
-        "detail": "Datum auswählen"
+        "title": "Datum auswählen"
       },
       "departure": {
         "title": "Abfahrt",
@@ -289,7 +288,7 @@
   },
   "contact": {
     "hero": {
-      "title": "Wir freuen uns auf Ihre Ideen in unserer Luxusunterkunft, wo exzellenter Service und persönliche Aufmerksamkeit Sie erwarten. Bitte zögern Sie nicht, uns zu kontaktieren."
+      "title": "Bitte zögern Sie nicht, uns zu kontaktieren."
     },
     "form": {
       "name": {

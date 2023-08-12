@@ -97,8 +97,7 @@
     },
     "introcard": {
       "arrival": {
-        "title": "Érkezés",
-        "detail": "dátum kiválasztása"
+        "title": "Válasszon dátumot"
       },
       "departure": {
         "title": "Távozás",
@@ -289,7 +288,7 @@
   },
   "contact": {
     "hero": {
-      "title": "Várjuk ötleteit luxus szállásunkon, ahol kiemelkedő szolgáltatásban és személyre szabott figyelemben részesül. Kérdéseivel forduljon hozzánk bizalommal."
+      "title": "Kérdéseivel forduljon hozzánk bizalommal."
     },
     "form": {
       "name": {

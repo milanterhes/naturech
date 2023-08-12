@@ -55,8 +55,8 @@ export const BookSchema = z.object({
 export type BookInput = z.infer<typeof BookSchema>;
 
 export const GetQuoteSchema = z.object({
-  startDate: z.string().nonempty(),
-  endDate: z.string().nonempty(),
+  startDate: z.number(),
+  endDate: z.number(),
   paymentKind: z.nativeEnum(Payment),
 });
 
@@ -212,8 +212,8 @@ export class BookingService {
 
     if (paymentKind === Payment.CASH) {
       return {
-        deposit: totalCost * 0.2,
-        cash: totalCost * 0.8,
+        deposit: totalCost * 0.5,
+        cash: totalCost * 0.5,
       };
     }
 

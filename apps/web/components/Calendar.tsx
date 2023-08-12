@@ -1,90 +1,124 @@
-import { useEffect, useState } from "react";
-import { trpc } from "../utils/trpc";
-import Calendar from "react-calendar";
+import * as React from "react";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import { addDays, format } from "date-fns";
+import { DateRange, SelectRangeEventHandler } from "react-day-picker";
 import moment from "moment-timezone";
+import { trpc } from "../utils/trpc";
 import { useDateSelector } from "./DateSelector";
-import { TileDisabledFunc } from "react-calendar/dist/cjs/shared/types";
+import { cn } from "./ui/lib/utils";
+import { Button } from "./ui/button";
+import { Calendar } from "./ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-interface CalendarWrapperProps {
-  setShowCalendar: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const enumerateDaysBetweenDates = function (
+  startDate: moment.Moment,
+  endDate: moment.Moment
+) {
+  const now = startDate.clone();
+  const dates: Date[] = [];
 
-const CalendarWrapper: React.FC<CalendarWrapperProps> = ({
+  while (now.isSameOrBefore(endDate)) {
+    dates.push(now.toDate());
+    now.add(1, "days");
+  }
+  return dates;
+};
+
+export function DatePickerWithRange({
+  className,
   setShowCalendar,
-}) => {
-  const [shouldDisplay, setShouldDisplay] = useState(false);
-  const { endDate, startDate, setDates } = useDateSelector();
-
-  useEffect(() => {
-    // making sure that the calendar is not displayed server side
-    setShouldDisplay(true);
-  }, []);
-
+  setShowModalPage,
+}: React.HTMLAttributes<HTMLDivElement> & {
+  setShowCalendar?: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowModalPage: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const { data: bookings } = trpc.booking.getBookings.useQuery();
+  const { startDate, endDate, setDates } = useDateSelector();
+  const date = { to: endDate?.toDate(), from: startDate?.toDate() };
 
-  const tileDisabled: TileDisabledFunc = ({ date, view }) => {
-    if (view === "month") {
-      const target = moment(date).hours(14);
-      const isBooked = bookings?.some((booking) => {
-        const start = moment(booking.startDate);
-        const end = moment(booking.endDate);
+  const tileDisabled: (date: Date) => boolean = (date) => {
+    const target = moment(date).hours(14);
+    const isBooked = bookings?.some((booking) => {
+      const start = moment(booking.startDate);
+      const end = moment(booking.endDate);
 
-        console.log({
-          s: start.format("llll"),
-          e: end.format("llll"),
-          t: target.format("llll"),
-        });
-
-        return target.isBetween(start, end, "minutes", "[]");
-      });
-      return Boolean(isBooked);
-    }
-    return false;
+      return target.isBetween(start, end, "minutes", "[]");
+    });
+    return Boolean(isBooked);
   };
 
-  const handleDateChange = (newDates: [Date, Date]) => {
-    const differenceInDays = Math.round(
-      Math.abs(
-        (newDates[0].getTime() - newDates[1].getTime()) / (24 * 60 * 60 * 1000)
-      )
-    );
-    if (differenceInDays < 3) {
-      alert("Legalább két éjszaka tartózkodás szükséges!");
+  const handleDateChange: SelectRangeEventHandler = (range) => {
+    if (range?.from === undefined) return;
+
+    const start = moment(range.from).hour(14).minute(0).tz("Europe/Budapest");
+
+    if (start.isBefore(new Date(), "day")) {
       return;
     }
 
-    const start = moment(newDates[0]).hour(14).minute(0).tz("Europe/Budapest");
-    const end = moment(newDates[1]).hour(12).minute(0).tz("Europe/Budapest");
+    if (range.to) {
+      const differenceInDays = Math.abs(
+        moment.duration(start.hour(0).diff(moment(range.to))).asDays()
+      );
+      if (differenceInDays < 2) {
+        setDates(start, null);
+        return;
+      }
+      const end = moment(range.to).hour(12).minute(0).tz("Europe/Budapest");
+      const days = enumerateDaysBetweenDates(start, end);
+
+      if (days.some((day) => tileDisabled(day))) {
+        console.log("lol rekt");
+        return;
+      }
+    }
+
+    const end = range.to
+      ? moment(range.to).hour(12).minute(0).tz("Europe/Budapest")
+      : null;
 
     setDates(start, end);
-    setShowCalendar(false);
+    if (setShowCalendar) setShowCalendar(false);
   };
 
-  if (!shouldDisplay) return null;
-
   return (
-    <div
-      className="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-40"
-      onClick={(e) => e.target === e.currentTarget && setShowCalendar(false)}
-    >
-      <div className="flex items-center justify-center overflow-hidden rounded-lg">
-        <div className="w-full">
+    <div className={cn("grid gap-2 text-main-theme", className)}>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button
+            id="date"
+            variant={"outline"}
+            className={cn(
+              "w-full 2xl:h-[3rem] justify-start text-left font-normal",
+              !date && "text-muted-foreground"
+            )}
+          >
+            <CalendarIcon className="mr-2 h-4 w-4" />
+            {date?.from ? (
+              date.to ? (
+                <>
+                  {format(date.from, "LLL dd, y")} -{" "}
+                  {format(date.to, "LLL dd, y")}
+                </>
+              ) : (
+                format(date.from, "LLL dd, y")
+              )
+            ) : (
+              <span>Válasszon dátumot</span>
+            )}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
           <Calendar
-            tileDisabled={tileDisabled}
-            tileClassName={(props) =>
-              tileDisabled(props) ? "line-through opacity-70 text-gray-500" : ""
-            }
-            returnValue="range"
-            selectRange
-            onChange={handleDateChange}
-            onViewChange={console.log}
-            className={"text-secondary-theme"}
-            value={[startDate?.toDate() ?? null, endDate?.toDate() ?? null]}
+            initialFocus
+            mode="range"
+            defaultMonth={date?.from}
+            selected={date}
+            onSelect={handleDateChange}
+            disabled={tileDisabled}
           />
-        </div>
-      </div>
+        </PopoverContent>
+      </Popover>
     </div>
   );
-};
-
-export default CalendarWrapper;
+}

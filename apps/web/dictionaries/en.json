@@ -97,8 +97,7 @@
     },
     "introcard": {
       "arrival": {
-        "title": "Arrival",
-        "detail": "select a date"
+        "title": "Pick a Date"
       },
       "departure": {
         "title": "Departure",
@@ -250,8 +249,7 @@
       },
       "page2": {
         "date": {
-          "arrival": "Arrival",
-          "departure": "Departure"
+          "arrival": "Arrival"
         },
         "house": {
           "title": "Selected house:"
@@ -289,7 +287,7 @@
   },
   "contact": {
     "hero": {
-      "title": "Your ideas are welcomed at our luxury accommodations, where exceptional service and personalized attention await. Feel free to reach out with inquiries."
+      "title": "Feel free to reach out with inquiries."
     },
     "form": {
       "name": {

@@ -83,7 +83,6 @@ interface ProfileFormProps {
   setShowModalPage: React.Dispatch<React.SetStateAction<boolean>>;
   onNextPage: () => void;
   setGuests: React.Dispatch<React.SetStateAction<number>>;
-  totalPrice: number;
 }
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({
@@ -91,14 +90,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
   setShowModalPage,
   onNextPage,
   setGuests,
-  totalPrice,
 }) => {
   const t = useTranslations();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
-  const { endDate, startDate } = useDateSelector();
+  const { endDate, startDate, totalCost } = useDateSelector();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -117,24 +115,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 rounded-xl bg-white p-4 text-black drop-shadow-[0px_5px_2px_rgba(0,0,0,0.4)] backdrop-blur-[2px] backdrop-filter sm:space-y-5 sm:p-6 max-h-screen overflow-auto w-10/12 sm:w-max"
-      >
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-          <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
-            <p className="mr-1 font-semibold">
-              {t("booking.bookingmodal.page1.date.arrival")}:
-            </p>
-            <p>{startDate?.format("ll")}</p>
-          </div>
-          <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
-            <p className="mr-1 font-semibold">
-              {t("booking.bookingmodal.page1.date.departure")}:
-            </p>
-            <p>{endDate?.format("ll")}</p>
-          </div>
-        </div>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="text-black">
         <div className="flex flex-col items-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
           <div className="md:w-42 md:h-42 h-24 w-24 overflow-hidden rounded-full sm:h-28 sm:w-28">
             <Image
@@ -148,6 +129,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
           <h2 className="text-lg font-semibold sm:text-xl">
             {t("booking.bookingmodal.page1.main.title")}
           </h2>
+        </div>
+        <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
+          <p>
+            {startDate?.format("ll")} - {endDate?.format("ll")}
+          </p>
         </div>
         <div>
           <Table>
@@ -176,7 +162,9 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                     </div>
                   </FormItem>
                 </TableCell>
-                <TableCell className="font-medium">{totalPrice}HUF</TableCell>
+                <TableCell className="font-medium">
+                  {totalCost.amount.deposit}HUF
+                </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell>
@@ -223,7 +211,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>
+                <TableCell className="w-full">
                   <FormField
                     control={form.control}
                     name="paymentType"
@@ -233,7 +221,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           field.onChange(value as "fullPrice" | "halfPrice")
                         }
                         defaultValue={field.value}
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-4 justify-items-start sm:justify-items-center"
+                        className="flex justify-between"
                       >
                         <Label
                           htmlFor="fullPrice"
@@ -248,7 +236,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                             "booking.bookingmodal.page1.fullhalfpriceselect.fullprice"
                           )}{" "}
                           <br /> <br />
-                          {totalPrice} HUF
+                          {totalCost.amount.deposit} HUF
                         </Label>
                         <Label
                           htmlFor="halfPrice"
@@ -264,7 +252,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           )}{" "}
                           <br />
                           <br />
-                          {totalPrice / 2} HUF
+                          {totalCost.amount.deposit * 0.5} HUF
                         </Label>
                         <FormMessage />
                       </RadioGroup>
@@ -274,7 +262,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
               </TableRow>
             </TableBody>
           </Table>
-          <div className="mt-24 flex flex-col justify-between space-y-4 sm:mt-20 sm:flex-row sm:space-y-0">
+          <div className="mt-5 flex justify-between gap-2">
             <Button
               type="submit"
               className="w-full sm:w-auto"
@@ -322,13 +310,11 @@ const formSchemaPage2 = z.object({
 type ProfileFormPage2Props = {
   onPrevPage: () => void;
   guests: number;
-  totalPrice: number;
 };
 
 export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
   onPrevPage,
   guests,
-  totalPrice,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -337,7 +323,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
     resolver: zodResolver(formSchemaPage2),
     defaultValues: {},
   });
-  const { endDate, startDate } = useDateSelector();
+  const { endDate, startDate, totalCost } = useDateSelector();
   if (isSubmitted) {
     return <p>Thank you for your submission!</p>;
   }
@@ -379,11 +365,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(test)}
-        className="max-h-screen w-10/12 space-y-4 overflow-auto rounded-xl bg-white p-4 text-black drop-shadow-[0px_5px_2px_rgba(0,0,0,0.4)] backdrop-blur-[2px] backdrop-filter sm:w-max sm:space-y-5 sm:p-6"
-      >
-        {" "}
+      <form onSubmit={form.handleSubmit(test)}>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
           <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
             <p className="mr-1 font-semibold">
@@ -392,9 +374,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
             <p>{startDate?.format("ll")}</p>
           </div>
           <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
-            <p className="mr-1 font-semibold">
-              {t("booking.bookingmodal.page2.date.departure")}:
-            </p>
+            <p className="mr-1 font-semibold">asd</p>
             <p>{endDate?.format("ll")}</p>
           </div>
         </div>
@@ -405,7 +385,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
           </div>
           <div className="flex flex-col rounded-md bg-gray-300 p-3">
             <h2>{t("booking.bookingmodal.page2.price.title")}</h2>
-            <span>{totalPrice} HUF</span>
+            <span>{totalCost.amount.deposit} HUF</span>
           </div>
           <div className="flex flex-col rounded-md bg-gray-300 p-3">
             <h2>{t("booking.bookingmodal.page2.guests.title")}</h2>

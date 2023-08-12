@@ -6,7 +6,6 @@ import faq from "../data/faq";
 import guestInfo from "../data/guestInfo";
 import services from "../data/services";
 import bookingherobg from "../public/bookingherobg.webp";
-import { MagnifyingGlassCircleIcon } from "@heroicons/react/24/outline";
 import { FC } from "react";
 import {
   Accordion,
@@ -16,13 +15,22 @@ import {
 } from "../components/ui/accordion";
 import { AnimatePresence, motion } from "framer-motion";
 import { useDateSelector } from "./DateSelector";
+import { DatePickerWithRange } from "./Calendar";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import { ProfileForm, ProfileFormPage2 } from "./BookingForm";
 
 type IconTextProps = {
   imgWidth: number;
   imgHeight: number;
   title: string;
   subtitle: string;
-  onClick?: () => void;
   d: string;
   pathLength?: number;
 };
@@ -34,17 +42,16 @@ const IconText: React.FC<IconTextProps> = ({
   imgHeight,
   title,
   subtitle,
-  onClick,
 }) => {
   return (
-    <div className="relative flex items-center space-x-1" onClick={onClick}>
+    <div className="relative flex space-x-1">
       <svg
         viewBox="0 0 10 10"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         width={imgWidth}
         height={imgHeight}
-        className="h-6 w-6 cursor-pointer self-start md:h-8 md:w-8 lg:h-10 lg:w-10 xl:h-12 xl:w-12"
+        className="h-6 w-6 self-start md:h-8 md:w-8 lg:h-10 lg:w-10 xl:h-12 xl:w-12"
       >
         <path
           d={d}
@@ -59,30 +66,25 @@ const IconText: React.FC<IconTextProps> = ({
         />
       </svg>
 
-      <div className="flex h-full flex-col">
+      <div className="flex h-full flex-col items-center justify-center">
         <h3 className="text-sm font-bold sm:text-lg md:text-xl xl:text-2xl">
           {title}
         </h3>
-        <small className="md:text-md text-[0.5rem] text-sm xl:text-lg">
-          {subtitle}
-        </small>
       </div>
     </div>
   );
 };
 
-interface BookingMainProps {
-  onIconTextClick: () => void;
-  showModalPage: boolean;
-  setShowModalPage: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export const BookingMain: FC<BookingMainProps> = ({
-  onIconTextClick,
-  setShowModalPage,
-}) => {
+export const BookingMain = () => {
   const t = useTranslations();
   const { endDate, startDate } = useDateSelector();
+  const [showModalPage, setShowModalPage] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [guests, setGuests] = useState(3);
+
+  const handleNextPage = () => setCurrentPage((prev) => prev + 1);
+  const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);
+
   return (
     <AnimatePresence>
       <div className="relative flex flex-col items-center bg-[url('/bookingbg.webp')] bg-cover bg-top pt-[80px]">
@@ -125,72 +127,60 @@ export const BookingMain: FC<BookingMainProps> = ({
               duration: 0.75,
             }}
           >
-            <div className="flex w-full justify-around gap-4 sm:justify-center md:gap-3">
-              <IconText
-                d="M3.22222 2.77778V1M6.77778 2.77778V1M2.77778 4.55556H7.22222M1.88889 9H8.11111C8.34686 9 8.57295 8.90635 8.73965 8.73965C8.90635 8.57295 9 8.34686 9 8.11111V2.77778C9 2.54203 8.90635 2.31594 8.73965 2.14924C8.57295 1.98254 8.34686 1.88889 8.11111 1.88889H1.88889C1.65314 1.88889 1.42705 1.98254 1.26035 2.14924C1.09365 2.31594 1 2.54203 1 2.77778V8.11111C1 8.34686 1.09365 8.57295 1.26035 8.73965C1.42705 8.90635 1.65314 9 1.88889 9Z"
-                pathLength={36.696}
-                imgWidth={50}
-                imgHeight={50}
-                title={t("booking.introcard.arrival.title")}
-                subtitle={
-                  startDate
-                    ? startDate.format("ll")
-                    : t("booking.introcard.arrival.detail")
-                }
-                onClick={onIconTextClick}
-                aria-label="Change date"
-              />
-              <IconText
-                d="M3.22222 2.77778V1M6.77778 2.77778V1M2.77778 4.55556H7.22222M1.88889 9H8.11111C8.34686 9 8.57295 8.90635 8.73965 8.73965C8.90635 8.57295 9 8.34686 9 8.11111V2.77778C9 2.54203 8.90635 2.31594 8.73965 2.14924C8.57295 1.98254 8.34686 1.88889 8.11111 1.88889H1.88889C1.65314 1.88889 1.42705 1.98254 1.26035 2.14924C1.09365 2.31594 1 2.54203 1 2.77778V8.11111C1 8.34686 1.09365 8.57295 1.26035 8.73965C1.42705 8.90635 1.65314 9 1.88889 9Z"
-                pathLength={36.696}
-                imgWidth={50}
-                imgHeight={50}
-                title={t("booking.introcard.arrival.title")}
-                subtitle={
-                  endDate
-                    ? endDate.format("ll")
-                    : t("booking.introcard.arrival.detail")
-                }
-                onClick={onIconTextClick}
-                aria-label="Change date"
-              />
+            <div className="flex flex-col w-full justify-center items-center">
+              <DatePickerWithRange setShowModalPage={setShowModalPage} />
             </div>
-            <motion.button
-              aria-label="Search Dates"
-              initial={{ y: 25, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                delay: 0.6,
-                duration: 0.75,
-              }}
-              onClick={() => {
-                if (startDate && endDate) {
-                  setShowModalPage(true);
-                } else {
-                  onIconTextClick();
-                }
-              }}
+            <Dialog
+              open={showModalPage}
+              onOpenChange={(open) => setShowModalPage(open)}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  style={{
-                    strokeDasharray: 81.292,
-                    strokeDashoffset: 81.292,
-                    animation: `draw 3s ease-in-out forwards`,
+              <DialogTrigger>
+                <motion.button
+                  aria-label="Search Dates"
+                  initial={{ y: 25, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{
+                    delay: 0.6,
+                    duration: 0.75,
                   }}
-                />
-              </svg>
-            </motion.button>
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.75 15.75l-2.489-2.489m0 0a3.375 3.375 0 10-4.773-4.773 3.375 3.375 0 004.774 4.774zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      style={{
+                        strokeDasharray: 81.292,
+                        strokeDashoffset: 81.292,
+                        animation: `draw 3s ease-in-out forwards`,
+                      }}
+                    />
+                  </svg>
+                </motion.button>
+              </DialogTrigger>
+              <DialogContent className="overflow-scroll max-h-[85%] max-w-[95%]">
+                {currentPage === 1 ? (
+                  <ProfileForm
+                    showModalPage={showModalPage}
+                    setShowModalPage={setShowModalPage}
+                    onNextPage={handleNextPage}
+                    setGuests={setGuests}
+                  />
+                ) : (
+                  <ProfileFormPage2
+                    onPrevPage={handlePreviousPage}
+                    guests={guests}
+                  />
+                )}
+              </DialogContent>
+            </Dialog>
           </motion.section>
         </div>
 

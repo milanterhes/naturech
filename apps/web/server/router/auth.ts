@@ -1,5 +1,3 @@
-import { getSanitizedConfig } from "@naturechill/utils";
-import { Resend } from "resend";
 import { z } from "zod";
 import { prisma } from "../prisma";
 import { LoginEmail } from "@naturechill/emails";
@@ -9,6 +7,7 @@ import { getBaseUrl } from "../../utils/trpc";
 import { TRPCError } from "@trpc/server";
 import { t } from "../trpc";
 import resend from "../../utils/resend";
+import logo from "../../public/naturechill-logo.png";
 
 interface LoginEmailInput {
   to: string;
@@ -22,6 +21,7 @@ function sendLoginEmail({ to, token, lang }: LoginEmailInput) {
     to,
     subject: "Login to NatureChill",
     react: LoginEmail({
+      logo: `${getBaseUrl()}/${logo.src}`,
       button: "Login",
       link: `${getBaseUrl()}/api/auth/callback?token=` + token,
       content: "Click the button below to login to NatureChill",

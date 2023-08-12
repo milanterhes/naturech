@@ -297,27 +297,21 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
   onPrevPage,
   guests,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const locale = useLocale();
   const t = useTranslations();
   const form = useForm<z.infer<typeof formSchemaPage2>>({
     resolver: zodResolver(formSchemaPage2),
     defaultValues: {},
   });
   const { endDate, startDate, totalCost } = useDateSelector();
-  if (isSubmitted) {
-    return <p>Thank you for your submission!</p>;
-  }
 
   const trpcUtils = trpc.useContext();
 
-  const { mutateAsync: book, data } = trpc.booking.book.useMutation({
+  const { mutateAsync: book, isLoading } = trpc.booking.book.useMutation({
     onSettled: () => {
       trpcUtils.booking.getBookings.invalidate();
     },
   });
-
-  const locale = useLocale();
 
   const submitHandler: SubmitHandler<z.infer<typeof formSchemaPage2>> = async (
     data

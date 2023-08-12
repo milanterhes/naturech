@@ -8,16 +8,7 @@ import { Locale } from "../../i18n-config";
 import { getBaseUrl } from "../../utils/trpc";
 import { TRPCError } from "@trpc/server";
 import { t } from "../trpc";
-
-interface Env {
-  RESEND_API_KEY: string;
-}
-
-const config = getSanitizedConfig<Env>({
-  RESEND_API_KEY: process.env.RESEND_API_KEY ?? "",
-});
-
-const resend = new Resend(config.RESEND_API_KEY);
+import resend from "../../utils/resend";
 
 interface LoginEmailInput {
   to: string;
@@ -27,7 +18,7 @@ interface LoginEmailInput {
 
 function sendLoginEmail({ to, token, lang }: LoginEmailInput) {
   return resend.sendEmail({
-    from: "onboarding@resend.dev", // TODO
+    from: "Nature & Chill Treehouses <info@naturechill.hu>",
     to,
     subject: "Login to NatureChill",
     react: LoginEmail({

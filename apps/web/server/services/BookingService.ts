@@ -2,6 +2,7 @@ import { Payment, BookingStatus } from "@naturechill/db";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { prisma } from "../prisma";
+import moment from "moment-timezone";
 
 // 3 months and 1 day
 const maxDateRange = 1000 * 60 * 60 * 24 * 92;
@@ -50,6 +51,8 @@ export const BookSchema = z.object({
   startDate: z.date(),
   endDate: z.date(),
   paymentKind: z.nativeEnum(Payment),
+  email: z.string().email(),
+  sessionId: z.string(),
 });
 
 export type BookInput = z.infer<typeof BookSchema>;
@@ -96,7 +99,8 @@ export class BookingService {
     endDate,
     paymentKind,
     email,
-  }: BookInput & { email: string }) {
+    sessionId,
+  }: BookInput) {
     const existingBooking = await prisma.booking.findFirst({
       where: {
         AND: [
@@ -138,11 +142,11 @@ export class BookingService {
         status: BookingStatus.PENDING,
         payment: paymentKind,
         paymentAmount: BookingService.calculateTotalCost(
-          new Date(startDate),
-          new Date(endDate),
+          moment(startDate),
+          moment(endDate),
           paymentKind
         ),
-        sessionId: "ASJOKBDPAOJBSDPJOLBAPSJOKDBPJOKLABSDSPJKLBD",
+        sessionId,
       },
       select: {
         endDate: true,
@@ -160,8 +164,8 @@ export class BookingService {
   static async getQuote(input: GetQuoteInput) {
     const { startDate, endDate, paymentKind } = input;
     const totalCost = BookingService.calculateTotalCost(
-      new Date(startDate),
-      new Date(endDate),
+      moment(startDate),
+      moment(endDate),
       paymentKind
     );
 
@@ -171,43 +175,41 @@ export class BookingService {
   }
 
   static calculateTotalCost(
-    startDate: Date,
-    endDate: Date,
+    startDate: moment.Moment,
+    endDate: moment.Moment,
     paymentKind: Payment
   ) {
     let totalCost = 0;
 
     const specialHolidays = [
-      new Date(startDate.getFullYear(), 11, 25), // Christmas
-      new Date(startDate.getFullYear(), 11, 31), // New Year's Eve
+      moment(`${startDate.year()}1125`, "YYYYMMDD"), // Christmas
+      moment(`${startDate.year()}1131`, "YYYYMMDD"), // New Year's Eve
       // Placeholder for Easter (this requires additional logic based on the year)
-      new Date(startDate.getFullYear(), 3, 4),
-      new Date(startDate.getFullYear(), 7, 20), // August 20th
+      moment(`${startDate.year()}0304`, "YYYYMMDD"),
+      moment(`${startDate.year()}0720`, "YYYYMMDD"), // August 20th
     ];
     const specialHolidaysRate = 80000;
 
-    const currentDate = new Date(startDate);
-    while (currentDate < endDate) {
-      const currentDayOfWeek = currentDate.getDay();
+    const currentDate = startDate.clone();
+    while (currentDate.isBefore(endDate, "day")) {
+      const currentDayOfWeek = currentDate.day();
 
       // Check if the date is a special holiday
       if (
-        specialHolidays.some(
-          (holiday) =>
-            holiday.getDate() === currentDate.getDate() &&
-            holiday.getMonth() === currentDate.getMonth()
-        )
+        specialHolidays.some((holiday) => holiday.isSame(currentDate, "day"))
       ) {
+        console.log("adding special");
         totalCost += specialHolidaysRate;
       } else {
         const nightlyRate =
           currentDayOfWeek >= 1 && currentDayOfWeek <= 4
             ? weekdaysNightlyRate
             : weekendsNightlyRate;
+        console.log("adding nightly", nightlyRate);
         totalCost += nightlyRate;
       }
 
-      currentDate.setDate(currentDate.getDate() + 1);
+      currentDate.add(1, "day");
     }
 
     if (paymentKind === Payment.CASH) {

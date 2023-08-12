@@ -1,7 +1,8 @@
 import { buffer } from "micro";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
-import { PrismaClient, BookingStatus } from "@naturechill/db";
+import { BookingStatus } from "@naturechill/db";
+import { prisma } from "../../../server/prisma";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
@@ -43,11 +44,15 @@ export default async function handler(
         `Received checkout.session.completed event for session ${session}`
       );
 
-      const prisma = new PrismaClient();
+      const paymentIntentId =
+        typeof session.payment_intent === "string"
+          ? session.payment_intent
+          : null;
+
       try {
         await prisma.booking.update({
           where: { sessionId: session.id },
-          data: { status: BookingStatus.CONFIRMED },
+          data: { status: BookingStatus.CONFIRMED, paymentIntentId },
         });
 
         console.log(`Booking updated for session ${session.id}`);

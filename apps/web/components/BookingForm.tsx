@@ -1,31 +1,29 @@
-import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { useState } from "react";
-import { Checkbox } from "../components/ui/checkbox";
-import { Label } from "./ui/label";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "../components/ui/select";
 import Image from "next/image";
-import { Textarea } from "./ui/textarea";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import * as z from "zod";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "../components/ui//table";
+import { Checkbox } from "../components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
+import { Label } from "./ui/label";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
+import { useLocale, useTranslations } from "next-intl";
+import React from "react";
 import { Button } from "../components/ui/button";
 import {
   Form,
@@ -36,13 +34,11 @@ import {
   FormLabel,
   FormMessage,
 } from "../components/ui/form";
-import React from "react";
 import { Input } from "./ui/input";
-import { useTranslations } from "next-intl";
 
+import { Payment } from "@naturechill/db";
 import { loadStripe } from "@stripe/stripe-js";
 import { trpc } from "../utils/trpc";
-import { Payment } from "@naturechill/db";
 import { useDateSelector } from "./DateSelector";
 
 let required_guestError_message = "Nincs kiválasztva a vendégek száma.";
@@ -284,23 +280,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
 };
 
 const formSchemaPage2 = z.object({
-  fullname: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
   email: z.string().email({
     message: "Please enter a valid email address.",
-  }),
-  street: z.string().min(2, {
-    message: "Street must be at least 2 characters.",
-  }),
-  city: z.string().min(2, {
-    message: "City must be at least 2 characters.",
-  }),
-  phoneNumber: z.string().regex(/^[0-9]+$/, {
-    message: "Phone number can only contain numbers.",
-  }),
-  country: z.string().min(2, {
-    message: "Country must be at least 2 characters.",
   }),
   terms: z.boolean().refine((value) => value === true, {
     message: "You must accept the terms and conditions.",
@@ -336,13 +317,20 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
     },
   });
 
-  async function test() {
+  const locale = useLocale();
+
+  const submitHandler: SubmitHandler<z.infer<typeof formSchemaPage2>> = async (
+    data
+  ) => {
+    const { email } = data;
     if (endDate && startDate) {
       const sessionId = await book({
         endDate: endDate.valueOf(),
         startDate: startDate.valueOf(),
         paymentKind: Payment.CARD,
         guests,
+        email,
+        locale: locale as "en" | "de" | "hu",
       });
 
       const stripe = await loadStripe(
@@ -361,22 +349,15 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
         console.log("Stripe is not loaded");
       }
     }
-  }
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(test)}>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-          <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
-            <p className="mr-1 font-semibold">
-              {t("booking.bookingmodal.page2.date.arrival")}:
-            </p>
-            <p>{startDate?.format("ll")}</p>
-          </div>
-          <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
-            <p className="mr-1 font-semibold">asd</p>
-            <p>{endDate?.format("ll")}</p>
-          </div>
+      <form onSubmit={form.handleSubmit(submitHandler)}>
+        <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
+          <p>
+            {startDate?.format("ll")} - {endDate?.format("ll")}
+          </p>
         </div>
         <div className="flex w-full flex-col items-stretch space-y-6 sm:flex-row sm:space-x-4 sm:space-y-0">
           <div className="flex flex-col rounded-md bg-gray-300 p-3">
@@ -393,134 +374,23 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
           </div>
         </div>
         <div className="flex flex-col items-center justify-center">
-          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 w-full md:w-max">
-            <FormField
-              control={form.control}
-              name="fullname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("booking.bookingmodal.page2.form.name")}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      aria-label="Full Name"
-                      className="border-main-theme bg-white"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("booking.bookingmodal.page2.form.email")}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      aria-label="Email"
-                      className="border-main-theme bg-white"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 w-full md:w-max">
-            <FormField
-              control={form.control}
-              name="street"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("booking.bookingmodal.page2.form.street")}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      aria-label="Street"
-                      className="border-main-theme bg-white"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="city"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("booking.bookingmodal.page2.form.city")}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      aria-label="City"
-                      className="border-main-theme bg-white"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div className="flex flex-col space-y-4 md:flex-row md:space-x-4 md:space-y-0 w-full md:w-max">
-            <FormField
-              control={form.control}
-              name="phoneNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("booking.bookingmodal.page2.form.phone")}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      aria-label="Phone Number"
-                      className="border-main-theme bg-white"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="country"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    {t("booking.bookingmodal.page2.form.country")}
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      aria-label="Country"
-                      className="border-main-theme bg-white"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
           <FormField
             control={form.control}
-            name="fullname"
+            name="email"
             render={({ field }) => (
-              <Textarea
-                placeholder={t("booking.bookingmodal.page2.form.textarea")}
-                className="my-10 w-full border-main-theme bg-white"
-              />
+              <FormItem>
+                <FormLabel>
+                  {t("booking.bookingmodal.page2.form.email")}
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    aria-label="Email"
+                    className="border-main-theme bg-white"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
           />
           <FormField

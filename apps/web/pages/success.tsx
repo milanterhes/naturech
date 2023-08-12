@@ -1,6 +1,46 @@
+import { GetServerSideProps, NextPage } from "next";
 import React from "react";
+import { prisma } from "../server/prisma";
+import { Booking } from "@naturechill/db";
 
-export default function success() {
+const sessionKey = "session_id";
+
+type PageProps = {
+  booking: Pick<Booking, "id" | "payment" | "paymentAmount" | "sessionId">;
+};
+
+export const getServerSideProps: GetServerSideProps<PageProps> = async ({
+  query,
+}) => {
+  if (
+    !query.hasOwnProperty(sessionKey) ||
+    !query[sessionKey] ||
+    typeof query[sessionKey] !== "string"
+  ) {
+    throw new Error("Missing session id");
+  }
+  const sessionId = query[sessionKey];
+
+  const booking = await prisma.booking.findUnique({
+    where: {
+      sessionId,
+    },
+    select: {
+      id: true,
+      payment: true,
+      paymentAmount: true,
+      sessionId: true,
+    },
+  });
+
+  if (!booking) {
+    throw new Error("Booking not found");
+  }
+
+  return { props: { booking } };
+};
+
+const SuccessPage: NextPage<PageProps> = ({ booking }) => {
   return (
     <div className="h-screen flex flex-col justify-center items-center">
       <div className="flex items-center space-x-2 mb-4">
@@ -16,15 +56,15 @@ export default function success() {
         <tbody>
           <tr>
             <td className="pr-4">Foglalás száma:</td>
-            <td>ABC123</td>
+            <td>{booking.id}</td>
           </tr>
           <tr>
             <td className="pr-4">Fizetési mód:</td>
-            <td>MASTERCARD</td>
+            <td>{booking.payment === "CARD" ? "Kartya" : "Eloleg"}</td>
           </tr>
           <tr>
-            <td className="pr-4">Teljes összeg:</td>
-            <td>120.000 Ft</td>
+            <td className="pr-4">Fizetett összeg:</td>
+            <td>{booking.paymentAmount.deposit} Ft</td>
           </tr>
         </tbody>
       </table>
@@ -38,4 +78,6 @@ export default function success() {
       </div>
     </div>
   );
-}
+};
+
+export default SuccessPage;

@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
 import { PrismaClient } from "@naturechill/db";
+import { prisma } from "../../../server/prisma";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
@@ -34,12 +35,13 @@ export default async function handler(
         cancel_url: `${req.headers.origin}/cancel?session_id={CHECKOUT_SESSION_ID}`,
         customer_email: email,
       });
-      const prisma = new PrismaClient();
+
       await prisma.user.upsert({
         where: { email: email },
         update: {},
         create: { email: email },
       });
+
       const newBooking = await prisma.booking.create({
         data: {
           startDate: new Date(startDate),

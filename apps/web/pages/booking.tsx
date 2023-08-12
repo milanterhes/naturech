@@ -1,13 +1,8 @@
 import { GetStaticProps, NextPage } from "next";
+import { useEffect } from "react";
 import { BookingMain } from "../components/Booking";
+import { DateSelectorProvider } from "../components/DateSelector";
 import { Footer, Navbar } from "../components/Home";
-import { useState, useEffect } from "react";
-import { DatePickerWithRange } from "../components/Calendar";
-import { ProfileForm, ProfileFormPage2 } from "../components/BookingForm";
-import {
-  DateSelectorProvider,
-  useDateSelector,
-} from "../components/DateSelector";
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;

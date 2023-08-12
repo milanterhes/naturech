@@ -338,69 +338,42 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
     defaultValues: {},
   });
   const { endDate, startDate } = useDateSelector();
-
-  async function onSubmitPage2(values: z.infer<typeof formSchemaPage2>) {
-    setIsLoading(true);
-    console.log(values);
-
-    const { email } = values;
-
-    const response = await fetch("/api/stripe/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        house1: true,
-        guests,
-        endDate: endDate?.toISOString(),
-        startDate: startDate?.toISOString(),
-      }),
-    });
-    const { sessionId } = await response.json();
-
-    const stripe = await loadStripe(
-      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-    );
-
-    if (stripe) {
-      const result = await stripe.redirectToCheckout({
-        sessionId,
-      });
-
-      if (result.error) {
-        alert(result.error.message);
-      }
-    } else {
-      console.log("Stripe is not loaded");
-    }
-
-    // Simulate a network request.
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsLoading(false);
-    form.reset();
-    setIsSubmitted(true);
-  }
   if (isSubmitted) {
     return <p>Thank you for your submission!</p>;
   }
 
   const trpcUtils = trpc.useContext();
 
-  const { mutate, data } = trpc.booking.book.useMutation({
+  const { mutateAsync: book, data } = trpc.booking.book.useMutation({
     onSettled: () => {
       trpcUtils.booking.getBookings.invalidate();
     },
   });
 
-  function test() {
+  async function test() {
     if (endDate && startDate) {
-      mutate({
+      const sessionId = await book({
         endDate: endDate.valueOf(),
         startDate: startDate.valueOf(),
         paymentKind: Payment.CARD,
+        guests,
       });
+
+      const stripe = await loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+      );
+
+      if (stripe) {
+        const result = await stripe.redirectToCheckout({
+          sessionId,
+        });
+
+        if (result.error) {
+          alert(result.error.message);
+        }
+      } else {
+        console.log("Stripe is not loaded");
+      }
     }
   }
 

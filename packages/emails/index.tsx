@@ -71,14 +71,14 @@ export const LoginEmail = ({ link, logo, locale }: LoginEmailProps) => {
   });
   return (
     <Wrapper logo={logo} locale={locale}>
-      <div className="flex flex-col items-center gap-4">
-        <h1 className="text-3xl font-bold text-white">
+      <div className="text-center">
+        <h1 className="text-3xl font-bold text-white mt-2">
           {t("email.login.subject")}
         </h1>
-        <p className="text-white">{t("email.login.content")}</p>
+        <p className="text-white mt-2">{t("email.login.content")}</p>
         <Button
           href={link}
-          className="px-8 py-3 font-semibold rounded-xl bg-white text-main-theme shadow-highlight"
+          className="px-8 py-3 mt-2 font-semibold rounded-xl bg-white text-main-theme shadow-highlight"
         >
           {t("email.login.button")}
         </Button>

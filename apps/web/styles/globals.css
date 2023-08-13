@@ -7,3 +7,49 @@
     stroke-dashoffset: 0;
   }
 }
+
+@keyframes stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #4bb71b;
+  }
+}
+@keyframes ani-error-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes ani-error-circle {
+  0% {
+    stroke-dasharray: 0, 260.75219024795285px;
+    stroke-dashoffset: 0;
+  }
+  35% {
+    stroke-dasharray: 120px, 120px;
+    stroke-dashoffset: -120px;
+  }
+  70% {
+    stroke-dasharray: 0, 260.75219024795285px;
+    stroke-dashoffset: -260.75219024795285px;
+  }
+  100% {
+    stroke-dasharray: 260.75219024795285px, 0;
+    stroke-dashoffset: -260.75219024795285px;
+  }
+}

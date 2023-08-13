@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import {
@@ -105,7 +105,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     resolver: zodResolver(formSchema),
   });
 
-  const { endDate, startDate, totalCost } = useDateSelector();
+  const { endDate, startDate, totalCost, setBreakfast } = useDateSelector();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -226,7 +226,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                     render={({ field }) => (
                       <FormItem>
                         <Select
-                          onValueChange={field.onChange}
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            setBreakfast(value === "true");
+                          }}
                           defaultValue={field.value}
                         >
                           <FormControl>
@@ -416,7 +419,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
 
           <div className="flex flex-col rounded-md bg-gray-300 p-3 sm:w-1/3">
             <h2>{t("booking.bookingmodal.page2.price.title")}</h2>
-            <span>{totalCost.amount.deposit} HUF</span>
+            <span>{totalCost.amount.deposit + totalCost.amount.cash} HUF</span>
           </div>
 
           <div className="flex flex-col rounded-md bg-gray-300 p-3 sm:w-1/3">

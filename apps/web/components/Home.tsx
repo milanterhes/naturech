@@ -153,25 +153,7 @@ export const Navbar: React.FC = () => {
                     </Link>
                   </li>
                   <div className="divider" />
-                  <li>
-                    <a className="font-bold text-main-theme">
-                      <UserCircleIcon className="h-4 w-4" />
-                      {t("home.hamburger.signin")}
-                    </a>
-                  </li>
                 </ul>
-                {auth.user === null ? (
-                  <Login />
-                ) : (
-                  <>
-                    <p className="mt-4 text-sm text-gray-600">
-                      Logged in as {auth.user.email}
-                    </p>
-                    <button className="btn" onClick={auth.logout}>
-                      Logout np{" "}
-                    </button>
-                  </>
-                )}
               </div>
             </div>
           </div>
@@ -204,24 +186,6 @@ export const Navbar: React.FC = () => {
 
             <div className="flex items-center space-x-4">
               <LocaleSwitcher />
-              {auth.user === null ? (
-                <div className="flex items-center gap-1 font-bold text-white">
-                  <UserCircleIcon className="h-4 w-4" />
-                  {t("home.hamburger.signin")}
-                </div>
-              ) : (
-                <>
-                  <p className="mr-4 text-main-theme">
-                    Logged in as {auth.user.email}
-                  </p>
-                  <button
-                    className="btn rounded-md bg-main-theme px-4 py-1 text-white transition-colors duration-300 hover:bg-white hover:text-main-theme"
-                    onClick={auth.logout}
-                  >
-                    Logout
-                  </button>
-                </>
-              )}
             </div>
           </nav>
         </motion.div>

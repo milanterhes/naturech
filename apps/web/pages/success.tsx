@@ -2,6 +2,15 @@ import { GetServerSideProps, NextPage } from "next";
 import React from "react";
 import { prisma } from "../server/prisma";
 import { Booking } from "@naturechill/db";
+import Link from "next/link";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../components/ui//table";
 
 const sessionKey = "session_id";
 
@@ -43,38 +52,81 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
 const SuccessPage: NextPage<PageProps> = ({ booking }) => {
   return (
     <div className="h-screen flex flex-col justify-center items-center">
-      <div className="flex items-center space-x-2 mb-4">
-        <svg className="h-12 w-12 text-green-500" fill="currentColor">
-          <rect width="100%" height="100%" />
-        </svg>
-        <svg className="h-6 w-6 text-green-500" fill="currentColor">
-          <circle cx="50%" cy="50%" r="50%" />
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 52 52"
+          style={{
+            width: "100px",
+            height: "100px",
+            borderRadius: "50%",
+            display: "block",
+            strokeWidth: "2",
+            stroke: "#4bb71b",
+            strokeMiterlimit: "10",
+            boxShadow: "inset 0px 0px 0px #4bb71b",
+            animation:
+              "fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both",
+            position: "relative",
+            top: "5px",
+            right: "5px",
+            margin: "0 auto",
+          }}
+        >
+          <circle
+            cx="26"
+            cy="26"
+            r="25"
+            fill="none"
+            style={{
+              strokeDasharray: "166",
+              strokeDashoffset: "166",
+              strokeWidth: "2",
+              strokeMiterlimit: "10",
+              stroke: "#4bb71b",
+              fill: "#fff",
+              animation: "stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards",
+            }}
+          />
+          <path
+            fill="none"
+            d="M14.1 27.2l7.1 7.2 16.7-16.8"
+            style={{
+              transformOrigin: "50% 50%",
+              strokeDasharray: "48",
+              strokeDashoffset: "48",
+              animation:
+                "stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards",
+            }}
+          />
         </svg>
       </div>
       <h1 className="text-2xl text-green-500 mb-6">Sikeres fizetés!</h1>
-      <table className="table-auto mb-6">
-        <tbody>
-          <tr>
-            <td className="pr-4">Foglalás száma:</td>
-            <td>{booking.id}</td>
-          </tr>
-          <tr>
-            <td className="pr-4">Fizetési mód:</td>
-            <td>{booking.payment === "CARD" ? "Kartya" : "Eloleg"}</td>
-          </tr>
-          <tr>
-            <td className="pr-4">Fizetett összeg:</td>
-            <td>{booking.paymentAmount.deposit} Ft</td>
-          </tr>
-        </tbody>
-      </table>
+      <Table className="my-5 max-w-screen-md w-full overflow-x-auto mx-auto">
+        <TableHeader>
+          <TableRow className="bg-white bg-opacity-50">
+            <TableHead className="w-[100px]">Foglalás száma:</TableHead>
+            <TableHead>Fizetési mód:</TableHead>
+            <TableHead>Fizetett összeg:</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell className="font-medium">{booking.id}</TableCell>
+            <TableCell>
+              {booking.payment === "CARD" ? "Kartya" : "Eloleg"}
+            </TableCell>
+            <TableCell>{booking.paymentAmount.deposit}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
       <div className="flex space-x-2">
-        <button className="py-2 px-4 bg-blue-500 text-white rounded">
+        <Link
+          href="/"
+          className="py-2 px-4 bg-white text-main-theme rounded transform transition-transform duration-300 hover:scale-105 hover:bg-gray-100 hover:shadow-lg"
+        >
           Vissza a főoldalra
-        </button>
-        <button className="py-2 px-4 bg-blue-500 text-white rounded">
-          Foglalás részletei
-        </button>
+        </Link>
       </div>
     </div>
   );

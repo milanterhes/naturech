@@ -1,18 +1,27 @@
-import React, { PropsWithChildren } from "react";
 import { Button } from "@react-email/button";
 import { Img } from "@react-email/img";
 import { Tailwind as TailwindComponent } from "@react-email/tailwind";
+import React, { PropsWithChildren } from "react";
+import { createTranslator } from "use-intl";
+import en from "@naturechill/utils/dictionaries/en.json";
+import de from "@naturechill/utils/dictionaries/de.json";
+import hu from "@naturechill/utils/dictionaries/hu.json";
 
 interface LogoProps {
   logo: string;
 }
 
+type Locales = "en" | "de" | "hu";
+
+const msgs = {
+  en: en,
+  de: de,
+  hu: hu,
+};
+
 export interface LoginEmailProps extends LogoProps {
   link: string;
-  intro: string;
-  content: string;
-  button: string;
-  lang: "en" | "de" | "hu";
+  locale: Locales;
 }
 
 const Logo: React.FC<LogoProps> = ({ logo }) => {
@@ -23,9 +32,14 @@ const Logo: React.FC<LogoProps> = ({ logo }) => {
   );
 };
 
-const Tailwind: React.FC<PropsWithChildren<LogoProps>> = ({
+interface WrapperProps extends LogoProps {
+  locale: Locales;
+}
+
+const Wrapper: React.FC<PropsWithChildren<WrapperProps>> = ({
   children,
   logo,
+  locale,
 }) => {
   return (
     <TailwindComponent
@@ -50,26 +64,26 @@ const Tailwind: React.FC<PropsWithChildren<LogoProps>> = ({
   );
 };
 
-export const LoginEmail = ({
-  button,
-  content,
-  intro,
-  link,
-  logo,
-}: LoginEmailProps) => {
+export const LoginEmail = ({ link, logo, locale }: LoginEmailProps) => {
+  const t = createTranslator({
+    locale,
+    messages: msgs[locale],
+  });
   return (
-    <Tailwind logo={logo}>
+    <Wrapper logo={logo} locale={locale}>
       <div className="flex flex-col items-center gap-4">
-        <h1 className="text-3xl font-bold text-white">{intro}</h1>
-        <p className="text-white">{content}</p>
+        <h1 className="text-3xl font-bold text-white">
+          {t("email.login.subject")}
+        </h1>
+        <p className="text-white">{t("email.login.content")}</p>
         <Button
           href={link}
           className="px-8 py-3 font-semibold rounded-xl bg-white text-main-theme shadow-highlight"
         >
-          {button}
+          {t("email.login.button")}
         </Button>
       </div>
-    </Tailwind>
+    </Wrapper>
   );
 };
 
@@ -80,6 +94,7 @@ export interface BookingConfirmationEmailProps extends LogoProps {
   bookingId: string;
   timePeriod: string;
   paymentType: string;
+  locale: Locales;
 }
 
 export const BookingConfirmationEmail = ({
@@ -90,15 +105,16 @@ export const BookingConfirmationEmail = ({
   timePeriod,
   paymentType,
   logo,
+  locale,
 }: BookingConfirmationEmailProps) => {
   return (
-    <Tailwind logo={logo}>
+    <Wrapper logo={logo} locale={locale}>
       <h1 className="text-3xl font-bold text-white mb-4">{intro}</h1>
       <p className="text-white my-2">{salutation}</p>
       <p className="text-white my-2">{description}</p>
       <h3 className="text-white my-2 text-xl">{bookingId}</h3>
       <p className="text-white my-2">{timePeriod}</p>
       <p className="text-white my-2">{paymentType}</p>
-    </Tailwind>
+    </Wrapper>
   );
 };

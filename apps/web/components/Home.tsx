@@ -153,6 +153,7 @@ export const Navbar: React.FC = () => {
                     </Link>
                   </li>
                   <div className="divider" />
+                  <Login />
                 </ul>
               </div>
             </div>
@@ -211,7 +212,7 @@ const IconInfo: React.FC<{
     <div className="flex flex-col gap-0.5 text-xs sm:text-sm">
       <p className="uppercase tracking-wider opacity-75">{title}</p>
       <p className="uppercase">{subtitle}</p>
-      <div className="mb-1 h-px w-full bg-[#E7B181] bg-opacity-40"></div>
+      <div className="mb-1 h-px w-full bg-main-theme bg-opacity-40"></div>
     </div>
   </div>
 );
@@ -318,7 +319,7 @@ export const Hero: React.FC = () => {
             </div>
             <Link
               href="/booking"
-              className="group mt-5 flex transform rounded-md bg-[#E7B181] px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
+              className="group mt-5 flex transform rounded-md bg-main-theme px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
               aria-label="Book Now"
               scroll={false}
             >
@@ -663,7 +664,7 @@ const GalleryImage = ({
 const PaginationRect = ({ isActive }) => (
   <div
     className={`ml-2 h-2 w-2 transform self-center rounded-full transition-all duration-200 ease-in group-hover:translate-x-1.5 ${
-      isActive ? "bg-[#9A592D]" : "bg-white"
+      isActive ? "bg-secondary-theme" : "bg-white"
     }`}
   ></div>
 );

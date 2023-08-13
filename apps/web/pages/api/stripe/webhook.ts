@@ -8,6 +8,7 @@ import resend from "../../../utils/resend";
 import { BookingConfirmationEmail } from "@naturechill/emails";
 import logo from "../../../public/naturechill-logo.png";
 import { getBaseUrl } from "../../../utils/trpc";
+import { Locale } from "../../../i18n-config";
 
 interface Env {
   STRIPE_SECRET_KEY: string;
@@ -31,18 +32,21 @@ interface BookingConfirmationEmailInput {
   name: string;
   booking: Booking;
   to: string;
+  locale: Locale;
 }
 
 function sendBookingConfirmationEmail({
   booking,
   name,
   to,
+  locale,
 }: BookingConfirmationEmailInput) {
   return resend.sendEmail({
     from: "Nature & Chill Treehouses <info@naturechill.hu>",
     to,
     subject: "Köszönjük a foglalásod!",
     react: BookingConfirmationEmail({
+      locale,
       logo: `${getBaseUrl()}/${logo.src}`,
       intro: "Köszönjük a foglalásodat!",
       salutation: `Kedves ${name}!`,
@@ -104,6 +108,7 @@ export default async function handler(
             booking,
             name: session.customer_details?.name ?? "User",
             to: session.customer_email,
+            locale: "hu",
           });
         }
 

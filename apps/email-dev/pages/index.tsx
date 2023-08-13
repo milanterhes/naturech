@@ -6,6 +6,7 @@ export default function Home() {
     <div>
       <BookingConfirmationEmail
         logo={logo.src}
+        locale="en"
         intro="Köszönjük a foglalásodat!"
         salutation="Kedves Terhes Milán!"
         timePeriod="Érkezés: 2022.01.01 - Távozás: 2022.01.03"

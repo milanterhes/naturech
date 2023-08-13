@@ -182,19 +182,16 @@ export class BookingService {
     let totalCost = 0;
 
     const specialHolidays = [
-      moment(`${startDate.year()}1125`, "YYYYMMDD"), // Christmas
-      moment(`${startDate.year()}1131`, "YYYYMMDD"), // New Year's Eve
-      // Placeholder for Easter (this requires additional logic based on the year)
-      moment(`${startDate.year()}0304`, "YYYYMMDD"),
-      moment(`${startDate.year()}0720`, "YYYYMMDD"), // August 20th
+      moment(`${startDate.year()}1225`, "YYYYMMDD"), // Christmas
+      moment(`${startDate.year()}1231`, "YYYYMMDD"), // New Year's Eve
+      moment(`${startDate.year()}0404`, "YYYYMMDD"),
+      moment(`${startDate.year()}0820`, "YYYYMMDD"), // August 20th
     ];
     const specialHolidaysRate = 80000;
 
     const currentDate = startDate.clone();
     while (currentDate.isBefore(endDate, "day")) {
       const currentDayOfWeek = currentDate.day();
-
-      // Check if the date is a special holiday
       if (
         specialHolidays.some((holiday) => holiday.isSame(currentDate, "day"))
       ) {

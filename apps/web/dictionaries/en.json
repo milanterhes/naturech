@@ -97,7 +97,8 @@
     },
     "introcard": {
       "arrival": {
-        "title": "Pick a Date"
+        "title": "Pick a Date",
+        "withoutselectedalert": "No correct date selected for the reservation!"
       },
       "departure": {
         "title": "Departure",
@@ -229,7 +230,7 @@
           "title": "Nature & Chill Luxury Cabins"
         },
         "tablehead": {
-          "housechoose": "Choose a house",
+          "housechoose": "Log cabin name",
           "price": "Price"
         },
         "tablebody": {
@@ -241,6 +242,11 @@
           "value1": "1 person (adult)",
           "value2": "2 people (adults)",
           "value3": "3 people (adult + child)"
+        },
+        "breakfast": {
+          "title": "Would you like extra breakfast? (+5.000HUF) By: Kovászüzem",
+          "answer1": "Yes, please!",
+          "answer2": "The breakfast included in the price is fine!"
         },
         "fullhalfpriceselect": {
           "fullprice": "Pay full amount",

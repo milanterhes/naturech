@@ -43,6 +43,7 @@ import { useDateSelector } from "./DateSelector";
 
 let required_guestError_message = "Nincs kiválasztva a vendégek száma.";
 let required_paymentError_message = "Nincs kiválasztva fizetési mód.";
+let required_breakfastError_message = "Nincs kiválasztva reggeli preferencia";
 
 if (typeof window !== "undefined") {
   const locale = window.location.pathname.split("/")[1];
@@ -59,10 +60,19 @@ if (typeof window !== "undefined") {
     hu: "Nincs kiválasztva fizetési mód.",
   };
 
+  const errorMessagesBreakfast = {
+    de: "Kein Frühstück ausgewählt.",
+    en: "No breakfast option selected.",
+    hu: "Nincs kiválasztva reggeli opció.",
+  };
+
   required_guestError_message =
     errorMessagesGuest[locale] || required_guestError_message;
   required_paymentError_message =
     errorMessagesPayment[locale] || required_paymentError_message;
+
+  required_breakfastError_message =
+    errorMessagesBreakfast[locale] || required_breakfastError_message;
 }
 
 const formSchema = z.object({
@@ -71,6 +81,9 @@ const formSchema = z.object({
   }),
   paymentType: z.enum(["fullPrice", "halfPrice"], {
     required_error: required_paymentError_message,
+  }),
+  breakfast: z.string({
+    required_error: required_breakfastError_message,
   }),
 });
 
@@ -101,7 +114,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     console.log(values);
     const isValid = await form.trigger();
     setGuests(Number(values.guests));
-
     if (isValid) {
       onNextPage();
     }
@@ -111,9 +123,12 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="text-black">
-        <div className="flex flex-col items-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-          <div className="md:w-42 md:h-42 h-24 w-24 overflow-hidden rounded-full sm:h-28 sm:w-28">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="text-black sm:text-xl md:text-2xl lg:text-3xl"
+      >
+        <div className="flex flex-col items-center justify-center space-y-4">
+          <div className="md:w-42 md:h-42 h-24 w-24 overflow-hidden rounded-full sm:h-28 sm:w-28 lg:w-48 lg:h-48">
             <Image
               src="/gal5.webp"
               alt="Circle Image"
@@ -126,13 +141,13 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
             {t("booking.bookingmodal.page1.main.title")}
           </h2>
         </div>
-        <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
+        <div className="flex items-center justify-center rounded-md bg-main-theme p-3">
           <p>
             {startDate?.format("ll")} - {endDate?.format("ll")}
           </p>
         </div>
         <div>
-          <Table>
+          <Table className="sm:text-xl md:text-2xl lg:text-3xl w-full">
             <TableHeader>
               <TableRow>
                 <TableHead className="border-b border-main-theme">
@@ -143,11 +158,10 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody className="w-full">
               <TableRow>
                 <TableCell className="flex items-center font-medium">
                   <FormItem className="flex flex-row items-center space-x-2">
-                    <Checkbox defaultChecked disabled checked />
                     <div className="space-y-1 leading-none">
                       <FormLabel>
                         {t("booking.bookingmodal.page1.tablebody.woodhouse1")}
@@ -162,8 +176,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   {totalCost.amount.deposit}HUF
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>
+              <TableRow className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full">
+                <TableCell className="w-full sm:flex-1">
                   <FormField
                     control={form.control}
                     name="guests"
@@ -174,7 +188,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="border border-main-theme/75">
+                            <SelectTrigger className="border-2 border-main-theme/75 sm:w-5/6 xl:w-3/6 h-[5rem]">
                               <SelectValue
                                 placeholder={t(
                                   "booking.bookingmodal.page1.selectguest.title"
@@ -205,8 +219,45 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                     )}
                   />
                 </TableCell>
+                <TableCell className="w-full sm:flex-1">
+                  <FormField
+                    control={form.control}
+                    name="breakfast"
+                    render={({ field }) => (
+                      <FormItem>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="border-2 border-main-theme/75 h-[5rem]">
+                              <SelectValue
+                                placeholder={t(
+                                  "booking.bookingmodal.page1.breakfast.title"
+                                )}
+                              />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="true">
+                              {t(
+                                "booking.bookingmodal.page1.breakfast.answer1"
+                              )}
+                            </SelectItem>
+                            <SelectItem value="false">
+                              {t(
+                                "booking.bookingmodal.page1.breakfast.answer2"
+                              )}
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </TableCell>
               </TableRow>
-              <TableRow>
+              <TableRow className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <TableCell className="w-full">
                   <FormField
                     control={form.control}
@@ -217,11 +268,11 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           field.onChange(value as "fullPrice" | "halfPrice")
                         }
                         defaultValue={field.value}
-                        className="flex justify-between"
+                        className="flex flex-col sm:flex-row"
                       >
                         <Label
                           htmlFor="fullPrice"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-main-theme bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:bg-main-theme"
+                          className="flex flex-col items-start justify-between rounded-md border-2 border-main-theme/75 h-[5rem] bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:bg-main-theme sm:w-1/2"
                         >
                           <RadioGroupItem
                             value="fullPrice"
@@ -236,7 +287,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                         </Label>
                         <Label
                           htmlFor="halfPrice"
-                          className="flex flex-col items-center justify-between rounded-md border-2 border-main-theme bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:bg-main-theme "
+                          className="flex flex-col items-start justify-between rounded-md border-2 border-main-theme/75 h-[5rem] bg-popover p-4 hover:bg-main-theme [&:has([data-state=checked])]:bg-main-theme sm:w-1/2"
                         >
                           <RadioGroupItem
                             value="halfPrice"
@@ -347,32 +398,39 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(submitHandler)}>
+      <form
+        onSubmit={form.handleSubmit(submitHandler)}
+        className="text-black sm:text-xl md:text-2xl lg:text-3xl"
+      >
         <div className="flex items-center justify-between rounded-md bg-main-theme p-3">
           <p>
             {startDate?.format("ll")} - {endDate?.format("ll")}
           </p>
         </div>
-        <div className="flex w-full flex-col items-stretch space-y-6 sm:flex-row sm:space-x-4 sm:space-y-0">
-          <div className="flex flex-col rounded-md bg-gray-300 p-3">
+
+        <div className="flex w-full flex-col items-stretch space-y-6 sm:flex-row sm:space-x-4 sm:space-y-0 mt-5">
+          <div className="flex flex-col rounded-md bg-gray-300 p-3 sm:w-1/3">
             <h2>{t("booking.bookingmodal.page2.house.title")}</h2>
             <span>Ház Fakopáncs</span>
           </div>
-          <div className="flex flex-col rounded-md bg-gray-300 p-3">
+
+          <div className="flex flex-col rounded-md bg-gray-300 p-3 sm:w-1/3">
             <h2>{t("booking.bookingmodal.page2.price.title")}</h2>
             <span>{totalCost.amount.deposit} HUF</span>
           </div>
-          <div className="flex flex-col rounded-md bg-gray-300 p-3">
+
+          <div className="flex flex-col rounded-md bg-gray-300 p-3 sm:w-1/3">
             <h2>{t("booking.bookingmodal.page2.guests.title")}</h2>
             <span>{guests}</span>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center">
+
+        <div className="flex flex-col items-center justify-center w-full mt-5">
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>
                   {t("booking.bookingmodal.page2.form.email")}
                 </FormLabel>
@@ -380,18 +438,19 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
                   <Input
                     {...field}
                     aria-label="Email"
-                    className="border-main-theme bg-white"
+                    className="w-full border-main-theme bg-white"
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="terms"
             render={({ field }) => (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 w-full mt-2">
                 <Checkbox
                   id="terms"
                   className="border-main-theme bg-white"
@@ -410,9 +469,13 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
               </div>
             )}
           />
-          <FormMessage>{form.formState.errors.terms?.message}</FormMessage>
+
+          <FormMessage className="w-full">
+            {form.formState.errors.terms?.message}
+          </FormMessage>
         </div>
-        <div className="mt-4 flex flex-col justify-between space-y-4 sm:mt-6 sm:flex-row sm:space-y-0">
+
+        <div className="mt-5 flex justify-between gap-2 w-full">
           <Button
             type="submit"
             className="w-full sm:w-auto"
@@ -420,6 +483,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
           >
             {t("booking.bookingmodal.buttons.previous")}
           </Button>
+
           <Button
             type="submit"
             className="w-full bg-main-theme text-white sm:w-auto"

@@ -97,7 +97,8 @@
     },
     "introcard": {
       "arrival": {
-        "title": "Válasszon dátumot"
+        "title": "Válasszon dátumot",
+        "withoutselectedalert": "Nincs kiválasztva megfelelő dátum a foglaláshoz!"
       },
       "departure": {
         "title": "Távozás",
@@ -229,7 +230,7 @@
           "title": "Nature & Chill Luxus faházak"
         },
         "tablehead": {
-          "housechoose": "Válasszon faházat",
+          "housechoose": "Faház neve",
           "price": "Ár"
         },
         "tablebody": {
@@ -241,6 +242,11 @@
           "value1": "1 Fő (felnőtt)",
           "value2": "2 Fő (felnőtt)",
           "value3": "3 Fő (felnőtt + gyerek)"
+        },
+        "breakfast": {
+          "title": "Kér extra reggelit? (+5.000HUF) By: Kovászüzem",
+          "answer1": "Igen kérek!",
+          "answer2": "Jó az árban foglalt reggeli!"
         },
         "fullhalfpriceselect": {
           "fullprice": "Teljes összeg fizetése",

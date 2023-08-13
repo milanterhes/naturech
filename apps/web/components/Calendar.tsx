@@ -9,6 +9,7 @@ import { cn } from "./ui/lib/utils";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { useTranslations } from "next-intl";
 
 const enumerateDaysBetweenDates = function (
   startDate: moment.Moment,
@@ -32,6 +33,7 @@ export function DatePickerWithRange({
   setShowCalendar?: React.Dispatch<React.SetStateAction<boolean>>;
   setShowModalPage: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const t = useTranslations();
   const { data: bookings } = trpc.booking.getBookings.useQuery();
   const { startDate, endDate, setDates } = useDateSelector();
   const date = { to: endDate?.toDate(), from: startDate?.toDate() };
@@ -49,6 +51,11 @@ export function DatePickerWithRange({
 
   const handleDateChange: SelectRangeEventHandler = (range) => {
     if (range?.from === undefined) return;
+
+    if (startDate && range?.to && moment(range.to).isSame(startDate, "day")) {
+      setDates(null, null);
+      return;
+    }
 
     const start = moment(range.from).hour(14).minute(0).tz("Europe/Budapest");
 
@@ -78,7 +85,9 @@ export function DatePickerWithRange({
       : null;
 
     setDates(start, end);
-    if (setShowCalendar) setShowCalendar(false);
+    if (start && end && setShowCalendar) {
+      setShowCalendar(false);
+    }
   };
 
   return (
@@ -89,11 +98,11 @@ export function DatePickerWithRange({
             id="date"
             variant={"outline"}
             className={cn(
-              "w-full 2xl:h-[3rem] justify-start text-left font-normal",
+              "w-full lg:h-[3rem] 2xl:h-[5rem] lg:text-xl 2xl:text-2xl justify-start text-left font-normal backdrop-blur-md bg-opacity-70",
               !date && "text-muted-foreground"
             )}
           >
-            <CalendarIcon className="mr-2 h-4 w-4" />
+            <CalendarIcon className="mr-2 h-4 w-4 lg:h-6 w-6 2xl:h-7 w-7" />
             {date?.from ? (
               date.to ? (
                 <>
@@ -104,11 +113,11 @@ export function DatePickerWithRange({
                 format(date.from, "LLL dd, y")
               )
             ) : (
-              <span>Válasszon dátumot</span>
+              <span>{t("booking.introcard.arrival.title")}</span>
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0" align="start">
+        <PopoverContent className="w-auto p-0" align="center">
           <Calendar
             initialFocus
             mode="range"

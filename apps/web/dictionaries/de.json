@@ -97,7 +97,8 @@
     },
     "introcard": {
       "arrival": {
-        "title": "Datum auswählen"
+        "title": "Datum auswählen",
+        "withoutselectedalert": "Es wurde kein richtige Datum für die Reservierung ausgewählt!"
       },
       "departure": {
         "title": "Abfahrt",
@@ -229,7 +230,7 @@
           "title": "Natur & Chill Luxus Hütten"
         },
         "tablehead": {
-          "housechoose": "Wählen Sie ein Haus",
+          "housechoose": "Holzhaus Name",
           "price": "Preis"
         },
         "tablebody": {
@@ -241,6 +242,11 @@
           "value1": "1 Person (Erwachsener)",
           "value2": "2 Personen (Erwachsene)",
           "value3": "3 Personen (Erwachsener + Kind)"
+        },
+        "breakfast": {
+          "title": "Möchten Sie ein zusätzliches Frühstück? (+5.000HUF) Von: Kovászüzem",
+          "answer1": "Ja, bitte!",
+          "answer2": "Das im Preis inbegriffene Frühstück ist gut!"
         },
         "fullhalfpriceselect": {
           "fullprice": "Gesamtbetrag bezahlen",

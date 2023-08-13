@@ -39,12 +39,12 @@ function Calendar({
           "h-9 w-9 p-0 font-normal aria-selected:opacity-100"
         ),
         day_selected:
-          "bg-gray-900 text-gray-50 hover:bg-gray-900 hover:text-gray-50 focus:bg-gray-900 focus:text-gray-50",
+          "bg-gray-700 text-gray-50 hover:bg-gray-700 hover:text-gray-50 focus:bg-gray-700 focus:text-gray-50",
         day_today: "bg-gray-100 text-gray-900",
         day_outside: "text-gray-500 opacity-50",
-        day_disabled: "text-gray-500 opacity-50",
+        day_disabled: "text-gray-500 opacity-50 line-through",
         day_range_middle:
-          "aria-selected:bg-gray-100 aria-selected:text-gray-900",
+          "aria-selected:bg-main-theme aria-selected:text-gray-900",
         day_hidden: "invisible",
         ...classNames,
       }}

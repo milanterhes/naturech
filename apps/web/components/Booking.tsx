@@ -132,7 +132,15 @@ export const BookingMain = () => {
             </div>
             <Dialog
               open={showModalPage}
-              onOpenChange={(open) => setShowModalPage(open)}
+              onOpenChange={(open) => {
+                if (open && startDate && endDate) {
+                  setShowModalPage(true);
+                } else {
+                  setShowModalPage(false);
+                  !showModalPage &&
+                    alert(t("booking.introcard.arrival.withoutselectedalert"));
+                }
+              }}
             >
               <DialogTrigger>
                 <motion.button
@@ -165,7 +173,7 @@ export const BookingMain = () => {
                   </svg>
                 </motion.button>
               </DialogTrigger>
-              <DialogContent className="overflow-scroll max-h-[85%] max-w-[95%]">
+              <DialogContent className="overflow-scroll max-h-[85%] max-w-[95%] lg:max-w-[90%] lg:gap-6">
                 {currentPage === 1 ? (
                   <ProfileForm
                     showModalPage={showModalPage}

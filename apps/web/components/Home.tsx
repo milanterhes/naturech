@@ -1062,7 +1062,7 @@ export const Footer = () => {
                     />
                   </a>
                   <a
-                    href="https://www.facebook.com/your_page/"
+                    href="https://www.facebook.com/profile.php?id=61550518251130/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

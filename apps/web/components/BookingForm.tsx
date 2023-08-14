@@ -357,7 +357,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
     resolver: zodResolver(formSchemaPage2),
     defaultValues: {},
   });
-  const { endDate, startDate, totalCost } = useDateSelector();
+  const { endDate, startDate, totalCost, breakfast } = useDateSelector();
 
   const trpcUtils = trpc.useContext();
 
@@ -379,6 +379,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
         guests,
         email,
         locale: locale as "en" | "de" | "hu",
+        breakfast,
       });
 
       const stripe = await loadStripe(

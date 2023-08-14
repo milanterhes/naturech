@@ -78,11 +78,20 @@ const book = t.procedure
       paymentKind: z.nativeEnum(Payment),
       guests: z.number(),
       locale: z.enum(i18n.locales),
+      breakfast: z.boolean(),
     })
   )
   .mutation(
     async ({
-      input: { startDate, endDate, paymentKind, guests, email, locale },
+      input: {
+        startDate,
+        endDate,
+        paymentKind,
+        guests,
+        email,
+        locale,
+        breakfast,
+      },
       ctx,
     }) => {
       validateDateRange(new Date(startDate), new Date(endDate));
@@ -93,7 +102,8 @@ const book = t.procedure
       const cost = BookingService.calculateTotalCost(
         moment(startDate),
         moment(endDate),
-        paymentKind
+        paymentKind,
+        breakfast
       ); // todo use moment
 
       const session = await createCheckoutSession({
@@ -112,6 +122,7 @@ const book = t.procedure
         paymentKind,
         email,
         sessionId: session.id,
+        breakfast,
       });
 
       return session.id;
@@ -120,13 +131,14 @@ const book = t.procedure
 
 const getQuote = t.procedure
   .input(GetQuoteSchema)
-  .query(async ({ input: { startDate, endDate, paymentKind } }) => {
+  .query(async ({ input: { startDate, endDate, paymentKind, breakfast } }) => {
     validateDateRange(new Date(startDate), new Date(endDate));
 
     const totalCost = BookingService.calculateTotalCost(
       moment(startDate),
       moment(endDate),
-      paymentKind
+      paymentKind,
+      breakfast
     );
 
     return {

@@ -37,6 +37,7 @@ type TotalCost = RouterOutput["booking"]["getQuote"];
 export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
+  const [breakfast, setBreakfast] = useState<boolean>(false);
   const [startDate, setStartDate] =
     useState<IDateSelectorContext["startDate"]>(null);
   const [endDate, setEndDate] = useState<IDateSelectorContext["endDate"]>(null);
@@ -45,6 +46,7 @@ export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
       endDate: endDate?.valueOf() ?? 0,
       startDate: startDate?.valueOf() ?? 0,
       paymentKind: "CARD",
+      breakfast,
     },
     {
       enabled: Boolean(startDate && endDate),
@@ -55,7 +57,6 @@ export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
     setStartDate(start ? start.tz("Europe/Budapest") : null);
     setEndDate(end ? end.tz("Europe/Budapest") : null);
   };
-  const [breakfast, setBreakfast] = useState<boolean>(false);
 
   return (
     <DateSelectorContext.Provider
@@ -65,13 +66,7 @@ export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
         setDates,
         breakfast,
         setBreakfast,
-        totalCost:
-          breakfast && data
-            ? {
-                ...data,
-                amount: { ...data.amount, cash: data.amount.cash + 5000 },
-              }
-            : data ?? zeroCost,
+        totalCost: data ?? zeroCost,
       }}
     >
       {children}

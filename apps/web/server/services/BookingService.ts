@@ -53,6 +53,7 @@ export const BookSchema = z.object({
   paymentKind: z.nativeEnum(Payment),
   email: z.string().email(),
   sessionId: z.string(),
+  breakfast: z.boolean(),
 });
 
 export type BookInput = z.infer<typeof BookSchema>;
@@ -61,6 +62,7 @@ export const GetQuoteSchema = z.object({
   startDate: z.number(),
   endDate: z.number(),
   paymentKind: z.nativeEnum(Payment),
+  breakfast: z.boolean(),
 });
 
 export type GetQuoteInput = z.infer<typeof GetQuoteSchema>;
@@ -100,6 +102,7 @@ export class BookingService {
     paymentKind,
     email,
     sessionId,
+    breakfast,
   }: BookInput) {
     const existingBooking = await prisma.booking.findFirst({
       where: {
@@ -144,9 +147,11 @@ export class BookingService {
         paymentAmount: BookingService.calculateTotalCost(
           moment(startDate),
           moment(endDate),
-          paymentKind
+          paymentKind,
+          breakfast
         ),
         sessionId,
+        breakfast,
       },
       select: {
         endDate: true,
@@ -162,11 +167,12 @@ export class BookingService {
   }
 
   static async getQuote(input: GetQuoteInput) {
-    const { startDate, endDate, paymentKind } = input;
+    const { startDate, endDate, paymentKind, breakfast } = input;
     const totalCost = BookingService.calculateTotalCost(
       moment(startDate),
       moment(endDate),
-      paymentKind
+      paymentKind,
+      breakfast
     );
 
     return {
@@ -177,7 +183,8 @@ export class BookingService {
   static calculateTotalCost(
     startDate: moment.Moment,
     endDate: moment.Moment,
-    paymentKind: Payment
+    paymentKind: Payment,
+    breakfast: boolean
   ) {
     let totalCost = 0;
 
@@ -208,6 +215,7 @@ export class BookingService {
 
       currentDate.add(1, "day");
     }
+    if (breakfast) totalCost += 5000;
 
     if (paymentKind === Payment.CASH) {
       return {

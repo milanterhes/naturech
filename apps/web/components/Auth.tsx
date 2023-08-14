@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { z } from "zod";
 import { TokenPayload, tokenPayloadSchema } from "../utils/client-jwt";
 import { RouterInput, trpc } from "../utils/trpc";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 
 const AuthContext = React.createContext<{
@@ -85,6 +85,7 @@ type FormData = {
 
 const Login = () => {
   const t = useTranslations();
+  const locale = useLocale();
   const { login } = useAuth();
 
   const submitHandler: (
@@ -92,7 +93,7 @@ const Login = () => {
     form: FormInstance<FormData>
   ) => void = (data) => {
     const email = data.email;
-    login({ email });
+    login({ email, locale: locale as "en" | "de" | "hu" });
   };
 
   return (
@@ -121,7 +122,7 @@ const Login = () => {
             )}
           </Field>{" "}
           <button
-            className="bg-main-theme text-white group mt-5 flex transform rounded-md bg-[#E7B181] px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
+            className="bg-main-theme text-white group mt-5 flex transform rounded-md px-2 py-1 transition-transform duration-500 ease-in-out hover:scale-105"
             aria-label="Login Now"
             type="submit"
             onClick={submit}

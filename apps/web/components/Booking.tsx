@@ -497,7 +497,7 @@ export const BookingInfo: React.FC = ({}) => {
         >
           <Link
             href="/contact"
-            className="md:text-md group flex transform rounded-md bg-[#E7B181] px-2 py-2 text-xs transition-transform duration-500 ease-in-out hover:scale-105 sm:text-sm lg:text-lg xl:text-2xl 2xl:text-3xl"
+            className="md:text-md group flex transform rounded-md bg-main-theme px-2 py-2 text-xs transition-transform duration-500 ease-in-out hover:scale-105 sm:text-sm lg:text-lg xl:text-2xl 2xl:text-3xl"
             aria-label="Contact Us Now"
           >
             {t("booking.info.help.button")}
@@ -506,7 +506,7 @@ export const BookingInfo: React.FC = ({}) => {
               alt="Contact us now"
               width={12}
               height={12}
-              className="ml-2 mt-0.5 h-3 h-3 w-3 w-3 transform self-center transition-transform duration-500 ease-in-out group-hover:translate-x-1 sm:h-4 sm:w-4 lg:h-5 lg:w-5 xl:h-6 xl:w-6 2xl:h-7 2xl:w-7"
+              className="ml-2 mt-0.5 h-3 w-3 transform self-center transition-transform duration-500 ease-in-out group-hover:translate-x-1 sm:h-4 sm:w-4 lg:h-5 lg:w-5 xl:h-6 xl:w-6 2xl:h-7 2xl:w-7"
             />
           </Link>
         </motion.div>

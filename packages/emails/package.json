@@ -11,12 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@naturechill/db": "*",
+    "@naturechill/utils": "*",
     "@naturechill/tailwind-config": "*",
     "@react-email/button": "0.0.8",
     "@react-email/html": "0.0.4",
     "@react-email/img": "0.0.5",
     "@react-email/tailwind": "^0.0.8",
     "react-email": "1.9.3",
-    "@naturechill/db": "*"
+    "use-intl": "^2.19.1"
   }
 }

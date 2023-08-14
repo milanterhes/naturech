@@ -1,4 +1,4 @@
-import "ui/styles.css";
+import "@naturechill/tailwind-config/styles.css";
 import { Bowlby_One_SC, Roboto_Mono, Tangerine } from "next/font/google";
 import { NextIntlProvider } from "next-intl";
 import { trpc } from "../utils/trpc";

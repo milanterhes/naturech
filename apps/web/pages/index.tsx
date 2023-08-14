@@ -12,7 +12,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const locale = context.locale === "default" ? "de" : context.locale;
   return {
     props: {
-      messages: (await import(`../dictionaries/${locale}.json`)).default,
+      messages: (await import(`@naturechill/utils/dictionaries/${locale}.json`))
+        .default,
     },
   };
 };

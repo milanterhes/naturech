@@ -2,7 +2,7 @@ import { z } from "zod";
 import { prisma } from "../prisma";
 import { LoginEmail } from "@naturechill/emails";
 import { makeToken } from "../jwt";
-import { Locale } from "../../i18n-config";
+import { Locale, i18n } from "../../i18n-config";
 import { getBaseUrl } from "../../utils/trpc";
 import { TRPCError } from "@trpc/server";
 import { t } from "../trpc";
@@ -12,31 +12,27 @@ import logo from "../../public/naturechill-logo.png";
 interface LoginEmailInput {
   to: string;
   token: string;
-  lang: Locale;
+  locale: Locale;
 }
 
-function sendLoginEmail({ to, token, lang }: LoginEmailInput) {
+function sendLoginEmail({ to, token, locale }: LoginEmailInput) {
   return resend.sendEmail({
     from: "Nature & Chill Treehouses <info@naturechill.hu>",
     to,
     subject: "Login to NatureChill",
     react: LoginEmail({
       logo: `${getBaseUrl()}/${logo.src}`,
-      button: "Login",
       link: `${getBaseUrl()}/api/auth/callback?token=` + token,
-      content: "Click the button below to login to NatureChill",
-      intro:
-        "You have requested a login link to NatureChill. If you did not request this, please ignore this email.",
-      lang,
+      locale,
     }),
   });
 }
 
-async function handleLogin(email: string, lang: Locale) {
+async function handleLogin(email: string, locale: Locale) {
   const token = makeToken(email);
 
   try {
-    return sendLoginEmail({ to: email, token, lang });
+    return sendLoginEmail({ to: email, token, locale });
   } catch (error) {
     throw new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
@@ -49,9 +45,10 @@ const login = t.procedure
   .input(
     z.object({
       email: z.string().email().nonempty(),
+      locale: z.enum(i18n.locales),
     })
   )
-  .mutation(async ({ input: { email } }) => {
+  .mutation(async ({ input: { email, locale } }) => {
     const existingUser = await prisma.user.findFirst({
       where: {
         email,
@@ -66,7 +63,7 @@ const login = t.procedure
       });
 
       try {
-        await handleLogin(newUser.email, "en");
+        await handleLogin(newUser.email, locale);
       } catch (error) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -84,7 +81,7 @@ const login = t.procedure
       },
     });
 
-    await handleLogin(existingUser.email, "en");
+    await handleLogin(existingUser.email, locale);
     return { message: "done existing" };
   });
 

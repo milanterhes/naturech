@@ -143,7 +143,7 @@ export const BookingMain = () => {
               }}
             >
               <DialogTrigger>
-                <motion.button
+                <motion.a
                   aria-label="Search Dates"
                   initial={{ y: 25, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -171,7 +171,7 @@ export const BookingMain = () => {
                       }}
                     />
                   </svg>
-                </motion.button>
+                </motion.a>
               </DialogTrigger>
               <DialogContent className="overflow-scroll max-h-[85%] max-w-[95%] lg:max-w-[90%] lg:gap-6">
                 {currentPage === 1 ? (

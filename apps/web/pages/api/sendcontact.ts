@@ -5,11 +5,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendEmail = async (req: NextApiRequest, res: NextApiResponse) => {
   const { fullName, email, subject, message } = req.body;
-
   try {
     const data = await resend.emails.send({
-      from: `${fullName} ${email}`,
-      to: fullName + email,
+      from: `${fullName} <${email}>`,
+      to: "info@naturechill.hu",
       subject: subject,
       text: message,
     });

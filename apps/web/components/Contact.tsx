@@ -97,22 +97,19 @@ export const Contact = () => {
     setIsSubmitting(true);
     console.log(values);
 
-    try {
-      mutation.mutate(values);
-
-      if (mutation.isSuccess) {
+    mutation.mutate(values, {
+      onSuccess: () => {
         console.log("Email sent successfully");
         setIsSubmitting(false);
         form.reset(initialFormState);
         setShowSuccess(true);
-      } else {
+      },
+      onError: (err) => {
         console.log("Failed to send email");
         setIsSubmitting(false);
-      }
-    } catch (err) {
-      console.error("Validation failed", err);
-      alert("All fields must be filled and valid");
-    }
+        console.error("Error while sending the email:", err);
+      },
+    });
   };
   return (
     <>
@@ -141,11 +138,10 @@ export const Contact = () => {
         >
           <Image
             src={"/ContactImage.webp"}
-            width={1366}
-            height={768}
+            width={1000}
+            height={700}
             priority={true}
             alt={"Picture of a house for contacting us"}
-            quality={100}
             className="object-cover w-full h-full"
           ></Image>
         </motion.div>

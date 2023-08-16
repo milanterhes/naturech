@@ -1,4 +1,4 @@
-import { Payment } from "@naturechill/db";
+import { BookingStatus, Payment } from "@naturechill/db";
 import { z } from "zod";
 import {
   BookingService,
@@ -9,6 +9,7 @@ import { t } from "../trpc";
 import moment from "moment-timezone";
 import Stripe from "stripe";
 import { i18n } from "../../i18n-config";
+import { prisma } from "../prisma";
 
 const CreateCheckoutSessionSchema = z.object({
   guests: z.number(),
@@ -94,7 +95,22 @@ const book = t.procedure
       },
       ctx,
     }) => {
-      validateDateRange(new Date(startDate), new Date(endDate));
+      const bookings = await prisma.booking.findMany({
+        where: {
+          status: { not: BookingStatus.CANCELLED },
+        },
+        select: {
+          endDate: true,
+          startDate: true,
+          status: true,
+          id: true,
+        },
+      });
+
+      validateDateRange(
+        { from: new Date(startDate), to: new Date(endDate) },
+        bookings
+      );
 
       const start = moment(startDate).tz("Europe/Budapest").hour(14).minute(0);
       const end = moment(endDate).tz("Europe/Budapest").hour(12).minute(0);
@@ -132,7 +148,22 @@ const book = t.procedure
 const getQuote = t.procedure
   .input(GetQuoteSchema)
   .query(async ({ input: { startDate, endDate, paymentKind, breakfast } }) => {
-    validateDateRange(new Date(startDate), new Date(endDate));
+    const bookings = await prisma.booking.findMany({
+      where: {
+        status: { not: BookingStatus.CANCELLED },
+      },
+      select: {
+        endDate: true,
+        startDate: true,
+        status: true,
+        id: true,
+      },
+    });
+
+    validateDateRange(
+      { from: new Date(startDate), to: new Date(endDate) },
+      bookings
+    );
 
     const totalCost = BookingService.calculateTotalCost(
       moment(startDate),

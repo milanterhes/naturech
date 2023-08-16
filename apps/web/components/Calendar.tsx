@@ -1,29 +1,16 @@
-import * as React from "react";
 import { CalendarIcon } from "@radix-ui/react-icons";
-import { addDays, format } from "date-fns";
-import { DateRange, SelectRangeEventHandler } from "react-day-picker";
+import { format } from "date-fns";
 import moment from "moment-timezone";
+import { useTranslations } from "next-intl";
+import * as React from "react";
+import { SelectRangeEventHandler } from "react-day-picker";
+import { enumerateDaysBetweenDates, tileDisabled } from "../utils/booking";
 import { trpc } from "../utils/trpc";
 import { useDateSelector } from "./DateSelector";
-import { cn } from "./ui/lib/utils";
 import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
+import { cn } from "./ui/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { useTranslations } from "next-intl";
-
-const enumerateDaysBetweenDates = function (
-  startDate: moment.Moment,
-  endDate: moment.Moment
-) {
-  const now = startDate.clone();
-  const dates: Date[] = [];
-
-  while (now.isSameOrBefore(endDate)) {
-    dates.push(now.toDate());
-    now.add(1, "days");
-  }
-  return dates;
-};
 
 export function DatePickerWithRange({
   className,
@@ -37,17 +24,6 @@ export function DatePickerWithRange({
   const { data: bookings } = trpc.booking.getBookings.useQuery();
   const { startDate, endDate, setDates } = useDateSelector();
   const date = { to: endDate?.toDate(), from: startDate?.toDate() };
-
-  const tileDisabled: (date: Date) => boolean = (date) => {
-    const target = moment(date).hours(14);
-    const isBooked = bookings?.some((booking) => {
-      const start = moment(booking.startDate);
-      const end = moment(booking.endDate);
-
-      return target.isBetween(start, end, "minutes", "[]");
-    });
-    return Boolean(isBooked);
-  };
 
   const handleDateChange: SelectRangeEventHandler = (range) => {
     if (range?.from === undefined) return;
@@ -74,7 +50,7 @@ export function DatePickerWithRange({
       const end = moment(range.to).hour(12).minute(0).tz("Europe/Budapest");
       const days = enumerateDaysBetweenDates(start, end);
 
-      if (days.some((day) => tileDisabled(day))) {
+      if (days.some((day) => tileDisabled(day, bookings))) {
         console.log("lol rekt");
         return;
       }
@@ -124,7 +100,7 @@ export function DatePickerWithRange({
             defaultMonth={date?.from}
             selected={date}
             onSelect={handleDateChange}
-            disabled={tileDisabled}
+            disabled={(date) => tileDisabled(date, bookings)}
           />
         </PopoverContent>
       </Popover>

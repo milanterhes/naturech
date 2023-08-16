@@ -54,8 +54,8 @@ export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
   );
 
   const setDates: IDateSelectorContext["setDates"] = (start, end) => {
-    setStartDate(start ? start.tz("Europe/Budapest") : null);
-    setEndDate(end ? end.tz("Europe/Budapest") : null);
+    setStartDate(start ? start.tz("Europe/Budapest").hours(14) : null);
+    setEndDate(end ? end.tz("Europe/Budapest").hours(12) : null);
   };
 
   return (

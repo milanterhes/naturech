@@ -706,14 +706,12 @@ const Card = ({ card }: { card: CardType }) => {
       key={card.id}
       className="group relative h-[350px] w-[350px] sm:h-[450px] sm:w-[450px] overflow-hidden bg-neutral-200 rounded-md drop-shadow-[10px_7px_2px_rgba(0,0,0,0.4)]"
     >
-      <div
-        style={{
-          backgroundImage: `url(${card.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-        className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110"
-      ></div>
+      <Image
+        src={card.url}
+        alt={card.title}
+        fill
+        className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110 object-cover"
+      />
     </div>
   );
 };

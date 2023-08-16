@@ -442,6 +442,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
                   <Input
                     {...field}
                     aria-label="Email"
+                    type="email"
                     className="w-full border-main-theme bg-white"
                   />
                 </FormControl>

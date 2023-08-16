@@ -3,6 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { prisma } from "../prisma";
 import moment from "moment-timezone";
+import { enumerateDaysBetweenDates, tileDisabled } from "../../utils/booking";
 
 // 3 months and 1 day
 const maxDateRange = 1000 * 60 * 60 * 24 * 92;
@@ -14,32 +15,43 @@ const minimumStay = 1000 * 60 * 60 * 24 * 2;
 export const weekdaysNightlyRate = 60000;
 export const weekendsNightlyRate = 75000;
 
-function isRangeTooLong(startDate: Date, endDate: Date) {
-  return endDate.getTime() - startDate.getTime() > maxDateRange;
-}
+export function validateDateRange(
+  range: { to: Date; from: Date },
+  bookings:
+    | {
+        endDate: Date;
+        startDate: Date;
+        status: BookingStatus;
+        id: string;
+      }[]
+    | undefined
+) {
+  const start = moment(range.from).tz("Europe/Budapest").hour(14).minute(0);
 
-function isRangeTooShort(startDate: Date, endDate: Date) {
-  return endDate.getTime() - startDate.getTime() < minimumStay;
-}
+  if (start.isBefore(new Date(), "day")) {
+    return;
+  }
 
-export function validateDateRange(startDate: Date, endDate: Date) {
-  if (new Date(startDate) > new Date(endDate))
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "Check-in date must be before check-out date",
-    });
+  if (range.to) {
+    const differenceInDays = Math.abs(
+      moment.duration(start.hour(0).diff(moment(range.to))).asDays()
+    );
+    if (differenceInDays < 2) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "The range between check-in and check-out is too short",
+      });
+    }
+    const end = moment(range.to).hour(12).minute(0).tz("Europe/Budapest");
+    const days = enumerateDaysBetweenDates(start, end);
 
-  if (isRangeTooLong(new Date(startDate), new Date(endDate)))
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "The range between check-in and check-out is too long",
-    });
-
-  if (isRangeTooShort(new Date(startDate), new Date(endDate)))
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "The range between check-in and check-out is too short",
-    });
+    if (days.some((day) => tileDisabled(day, bookings))) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "There's already a bookings in this date range",
+      });
+    }
+  }
 }
 
 export const GetBookingsSchema = z.object({

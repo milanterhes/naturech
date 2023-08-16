@@ -521,14 +521,14 @@ export const Contact = () => {
               >
                 <Image
                   src={"/instagram.svg"}
-                  alt="Link to our Instagram page"
+                  alt="Follow us on Instagram"
                   width={30}
                   height={30}
                   className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10"
                 />
               </motion.a>
               <motion.a
-                href="https://www.facebook.com/your_page/"
+                href="https://www.facebook.com/"
                 target="_blank"
                 rel="noopener noreferrer"
                 initial={{ y: 25, opacity: 0 }}
@@ -541,27 +541,7 @@ export const Contact = () => {
               >
                 <Image
                   src={"/facebook.svg"}
-                  alt="Link to our Facebook page"
-                  width={30}
-                  height={30}
-                  className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10"
-                />
-              </motion.a>
-              <motion.a
-                href="https://www.tiktok.com/@your_page/"
-                target="_blank"
-                rel="noopener noreferrer"
-                initial={{ y: 25, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{
-                  delay: 2,
-                  duration: 0.75,
-                }}
-                viewport={{ once: true }}
-              >
-                <Image
-                  src={"/tiktok.svg"}
-                  alt="Link to our TikTok page"
+                  alt="Follow us on Facebook"
                   width={30}
                   height={30}
                   className="h-6 w-6 md:h-8 md:w-8 lg:h-10 lg:w-10"

@@ -74,40 +74,40 @@ const ImageGridItem: React.FC<ImageGridItemProps> = ({
 const SlideshowLightboxComponent = SlideshowLightbox as React.ElementType;
 const images = [
   {
-    src: "/gal1.webp",
-    alt: "Image 1",
+    src: "/slideshow1.webp",
+    alt: "Gallery slideshow image 1 - Entrance gate for Nature Chill Woodhouses",
   },
   {
-    src: "/gal2.webp",
-    alt: "Image 2",
+    src: "/slideshow2.webp",
+    alt: "Gallery slideshow image 2 - Grill & Chill in Nature Chill Woodhouses",
   },
   {
-    src: "/gal3.webp",
-    alt: "Image 3",
+    src: "/slideshow3.webp",
+    alt: "Gallery slideshow image 3 - Animals are allowed to relax at Nature Chill Woodhouses",
   },
   {
-    src: "/gal4.webp",
-    alt: "Image 4",
+    src: "/slideshow4.webp",
+    alt: "Gallery slideshow image 4 - Jaccuzzi & Chill in Nature Chill Woodhouses",
   },
   {
-    src: "/gal5.webp",
-    alt: "Image 5",
+    src: "/slideshow5.webp",
+    alt: "Gallery slideshow image 5 - Jaccuzzi & Chill in Nature Chill Woodhouses",
   },
   {
-    src: "/gal6.webp",
-    alt: "Image 6",
+    src: "/slideshow6.webp",
+    alt: "Gallery slideshow image 6 - Interior at Nature Chill Woodhouses",
   },
   {
-    src: "/gal7.webp",
-    alt: "Image 7",
+    src: "/slideshow7.webp",
+    alt: "Gallery slideshow image 7 - Interior design at Nature Chill Woodhouses",
   },
   {
-    src: "/gal8.webp",
-    alt: "Image 8",
+    src: "/slideshow8.webp",
+    alt: "Gallery slideshow image 8 - Interior design at Nature Chill Woodhouses",
   },
   {
-    src: "/gal9.webp",
-    alt: "Image 9",
+    src: "/slideshow9.webp",
+    alt: "Gallery slideshow image 9 - Interior design at Nature Chill Woodhouses",
   },
 ];
 
@@ -226,7 +226,7 @@ export const GalleryGrid = () => {
         <h2>{t("gallery.cta.title")}</h2>
         <div className="flex space-x-4">
           <motion.a
-            href="https://www.instagram.com/your_page/"
+            href="https://www.instagram.com/naturechilltreehouses//"
             target="_blank"
             rel="noopener noreferrer"
             initial={{ y: 25, opacity: 0 }}
@@ -239,13 +239,13 @@ export const GalleryGrid = () => {
           >
             <Image
               src={"/instagram.svg"}
-              alt="Link to our Instagram page"
+              alt="Follow us on Instagram"
               width={15}
               height={15}
             />
           </motion.a>
           <motion.a
-            href="https://www.facebook.com/your_page/"
+            href="https://www.facebook.com/"
             target="_blank"
             rel="noopener noreferrer"
             initial={{ y: 25, opacity: 0 }}
@@ -258,7 +258,7 @@ export const GalleryGrid = () => {
           >
             <Image
               src={"/facebook.svg"}
-              alt="Link to our Facebook page"
+              alt="Follow us on Facebook"
               width={15}
               height={15}
             />

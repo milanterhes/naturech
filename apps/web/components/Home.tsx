@@ -16,7 +16,6 @@ import leafPic from "../public/leaf.png";
 import logoPic from "../public/naturechill-logo.png";
 import Login, { useAuth } from "./Auth";
 import LocaleSwitcher from "./LocaleSwitcher";
-import { useSwipeable } from "react-swipeable";
 import {
   AnimatePresence,
   motion,
@@ -503,10 +502,12 @@ const ServiceCard = ({ servicePic, icons, title, details }) => {
             src={servicePic}
             width={1024}
             height={1024}
+            onClick={handleArrowClick}
+            quality={70}
             alt="Our Services on Card"
             className={`object-cover brightness-${
               showDetails ? "50" : "75"
-            } aspect-[4/3] rounded-[5px] drop-shadow-highlight-dark`}
+            } cursor-pointer aspect-[4/3] rounded-[5px] drop-shadow-[10px_7px_2px_rgba(0,0,0,0.4)]`}
           />
           <div className="absolute grid h-full grid-flow-row auto-rows-fr justify-between py-1">
             <div></div>
@@ -645,133 +646,136 @@ export const Services = () => {
   );
 };
 
-const GalleryImage = ({
-  src,
-  alt,
-  width = 300,
-  height = 300,
-  className = "rounded w-2/6 h-auto sm:w-1/2 sm:h-auto m-0.5 sm:m-1",
-}) => (
-  <Image
-    src={src}
-    alt={alt}
-    width={width}
-    height={height}
-    className={className}
-  />
-);
-
-const PaginationRect = ({ isActive }) => (
-  <div
-    className={`ml-2 h-2 w-2 transform self-center rounded-full transition-all duration-200 ease-in group-hover:translate-x-1.5 ${
-      isActive ? "bg-secondary-theme" : "bg-white"
-    }`}
-  ></div>
-);
-
 export const Gallery = () => {
   const t = useTranslations();
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const handlers = useSwipeable({
-    onSwipedLeft: () => setCurrentPage((currentPage + 1) % 4),
-    onSwipedRight: () => setCurrentPage((currentPage - 1 + 4) % 4),
-    trackMouse: true,
-    delta: 10,
-    preventScrollOnSwipe: false,
-    trackTouch: true,
-    rotationAngle: 0,
-    swipeDuration: Infinity,
-    touchEventOptions: { passive: true },
+  const targetRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
   });
 
-  const imageSources = [
-    "/gal1.webp",
-    "/gal2.webp",
-    "/gal3.webp",
-    "/gal4.webp",
-    "/gal5.webp",
-    "/gal6.webp",
-    "/gal7.webp",
-    "/gal8.webp",
-    "/gal9.webp",
-    "/gal10.webp",
-    "/gal11.webp",
-    "/gal12.jpg",
-  ];
-
-  const handleArrowClick = () => {
-    setCurrentPage((currentPage + 1) % 4);
-  };
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-95%"]);
 
   return (
-    <AnimatePresence>
-      <div {...handlers} className="flex flex-col items-center py-3">
-        <motion.h2
-          className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
-          initial={{ y: 25, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{
-            delay: 0.2,
-            duration: 0.75,
-          }}
-          viewport={{ once: true }}
-        >
-          {t.rich(`home.enjoy.gallery.title`, {
-            large: (chunks) => <span className="text-xl">{chunks}</span>,
-          })}
-        </motion.h2>
-        <motion.div
-          className="flex min-h-[30vh] w-5/6 justify-center justify-around"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{
-            delay: 0.1,
-            duration: 0.75,
-          }}
-          viewport={{ once: true }}
-        >
-          {imageSources
-            .slice(currentPage * 3, (currentPage + 1) * 3)
-            .map((src, index) => (
-              <GalleryImage
-                key={src}
-                src={src}
-                alt={`Gallery Image ${index + 1}`}
-              />
-            ))}
-        </motion.div>
-        <motion.div
-          className="flex w-5/6 justify-between py-2 lg:justify-around"
-          initial={{ y: 25, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{
-            delay: 0.4,
-            duration: 0.75,
-          }}
-          viewport={{ once: true }}
-        >
-          <div className="flex">
-            {[0, 1, 2, 3].map((i) => (
-              <PaginationRect key={i} isActive={i === currentPage} />
-            ))}
-          </div>
-          <Link href="/gallery" scroll={false}>
-            {t("home.enjoy.gallery.button")}
-          </Link>
-          <Image
-            onClick={handleArrowClick}
-            src={"/arrow.svg"}
-            alt="Arrow Icon"
-            width={35}
-            height={35}
-            className="ml-2 hidden transform self-center transition-all duration-200 ease-in hover:scale-110 active:translate-x-1.5 lg:block"
-          />
-        </motion.div>
-      </div>
-    </AnimatePresence>
+    <>
+      <section ref={targetRef} className="relative h-[300vh] bg-main-theme">
+        <div className="sticky top-0 flex h-screen items-center overflow-hidden">
+          <AnimatePresence>
+            <div className="absolute inset-0 flex justify-center mt-36">
+              <motion.h2
+                className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
+                initial={{ y: 25, opacity: 0 }}
+                whileInView={{ y: 0, opacity: 1 }}
+                transition={{
+                  delay: 0.2,
+                  duration: 0.75,
+                }}
+                viewport={{ once: true }}
+              >
+                {t.rich(`home.enjoy.gallery.title`, {
+                  large: (chunks) => <span className="text-xl">{chunks}</span>,
+                })}
+              </motion.h2>
+            </div>
+          </AnimatePresence>
+          <AnimatePresence>
+            <motion.div
+              style={{ x }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{
+                delay: 0.4,
+                duration: 0.75,
+              }}
+              viewport={{ once: true }}
+              className="flex gap-4"
+            >
+              {cards.map((card) => {
+                return <Card card={card} key={card.id} />;
+              })}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
+    </>
   );
 };
+
+const Card = ({ card }: { card: CardType }) => {
+  return (
+    <div
+      key={card.id}
+      className="group relative h-[350px] w-[350px] sm:h-[450px] sm:w-[450px] overflow-hidden bg-neutral-200 rounded-md drop-shadow-[10px_7px_2px_rgba(0,0,0,0.4)]"
+    >
+      <div
+        style={{
+          backgroundImage: `url(${card.url})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className="absolute inset-0 z-0 transition-transform duration-300 group-hover:scale-110"
+      ></div>
+    </div>
+  );
+};
+
+type CardType = {
+  url: string;
+  title: string;
+  id: number;
+};
+
+const cards: CardType[] = [
+  {
+    url: "/homegallerypic1.webp",
+    title: "Title 1",
+    id: 1,
+  },
+  {
+    url: "/homegallerypic2.webp",
+    title: "Title 2",
+    id: 2,
+  },
+  {
+    url: "/homegallerypic3.webp",
+    title: "Title 3",
+    id: 3,
+  },
+  {
+    url: "/homegallerypic4.webp",
+    title: "Title 4",
+    id: 4,
+  },
+  {
+    url: "/homegallerypic5.webp",
+    title: "Title 5",
+    id: 5,
+  },
+  {
+    url: "/homegallerypic6.webp",
+    title: "Title 6",
+    id: 6,
+  },
+  {
+    url: "/homegallerypic7.webp",
+    title: "Title 7",
+    id: 7,
+  },
+  {
+    url: "/homegallerypic8.webp",
+    title: "Title 8",
+    id: 8,
+  },
+  {
+    url: "/homegallerypic9.webp",
+    title: "Title 9",
+    id: 9,
+  },
+  {
+    url: "/homegallerypic10.webp",
+    title: "Title 10",
+    id: 10,
+  },
+];
 
 type ReviewProps = {
   name: string;
@@ -876,9 +880,9 @@ export const ReviewsContainer: FC = () => {
 
   return (
     <AnimatePresence>
-      <div className="flex flex-col items-center py-3">
+      <div className="flex flex-col items-center">
         <motion.h2
-          className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
+          className="text-md max-w-[200px] pb-16 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
           initial={{ y: 25, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{
@@ -891,9 +895,9 @@ export const ReviewsContainer: FC = () => {
             large: (chunks) => <span className="text-xl">{chunks}</span>,
           })}
         </motion.h2>
-        <div className="carousel flex min-h-[20rem] w-full items-center justify-center bg-cover bg-center relative">
+        <div className="carousel flex min-h-[25rem] w-full items-center justify-center bg-cover bg-center relative">
           <Image
-            src={"/reviewImg.webp"}
+            src={"/homegallerypic8.webp"}
             fill
             alt="Our best reviews"
             style={{ objectFit: "cover" }}
@@ -1056,43 +1060,25 @@ export const Footer = () => {
                   >
                     <Image
                       src={"/instagram.svg"}
-                      alt="Link to our Instagram page"
+                      alt="Follow us on Instagram"
                       width={15}
                       height={15}
                     />
                   </a>
                   <a
-                    href="https://www.facebook.com/profile.php?id=61550518251130/"
+                    href="https://www.facebook.com/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <Image
                       src={"/facebook.svg"}
-                      alt="Link to our Facebook page"
+                      alt="Follow us on Facebook"
                       width={13}
                       height={13}
                     />
                   </a>
-                  <a
-                    href="https://www.tiktok.com/@your_page/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src={"/tiktok.svg"}
-                      alt="Link to our TikTok page"
-                      width={15}
-                      height={15}
-                    />
-                  </a>
                 </div>
                 <div className="flex gap-2">
-                  <Image
-                    src={"/PayPal.svg"}
-                    alt="We accept PayPal"
-                    width={28}
-                    height={28}
-                  />
                   <Image
                     src={"/Visa.svg"}
                     alt="We accept Visa"

@@ -661,7 +661,7 @@ export const Gallery = () => {
       <section ref={targetRef} className="relative h-[300vh] bg-main-theme">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <AnimatePresence>
-            <div className="absolute inset-0 flex justify-center mt-20 min-[380px]:mt-36">
+            <div className="absolute inset-0 flex justify-center mt-20">
               <motion.h2
                 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
                 initial={{ y: 25, opacity: 0 }}

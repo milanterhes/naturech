@@ -11,7 +11,7 @@ import Link from "next/link";
 import { FC, useEffect, useState, useRef } from "react";
 import bgPicFull from "../public/Image_full.webp";
 import bgPicBottom from "../public/Image_bottom.webp";
-import introPic from "../public/intro.png";
+import introPic from "../public/intro.webp";
 import leafPic from "../public/leaf.png";
 import logoPic from "../public/naturechill-logo.png";
 import Login, { useAuth } from "./Auth";
@@ -369,6 +369,7 @@ export const Intro: React.FC = () => {
           <Image
             src={introPic}
             alt="Nature & Chill Woodhouse"
+            quality={25}
             height={1024}
             width={1024}
             className="aspect-[4/3] rounded-[5px] object-cover brightness-75 drop-shadow-highlight"
@@ -660,7 +661,7 @@ export const Gallery = () => {
       <section ref={targetRef} className="relative h-[300vh] bg-main-theme">
         <div className="sticky top-0 flex h-screen items-center overflow-hidden">
           <AnimatePresence>
-            <div className="absolute inset-0 flex justify-center mt-36">
+            <div className="absolute inset-0 flex justify-center mt-20 min-[380px]:mt-36">
               <motion.h2
                 className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
                 initial={{ y: 25, opacity: 0 }}

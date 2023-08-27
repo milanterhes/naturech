@@ -251,7 +251,7 @@ export const Hero: React.FC = () => {
       <div className="flex justify-center px-12 py-24 text-center">
         <AnimatePresence>
           <motion.h1
-            className="z-30 font-tangerine font-bold text-5xl tracking-[.25em] drop-shadow-2xl pt-2 md:text-7xl sm:text-6xl"
+            className="z-30 font-tangerine font-bold text-4xl tracking-[.25em] drop-shadow-2xl pt-2 md:text-6xl sm:text-5xl w-11/12"
             initial={{ y: 25, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{
@@ -307,7 +307,7 @@ export const Hero: React.FC = () => {
                 src="/HeroLocation.svg"
                 alt="Our Location"
                 title={t("home.hero.info2.title")}
-                subtitle="Balf"
+                subtitle="Sopron"
               />
               <IconInfo
                 src="/HeroPrice.svg"
@@ -342,21 +342,7 @@ export const Intro: React.FC = () => {
   const t = useTranslations();
   return (
     <AnimatePresence>
-      <div className="flex flex-col items-center justify-center px-6 py-3 z-30">
-        <motion.h2
-          className="text-md max-w-[200px] py-4 text-center font-roboto-mono font-bold uppercase tracking-[.20em] drop-shadow-2xl"
-          initial={{ y: 25, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{
-            delay: 0.2,
-            duration: 0.75,
-          }}
-          viewport={{ once: true }}
-        >
-          {t.rich(`home.enjoy.title`, {
-            large: (chunks) => <span className="text-xl">{chunks}</span>,
-          })}
-        </motion.h2>
+      <div className="flex flex-col items-center justify-center px-6 py-10 mt-14 z-30">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

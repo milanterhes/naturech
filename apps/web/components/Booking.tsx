@@ -370,7 +370,7 @@ export const BookingInfo: React.FC = ({}) => {
                 e.target === e.currentTarget && setIsServiceModalOpen(false)
               }
             >
-              <div className="flex h-4/6 w-11/12 flex-col overflow-auto rounded-lg bg-white p-4 text-black sm:w-3/4 lg:w-1/2">
+              <div className="flex h-4/6 w-11/12 flex-col overflow-auto rounded-lg bg-main-theme p-4 text-white sm:w-3/4 lg:w-1/2">
                 <h2 className="mb-4 text-3xl font-semibold md:text-5xl 2xl:text-6xl">
                   {t("booking.info.services.card.title")}
                 </h2>
@@ -387,7 +387,7 @@ export const BookingInfo: React.FC = ({}) => {
                 </ul>
                 <button
                   onClick={() => setIsServiceModalOpen(false)}
-                  className="mb-4 mt-auto inline-block rounded-md bg-main-theme px-3 py-2 text-sm text-white hover:bg-secondary-theme sm:text-base"
+                  className="mb-4 mt-auto inline-block rounded-md bg-white px-3 py-2 text-sm text-main-theme hover:bg-secondary-theme sm:text-base hover:text-white"
                 >
                   {t("booking.info.services.popup.popupclosebutton")}
                 </button>

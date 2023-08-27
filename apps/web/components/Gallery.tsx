@@ -263,25 +263,6 @@ export const GalleryGrid = () => {
               height={15}
             />
           </motion.a>
-          <motion.a
-            href="https://www.tiktok.com/@your_page/"
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ y: 25, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{
-              delay: 1,
-              duration: 0.75,
-            }}
-            viewport={{ once: true }}
-          >
-            <Image
-              src={"/tiktok.svg"}
-              alt="Link to our TikTok page"
-              width={15}
-              height={15}
-            />
-          </motion.a>
         </div>
       </motion.div>
     </AnimatePresence>

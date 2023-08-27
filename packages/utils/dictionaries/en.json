@@ -1,7 +1,7 @@
 {
   "home": {
     "hero": {
-      "header": "Forest Eden on Balf",
+      "header": "A secret sanctuary awaits you in the heart of the Sopron Wine Region",
       "info1": {
         "title": "Style",
         "detail": "Luxury"
@@ -27,9 +27,8 @@
       "contact": "Contact"
     },
     "enjoy": {
-      "title": "<large>Enjoy</large> the luxury of nature",
       "content": {
-        "first": "In the heart of the Sopron wine region, a secret refuge awaits you! Welcome to our luxury log cabin, where intimacy and tranquility meet the beauty of nature.",
+        "first": "Welcome to our luxury log cabin, where intimacy and tranquility meet the beauty of nature.",
         "second": "With us, relaxation is uninterrupted, and unwinding is complete since the log cabin is located in a completely isolated environment. On the terrace, the endless rows of vines offer a perpetual panorama, while the grilling option promises culinary delights.",
         "third": "The proximity of nature fills you with energy, and if you want to cool down, the jacuzzi ensures complete relaxation.And of course, your dog can't be left at home! Everything here is dog-friendly, as they too can be part of this magical environment.Discover the comfort, silence, and harmony that our log cabin offers. We look forward to welcoming you!",
         "button": "More"
@@ -46,20 +45,20 @@
       },
       "services": {
         "service1": {
-          "title": "Convenience Services",
-          "details": "Experience lightning-fast Wifi, cutting-edge entertainment, and ultimate comfort with our sophisticated climate control."
+          "title": "Amenities",
+          "details": "Enjoy Smart TV, Netflix, and Disney+ services. Climate control ensures a comfortable temperature and lightning-fast WiFi is also available."
         },
         "service2": {
-          "title": "Equipment",
-          "details": "Breathe in tranquility on our serene terrace. Submerge into a haven of relaxation with our luxurious Jacuzzi."
+          "title": "Facilities",
+          "details": "A terrace Jacuzzi and grilling facilities await you. A Nespresso coffee machine and complete kitchenware make your stay homey."
         },
         "service3": {
-          "title": "Supply",
-          "details": "Awaken your senses with our freshly brewed coffee. Savor the bouquet of our handpicked fine wines."
+          "title": "Catering",
+          "details": "Fresh and selected breakfast platter, as well as selectable quality wine from Lővér Cellar when booking. Additional upcharge options for food and drinks."
         },
         "service4": {
-          "title": "Leisure activities",
-          "details": "Challenge your mind with a stimulating game of chess. Discover enchanting local sights with our curated tour service."
+          "title": "Recreational Activities",
+          "details": "Recommendations for local programs and hiking trails. In case of bad weather, exciting board games and local gastronomy tips."
         }
       },
       "footer": {
@@ -134,40 +133,48 @@
           "popupclosebutton": "Close",
           "popupinformation": {
             "service1": {
-              "title": "Free Wifi Service Available",
-              "description": "Enjoy our high-speed internet throughout the entire property, free of charge. Continue your work or stay connected with your loved ones wherever you prefer."
+              "title": "Smart TV: Netflix and Disney+",
+              "description": "Netflix and Disney+ are accessible via the Smart TV available in the living room, ensuring entertainment and relaxation."
             },
             "service2": {
-              "title": "High Definition TV Service",
-              "description": "Our house is equipped with a flat screen TV with a variety of channels and streaming services available. Relax and enjoy your favorite movies or series."
+              "title": "Heating-Cooling Air Conditioning",
+              "description": "The cabin is equipped with an air conditioner that both cools and heats, ensuring a comfortable temperature year-round."
             },
             "service3": {
-              "title": "Climate Controlled Air Conditioning",
-              "description": "Our house comes with fully adjustable climate control, ensuring your comfort all year round. Be comfortable in any season!"
+              "title": "Free Wifi",
+              "description": "Free Wifi is available throughout the area, so guests can stay connected with the outside world while enjoying the tranquility of nature."
             },
             "service4": {
-              "title": "Complimentary Gourmet Coffee Service",
-              "description": "Take advantage of our café service, offering a wide selection of hot and cold beverages, as well as light snacks. Start your day with a delicious coffee!"
+              "title": "Terrace Jacuzzi",
+              "description": "The Jacuzzi situated on the terrace offers an opportunity for relaxation and unwinding in the open air."
             },
             "service5": {
-              "title": "Terrace with Beautiful Scenic Views",
-              "description": "Guests are welcome to relax on our spacious terrace and enjoy the view. Take in the fresh air while admiring the nature!"
+              "title": "Grilling Facility",
+              "description": "A grill in the garden provides the opportunity to prepare tasty meals outdoors."
             },
             "service6": {
-              "title": "Relaxing Hot Tub or Jacuzzi Available",
-              "description": "After a long day of sightseeing, unwind in our relaxing jacuzzi. Let the bubbles smooth away the day's tension!"
+              "title": "Nespresso Coffee Machine",
+              "description": "Enjoy fresh coffee anytime with the Nespresso coffee machine available in the kitchen."
             },
             "service7": {
-              "title": "Selection of Fine Wines Available",
-              "description": "Join us for a wine tasting session and sample a selection of local and international wines. Get to know our wines and enjoy the rich palette of flavors!"
+              "title": "Breakfast Platter",
+              "description": "Included in the room price is a breakfast platter that offers a variety of fresh and tasty delicacies."
             },
             "service8": {
-              "title": "Chess Sets Available for Guest Use",
-              "description": "Enjoy a game of chess in our quiet, dedicated chess room. Find an opponent or enhance your tactical skills!"
+              "title": "Selectable Wine",
+              "description": "Upon booking, you can choose a bottle of high-quality wine from our selected wine list from the Lővér Cellar."
             },
             "service9": {
-              "title": "Local Sightseeing and Tour Services",
-              "description": "We offer guided tours around the city. Please ask the host for more details. Discover the surroundings with us!"
+              "title": "Hiking Trail Information",
+              "description": "We provide information on nearby hiking trails for you to explore the beautiful landscapes."
+            },
+            "service10": {
+              "title": "Recommendations for Local Restaurants and Bakeries",
+              "description": "We offer recommendations for visiting local restaurants and bakeries for tasty gastronomic experiences."
+            },
+            "service11": {
+              "title": "Board Games",
+              "description": "Various board games are available, so bad weather won’t mean boredom."
             }
           }
         }

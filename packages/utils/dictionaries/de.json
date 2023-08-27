@@ -1,7 +1,7 @@
 {
   "home": {
     "hero": {
-      "header": "Waldparadies in Balf",
+      "header": "Ein geheimer Zufluchtsort erwartet Sie im Herzen des Soproner Weinbaugebiets",
       "info1": {
         "title": "Stil",
         "detail": "Luxus"
@@ -27,9 +27,8 @@
       "contact": "Kontakt"
     },
     "enjoy": {
-      "title": "<large>Genießen</large> Sie den Luxus der Natur",
       "content": {
-        "first": "Im Herzen des Soproner Weinanbaugebiets erwartet Sie ein geheimes Refugium! Willkommen in unserer Luxus-Holzhütte, wo Intimität und Ruhe auf die Schönheit der Natur treffen.",
+        "first": "Willkommen in unserer Luxus-Holzhütte, wo Intimität und Ruhe auf die Schönheit der Natur treffen.",
         "second": "Bei uns ist die Entspannung ungestört und die Erholung vollständig, denn die Holzhütte befindet sich in einer völlig isolierten Umgebung. Auf der Terrasse bieten die endlosen Reihen von Reben ein ewiges Panorama, während die Grillmöglichkeit kulinarische Genüsse verspricht.",
         "third": "Die Nähe zur Natur füllt Sie mit Energie, und wenn Sie sich abkühlen möchten, sorgt der Whirlpool für vollständige Entspannung.Und natürlich darf Ihr Hund nicht zu Hause bleiben! Bei uns ist alles hundefreundlich, denn auch sie können Teil dieser magischen Umgebung sein.Entdecken Sie den Komfort, die Stille und die Harmonie, die unsere Holzhütte bietet. Wir freuen uns auf Ihren Besuch!",
         "button": "Mehr"
@@ -46,20 +45,20 @@
       },
       "services": {
         "service1": {
-          "title": "Komfortdienstleistungen",
-          "details": "Erleben Sie blitzschnelles Wifi, hochmoderne Unterhaltung und ultimativen Komfort mit unserer raffinierten Klimasteuerung."
+          "title": "Komfortausstattung",
+          "details": "Genießen Sie Smart-TV, Netflix und Disney+ Dienste. Eine Klimaanlage sorgt für angenehme Temperaturen und blitzschnelles WLAN steht ebenfalls zur Verfügung."
         },
         "service2": {
-          "title": "Ausrüstung",
-          "details": "Atmen Sie die Ruhe auf unserer stillen Terrasse ein. Tauchen Sie ein in eine Oase der Entspannung in unserem luxuriösen Whirlpool."
+          "title": "Ausstattung",
+          "details": "Ein Terrassen-Jakuzzi und Grillmöglichkeiten erwarten Sie. Eine Nespresso-Kaffeemaschine und vollständige Küchenausstattung machen Ihren Aufenthalt gemütlich."
         },
         "service3": {
-          "title": "Versorgung",
-          "details": "Wecken Sie Ihre Sinne mit unserem frisch gebrühten Kaffee. Genießen Sie das Bouquet unserer handverlesenen edlen Weine."
+          "title": "Verpflegung",
+          "details": "Frisches und ausgewähltes Frühstücksbuffet, sowie wählbarer Qualitätswein von der Lővér Kellerei bei der Buchung. Weitere Aufpreisoptionen für Speisen und Getränke."
         },
         "service4": {
           "title": "Freizeitaktivitäten",
-          "details": "Fordern Sie Ihren Geist mit einem anregenden Schachspiel heraus. Entdecken Sie bezaubernde lokale Sehenswürdigkeiten mit unserem ausgewählten Tourenservice."
+          "details": "Empfehlungen für lokale Programme und Wanderwege. Bei schlechtem Wetter spannende Brettspiele und lokale gastronomische Tipps."
         }
       },
       "footer": {
@@ -134,40 +133,48 @@
           "popupclosebutton": "Schließen",
           "popupinformation": {
             "service1": {
-              "title": "Kostenloser Wifi-Service verfügbar",
-              "description": "Genießen Sie unser Highspeed-Internet auf dem gesamten Grundstück, kostenlos. Bleiben Sie in Verbindung oder arbeiten Sie weiter, wo immer Sie möchten."
+              "title": "Smart TV: Netflix und Disney+",
+              "description": "Über den im Wohnzimmer verfügbaren Smart-TV sind Netflix und Disney+ zugänglich, um Unterhaltung und Entspannung zu gewährleisten."
             },
             "service2": {
-              "title": "Hochauflösender TV-Service",
-              "description": "Unser Haus ist mit einem Flachbildfernseher ausgestattet, der eine Vielzahl von Kanälen und Streaming-Diensten bietet. Entspannen Sie sich und genießen Sie Ihre Lieblingsfilme oder -serien."
+              "title": "Kühlen-Heizen Klimaanlage",
+              "description": "Das Blockhaus ist mit einer Klimaanlage ausgestattet, die sowohl kühlt als auch heizt, um das ganze Jahr über eine angenehme Temperatur zu gewährleisten."
             },
             "service3": {
-              "title": "Klimatisierte Klimaanlage",
-              "description": "Unser Haus verfügt über eine vollständig einstellbare Klimasteuerung, die das ganze Jahr über für Komfort sorgt. Genießen Sie Komfort zu jeder Jahreszeit!"
+              "title": "Kostenloses WLAN",
+              "description": "Kostenloses WLAN ist im gesamten Bereich verfügbar, so dass die Gäste in Kontakt mit der Außenwelt bleiben können, während sie die Ruhe der Natur genießen."
             },
             "service4": {
-              "title": "Kostenloser Gourmet-Kaffeeservice",
-              "description": "Nutzen Sie unseren Café-Service, der eine große Auswahl an heißen und kalten Getränken sowie leichten Snacks bietet. Beginnen Sie den Tag mit einem köstlichen Kaffee!"
+              "title": "Whirlpool auf der Terrasse",
+              "description": "Der auf der Terrasse aufgestellte Whirlpool bietet eine Gelegenheit zur Entspannung und Erholung im Freien."
             },
             "service5": {
-              "title": "Terrasse mit wunderschönem Panoramablick",
-              "description": "Gäste sind eingeladen, sich auf unserer geräumigen Terrasse zu entspannen und die Aussicht zu genießen. Atmen Sie die frische Luft ein und bewundern Sie die Natur!"
+              "title": "Grillmöglichkeit",
+              "description": "Ein Grill im Garten bietet die Möglichkeit, schmackhafte Mahlzeiten im Freien zuzubereiten."
             },
             "service6": {
-              "title": "Entspannender Whirlpool oder Jacuzzi verfügbar",
-              "description": "Entspannen Sie sich nach einem langen Tag voller Sightseeing in unserem entspannenden Jacuzzi. Lassen Sie die Blasen den Stress des Tages glätten!"
+              "title": "Nespresso Kaffeemaschine",
+              "description": "Mit der in der Küche verfügbaren Nespresso Kaffeemaschine können Sie jederzeit frischen Kaffee genießen."
             },
             "service7": {
-              "title": "Auswahl an feinen Weinen verfügbar",
-              "description": "Nehmen Sie an einer Weinprobe teil und probieren Sie eine Auswahl an lokalen und internationalen Weinen. Entdecken Sie unsere Weine und genießen Sie die reiche Palette an Weingeschmäckern!"
+              "title": "Frühstücksplatte",
+              "description": "Im Zimmerpreis inbegriffen ist eine Frühstücksplatte, die eine Vielzahl von frischen und leckeren Delikatessen bietet."
             },
             "service8": {
-              "title": "Schachsets zur Nutzung durch die Gäste verfügbar",
-              "description": "Genießen Sie eine Partie Schach in unserem ruhigen, speziell für Schach reservierten Raum. Finden Sie einen Gegner oder verbessern Sie Ihre taktischen Fähigkeiten!"
+              "title": "Auswählbarer Wein",
+              "description": "Bei der Buchung können Sie eine Flasche hochwertigen Wein aus der von uns ausgewählten Weinkarte der Lővér Kellerei auswählen."
             },
             "service9": {
-              "title": "Lokale Besichtigungs- und Tourdienste",
-              "description": "Wir bieten geführte Touren durch die Stadt an. Bitte fragen Sie den Gastgeber nach weiteren Details. Entdecken Sie die Umgebung mit uns!"
+              "title": "Wanderweg Informationen",
+              "description": "Wir bieten Informationen zu Wanderwegen in der Umgebung, damit Sie die wunderschönen Landschaften erkunden können."
+            },
+            "service10": {
+              "title": "Empfehlungen für lokale Restaurants und Konditoreien",
+              "description": "Wir geben Empfehlungen für den Besuch lokaler Restaurants und Konditoreien, damit Sie köstliche gastronomische Erlebnisse genießen können."
+            },
+            "service11": {
+              "title": "Brettspiele",
+              "description": "Verschiedene Brettspiele stehen zur Verfügung, so dass schlechtes Wetter keine Langeweile bedeutet."
             }
           }
         }

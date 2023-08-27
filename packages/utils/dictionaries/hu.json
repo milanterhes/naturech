@@ -1,7 +1,7 @@
 {
   "home": {
     "hero": {
-      "header": "Erdei éden Balfon",
+      "header": "Soproni Borvidék szívében megbúvó titkos menedék várja Önt",
       "info1": {
         "title": "Stílus",
         "detail": "Luxus"
@@ -27,9 +27,8 @@
       "contact": "Kapcsolat"
     },
     "enjoy": {
-      "title": "<large>Élvezze</large> a természet luxusát",
       "content": {
-        "first": "Soproni Borvidék szívében megbúvó titkos menedék vár Téged! Üdvözlünk luxus faházunkban, ahol a meghittség és nyugalom találkozik a természet szépségével.",
+        "first": "Üdvözlünk luxus faházunkban, ahol a meghittség és nyugalom találkozik a természet szépségével.",
         "second": "Nálunk a pihenés zavartalan, a kikapcsolódás teljes, hiszen a faház teljesen elszigetelt környezetben helyezkedik el. A teraszon a szőlők végtelen sora nyújt örökpanorámát, míg a grillezési lehetőség kulináris élményekkel kecsegtet.",
         "third": "A természet közelsége feltölt energiával, és ha hűsölnél, a jakuzzi gondoskodik a teljes ellazulásról.És persze, a kutyád sem maradhat otthon! Nálunk minden kutyabarát, hiszen ők is részesei lehetnek ennek a varázslatos környezetnek.Fedezd fel a kényelmet, csendet és harmóniát, amit faházunk kínál. Várunk szeretettel!",
         "button": "Több"
@@ -47,19 +46,19 @@
       "services": {
         "service1": {
           "title": "Kényelmi szolgáltatások",
-          "details": "Élvezze a zavartalan kapcsolatot villámgyors Wifi szolgáltatásunkkal. Merüljön el a szórakozás világában fejlett TV rendszerünkkel. Tapasztalja meg a végső beltéri kényelmet kifinomult klímavezérlésünkkel."
+          "details": "Élvezze az Okos TV-t, Netflixet és Disney+ szolgáltatásokat. Klímaberendezés biztosítja a kellemes hőmérsékletet és villámgyors Wifi is rendelkezésre áll."
         },
         "service2": {
           "title": "Felszereltség",
-          "details": "Lélegezzen be nyugalmat a békés teraszunkon. Merüljön el a pihenés menedékében luxus jakuzzinkban."
+          "details": "Teraszi jakuzzi és grill lehetőség várja Önt. Nespresso kávégép és komplett konyhai eszközök teszik otthonossá tartózkodását."
         },
         "service3": {
           "title": "Ellátás",
-          "details": "Ébressze fel érzékeit frissen főzött kávénkkal. Ízlelje meg gondosan válogatott, finom boraink csokrát."
+          "details": "Friss és válogatott reggeli hidegtál, valamint választható minőségi bor a Lővér pincétől foglaláskor. További feláras étel- és italopciók."
         },
         "service4": {
-          "title": "Szabadidos tevékenységek",
-          "details": "Sarkallja fel elméjét egy izgalmas sakkjátékkal. Fedezze fel a varázslatos helyi látnivalókat gondosan válogatott túraszolgáltatásunkkal."
+          "title": "Szabadidős tevékenységek",
+          "details": "Környékbeli programok és túraösvények ajánlása. Rossz idő esetén izgalmas társasjátékok és helyi gasztronómiai tippek."
         }
       },
       "footer": {
@@ -134,40 +133,48 @@
           "popupclosebutton": "Bezárás",
           "popupinformation": {
             "service1": {
-              "title": "Ingyenes wifi szolgáltatás elérhető",
-              "description": "Élvezze gyors internetünket az egész ingatlanon, díjmentesen. Folytassa a munkát, vagy maradjon kapcsolatban a szeretteivel, ahol csak szeretne."
+              "title": "Okos TV: Netflix és Disney+",
+              "description": "A nappaliban található Okos TV-n keresztül elérhető a Netflix és a Disney+ szolgáltatás, biztosítva a kikapcsolódást és szórakozást."
             },
             "service2": {
-              "title": "Magas felbontású televíziós szolgáltatás",
-              "description": "A házunkban lapos képernyős TV áll rendelkezésre, számos csatornával és streaming szolgáltatással. Pihenjen és élvezze kedvenc filmjeit vagy sorozatait."
+              "title": "Hűtő-fűtő klíma",
+              "description": "A faház klímaberendezéssel van felszerelve, amely hűt és fűt is, így az egész évben biztosított a kellemes hőmérséklet."
             },
             "service3": {
-              "title": "Klímavezérelt légkondicionálás",
-              "description": "Házunkban teljesen szabályozható klímavezérlés biztosítja a kényelmet egész évben. Legyen kényelmes minden évszakban!"
+              "title": "Ingyenes Wifi",
+              "description": "A teljes területen elérhető ingyenes Wifi szolgáltatás, így a vendégek maradhatnak kapcsolatban a külvilággal, miközben élvezik a természet nyugalmát."
             },
             "service4": {
-              "title": "Ingyenes gourmet kávé szolgáltatás",
-              "description": "Használja ki kávézó szolgáltatásunkat, amely széles választékot kínál forró és hideg italokból, valamint könnyű harapnivalókból. Kezdje a napot egy finom kávéval!"
+              "title": "Teraszon jakuzzi",
+              "description": "A teraszon elhelyezett jakuzzi lehetőséget kínál a pihenésre és kikapcsolódásra, a szabadban."
             },
             "service5": {
-              "title": "Terasz gyönyörű panorámás kilátással",
-              "description": "A vendégek szívesen pihenhetnek tágas teraszunkon, és élvezhetik a kilátást. Lélegezze be a friss levegőt, miközben a természet csodálja!"
+              "title": "Grill lehetőség",
+              "description": "A kertben található grill lehetőséget kínál az ízletes ételek szabadtéri elkészítésére."
             },
             "service6": {
-              "title": "Pihentető pezsgőfürdő vagy jacuzzi elérhető",
-              "description": "Egy hosszú városnézés után lazítson a pihentető jacuzzinkban. Engedje, hogy a buborékok elsimítsák a nap feszültségét!"
+              "title": "Nespresso kávégép",
+              "description": "A konyhában található Nespresso kávégép segítségével bármikor élvezheti a friss kávét."
             },
             "service7": {
-              "title": "Válogatott finom borok elérhetők",
-              "description": "Csatlakozzon hozzánk egy borkóstolóra, és kóstoljon helyi és nemzetközi borokat. Ismerje meg a borainkat, és élvezze a borok gazdag ízvilágát!"
+              "title": "Reggeli hidegtál",
+              "description": "A szállás ára tartalmazza a reggeli hidegtálat, amely számos friss és ízletes finomságot kínál."
             },
             "service8": {
-              "title": "Sakk készletek a vendégek rendelkezésére állnak",
-              "description": "Élvezze a sakk játékot csendes, a sakknak szentelt szobánkban. Keressen ellenfelet, vagy fejlessze a taktikai képességeit!"
+              "title": "Kiválasztható bor",
+              "description": "Foglaláskor választhat egy üveget kiváló minőségű borból a Lővér pince általunk kiválogatott borpalettájáról."
             },
             "service9": {
-              "title": "Helyi látványosságok és túraszolgáltatások",
-              "description": "Városnéző túrákat kínálunk. Kérjük, érdeklődjön a házigazdánál további részletekért. Fedezze fel velünk a környéket!"
+              "title": "Túraösvény információ",
+              "description": "Információt nyújtunk a környékbeli túraösvényekről, hogy felfedezhesse a gyönyörű tájakat."
+            },
+            "service10": {
+              "title": "Helyi éttermek és cukrászdák ajánló",
+              "description": "Javaslatokat teszünk a helyi éttermek és cukrászdák látogatására, hogy ízletes gasztronómiai élményekben részesüljenek."
+            },
+            "service11": {
+              "title": "Társasjátékok",
+              "description": "Különböző társasjátékok állnak rendelkezésre, így a rossz időjárás sem jelent unalmat."
             }
           }
         }

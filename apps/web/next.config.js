@@ -1,5 +1,7 @@
+const { withAxiom } = require("next-axiom");
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+module.exports = withAxiom({
   reactStrictMode: true,
   transpilePackages: ["ui, @naturechill/tailwind-config"],
   i18n: {
@@ -16,4 +18,4 @@ module.exports = {
     ];
   },
   trailingSlash: true,
-};
+});

@@ -7,6 +7,7 @@ import "react-calendar/dist/Calendar.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import "../styles/globals.css";
+import { AxiomWebVitals } from "next-axiom";
 
 const bowlby = Bowlby_One_SC({
   weight: ["400"],
@@ -31,6 +32,7 @@ function MyApp({ Component, pageProps }) {
   const pageKey = router.asPath;
   return (
     <NextIntlProvider messages={pageProps.messages} locale={pageProps.locale}>
+      <AxiomWebVitals />
       <AuthContextProvider>
         <main
           className={`${bowlby.variable} ${robotoMono.variable} ${tangerine.variable} bg-main-theme text-white`}

@@ -221,7 +221,6 @@ export class BookingService {
           currentDayOfWeek >= 1 && currentDayOfWeek <= 4
             ? weekdaysNightlyRate
             : weekendsNightlyRate;
-        console.log("adding nightly", nightlyRate);
         totalCost += nightlyRate;
       }
 

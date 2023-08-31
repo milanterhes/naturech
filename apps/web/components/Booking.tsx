@@ -1,30 +1,22 @@
+import { AnimatePresence, motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { useState, useCallback } from "react";
 import Link from "next/link";
-import faq from "../data/faq";
-import guestInfo from "../data/guestInfo";
-import services from "../data/services";
-import bookingherobg from "../public/bookingherobg.webp";
-import { FC } from "react";
+import { useCallback, useState } from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "../components/ui/accordion";
-import { AnimatePresence, motion } from "framer-motion";
-import { useDateSelector } from "./DateSelector";
-import { DatePickerWithRange } from "./Calendar";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./ui/dialog";
+import faq from "../data/faq";
+import guestInfo from "../data/guestInfo";
+import services from "../data/services";
+import bookingherobg from "../public/bookingherobg.webp";
 import { ProfileForm, ProfileFormPage2 } from "./BookingForm";
+import { DatePickerWithRange } from "./Calendar";
+import { useDateSelector } from "./DateSelector";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 
 type IconTextProps = {
   imgWidth: number;
@@ -201,14 +193,9 @@ export const BookingMain = () => {
 export const BookingInfo: React.FC = ({}) => {
   const t = useTranslations() as any;
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
-  const [isFaqModalOpen, setIsFaqModalOpen] = useState(false);
 
   const openServiceModal = useCallback(() => {
     setIsServiceModalOpen(true);
-  }, []);
-
-  const openFaqModal = useCallback(() => {
-    setIsFaqModalOpen(true);
   }, []);
 
   return (

@@ -172,6 +172,14 @@ const getQuote = t.procedure
       breakfast
     );
 
+    console.log({
+      amount: totalCost,
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+      paymentKind,
+      breakfast,
+    });
+
     return {
       amount: totalCost,
     };

@@ -263,10 +263,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           onValueChange={(value) => {
                             field.onChange(value);
                             setPet(value === "true");
-                            console.log(
-                              "Pet value set in frontend:",
-                              value === "true"
-                            );
                           }}
                           defaultValue={field.value}
                         >
@@ -454,7 +450,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
         <div className="flex w-full flex-col items-stretch space-y-6 sm:flex-row sm:space-x-4 sm:space-y-0 mt-5">
           <div className="flex flex-col rounded-md bg-gray-300 p-3 sm:w-1/3">
             <h2>{t("booking.bookingmodal.page2.house.title")}</h2>
-            <span>Ház Fakopáncs</span>
+            <span>{t("booking.bookingmodal.page1.tablebody.woodhouse1")}</span>
           </div>
 
           <div className="flex flex-col rounded-md bg-gray-300 p-3 sm:w-1/3">

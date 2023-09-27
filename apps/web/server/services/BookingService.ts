@@ -12,7 +12,8 @@ const maxDateRange = 1000 * 60 * 60 * 24 * 92;
 const minimumStay = 1000 * 60 * 60 * 24 * 2;
 
 // rates in HUF
-export const weekdaysNightlyRate = 60000;
+export const weekdaysSingleNightlyRate = 60000;
+export const weekdaysMoreNightlyRate = 50000;
 export const weekendsNightlyRate = 75000;
 
 export function validateDateRange(
@@ -36,7 +37,7 @@ export function validateDateRange(
     const differenceInDays = Math.abs(
       moment.duration(start.hour(0).diff(moment(range.to))).asDays()
     );
-    if (differenceInDays < 2) {
+    if (differenceInDays < 1) {
       throw new TRPCError({
         code: "BAD_REQUEST",
         message: "The range between check-in and check-out is too short",
@@ -66,6 +67,7 @@ export const BookSchema = z.object({
   email: z.string().email(),
   sessionId: z.string(),
   breakfast: z.boolean(),
+  pet: z.boolean(),
 });
 
 export type BookInput = z.infer<typeof BookSchema>;
@@ -75,6 +77,7 @@ export const GetQuoteSchema = z.object({
   endDate: z.number(),
   paymentKind: z.nativeEnum(Payment),
   breakfast: z.boolean(),
+  pet: z.boolean(),
 });
 
 export type GetQuoteInput = z.infer<typeof GetQuoteSchema>;
@@ -115,6 +118,7 @@ export class BookingService {
     email,
     sessionId,
     breakfast,
+    pet,
   }: BookInput) {
     const existingBooking = await prisma.booking.findFirst({
       where: {
@@ -160,10 +164,12 @@ export class BookingService {
           moment(startDate),
           moment(endDate),
           paymentKind,
-          breakfast
+          breakfast,
+          pet
         ),
         sessionId,
         breakfast,
+        pet,
       },
       select: {
         endDate: true,
@@ -179,12 +185,13 @@ export class BookingService {
   }
 
   static async getQuote(input: GetQuoteInput) {
-    const { startDate, endDate, paymentKind, breakfast } = input;
+    const { startDate, endDate, paymentKind, breakfast, pet } = input;
     const totalCost = BookingService.calculateTotalCost(
       moment(startDate),
       moment(endDate),
       paymentKind,
-      breakfast
+      breakfast,
+      pet
     );
 
     return {
@@ -196,8 +203,16 @@ export class BookingService {
     startDate: moment.Moment,
     endDate: moment.Moment,
     paymentKind: Payment,
-    breakfast: boolean
+    breakfast: boolean,
+    pet: boolean
   ) {
+    console.log("calculateTotalCost called", {
+      startDate,
+      endDate,
+      paymentKind,
+      breakfast,
+      pet,
+    });
     let totalCost = 0;
 
     const specialHolidays = [
@@ -207,7 +222,10 @@ export class BookingService {
       moment(`${startDate.year()}0820`, "YYYYMMDD"), // August 20th
     ];
     const specialHolidaysRate = 80000;
-
+    const price =
+      endDate.diff(startDate, "days") >= 1
+        ? weekdaysMoreNightlyRate
+        : weekdaysSingleNightlyRate;
     const currentDate = startDate.clone();
     while (currentDate.isBefore(endDate, "day")) {
       const currentDayOfWeek = currentDate.day();
@@ -219,14 +237,15 @@ export class BookingService {
       } else {
         const nightlyRate =
           currentDayOfWeek >= 1 && currentDayOfWeek <= 4
-            ? weekdaysNightlyRate
+            ? price
             : weekendsNightlyRate;
         totalCost += nightlyRate;
       }
 
       currentDate.add(1, "day");
     }
-    if (breakfast) totalCost += 5000;
+    if (breakfast) totalCost += 10990;
+    if (pet) totalCost += 7000;
 
     if (paymentKind === Payment.CASH) {
       return {

@@ -181,15 +181,15 @@
       },
       "important": {
         "title": "Fontos tudnivalók!",
-        "i1": "Minimum tartózkodás: 2 éjszaka",
+        "i1": "Foglalás: 1 éj - 60.000,-Ft/2 fő, 2 éj+ - 50.000,-Ft/2 fő. Hosszabb tartózkodás: egyedi ár, telefonos egyeztetés szükséges.",
         "i2": "Bejelentkezés: 15:00-19:00 között",
         "i3": "Távozás: legkésőbb 10:00 óra",
-        "i4": "Kapacitás: A faház max. 2 felnőtt és 1 gyermek számára alkalmas",
+        "i4": "Kapacitás: A faház maximum 2 felnőtt számára alkalmas. Több fő esetén kérjük, vegye fel velünk a kapcsolatot telefonon egyedi árajánlatért.",
         "i5": "Árak: Áraink változhatnak más portálokon és akciókban",
-        "i6": "Kedvencek: Kutyabarát hely, kiskedvenceket szívesen látunk",
+        "i6": "Kedvencek: Kutyabarát hely, kiskedvenceket szívesen látunk, de kérjük, vegye figyelembe, hogy csak maximum 15 kg súlyú kiskedvenceket tudunk fogadni. A tisztítás és egyéb költségek miatt 7.000,-Ft felárat számolunk fel.",
         "i7": "Kapcsolat: Bármilyen kérdés esetén hívja Orbán Krisztiánt a 0036703928177-es számon (0-24)",
         "i8": "Lemondás: 30 nappal érkezés előtt ingyenes, 1-29 napig a foglalási díj 50%-a, érkezés napján vagy utána a foglalási díj 100%-a",
-        "i9": "Reggelink: Az ár tartalmazza a 2 fős reggeli tálunkat (7:45-8:15 közötti kiszállítás). Ételallergiát kérem előre jelezze!",
+        "i9": "Reggelink: Az ár tartalmaz egy 3.000,-Ft értékű reggeli utalványt a Hoffer cukrászdába, amely egy általunk preferált helyi gasztro élmény. Alternatívaként választhat egy különleges extra reggeli tálat két személyre 10.990,-Ft-ért, amit a Kovászüzem készített válogatott finomságokból. Ételallergiát kérem előre jelezze!",
         "i10": "Hosszú tartózkodás: Extra takarítás, ágyneműk és törölközők cseréje kérhető (6.000,-Ft díj)"
       },
       "faq": {
@@ -218,7 +218,7 @@
           },
           "q5": {
             "title": "Fogadnak-e kiskedvenceket?",
-            "answer": "Természetesen! A faházunk kutyabarát, szívesen látjuk a kiskedvenceket is. Kérjük, előzetesen jelezze, ha kiskedvencet hoz magával, hogy felkészülhessünk az érkezésére."
+            "answer": "Igen, kutyabarát hely vagyunk és kiskedvenceket is szívesen látunk, de csak 15 kg súlyhatárig. Továbbá, a tisztítás és egyéb költségek miatt 7.000,-Ft felárat számolunk fel. Kérjük, előzetesen jelezze, ha kiskedvencet hoz magával."
           }
         }
       },
@@ -241,23 +241,26 @@
           "price": "Ár"
         },
         "tablebody": {
-          "woodhouse1": "Luxus faház, Fakopáncs",
-          "description": "Maximum 3 Főre foglalható(2 felnőtt, 1 gyerek)"
+          "woodhouse1": "Luxus faház, Vörösfenyő"
         },
         "selectguest": {
           "title": "Válassza ki a vendégek számát",
-          "value1": "1 Fő (felnőtt)",
-          "value2": "2 Fő (felnőtt)",
-          "value3": "3 Fő (felnőtt + gyerek)"
+          "value1": "1 Fő",
+          "value2": "2 Fő"
         },
         "breakfast": {
-          "title": "Kér extra reggelit? (+5.000HUF) By: Kovászüzem",
+          "title": "Szeretne egy különleges extra reggeli tálat két személyre, amit a Kovászüzem készített? (+10.990 HUF)",
           "answer1": "Igen kérek!",
-          "answer2": "Jó az árban foglalt reggeli!"
+          "answer2": "Nem kérek!"
         },
         "fullhalfpriceselect": {
           "fullprice": "Teljes összeg fizetése",
           "halfprice": "Előleg fizetése"
+        },
+        "petQuestion": {
+          "title": "Hoz kisállatot?",
+          "true": "Hozok!",
+          "false": "Nem hozok!"
         }
       },
       "page2": {
@@ -273,6 +276,11 @@
         },
         "guests": {
           "title": "Vendégek száma:"
+        },
+        "pet": {
+          "title": "Kisállatot hozok:",
+          "true": "Igen",
+          "false": "Nem"
         },
         "form": {
           "name": "Teljes név",

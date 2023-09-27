@@ -587,7 +587,7 @@ const services = [
     },
   },
   {
-    servicePic: "/service4.png",
+    servicePic: "/service4.webp",
     icons: [
       { src: "/Chess.svg", alt: "Chess Icon" },
       { src: "/Tour.svg", alt: "Tour Icon" },

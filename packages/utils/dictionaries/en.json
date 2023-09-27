@@ -181,15 +181,15 @@
       },
       "important": {
         "title": "Important Information!",
-        "i1": "Minimum stay: 2 nights",
+        "i1": "Booking: 1 night - 60,000 HUF/2 people, 2+ nights - 50,000 HUF/2 people. Longer stays: customized rate, call for details.",
         "i2": "Check-in: between 15:00 and 19:00",
         "i3": "Check-out: no later than 10:00",
-        "i4": "Capacity: The log cabin is suitable for max. 2 adults and 1 child",
+        "i4": "Capacity: The cabin is suitable for a maximum of 2 adults. For more than two people, please contact us by phone for a customized rate.",
         "i5": "Prices: Our prices may vary on other portals and in promotions",
-        "i6": "Pets: Dog-friendly place, pets are welcome",
+        "i6": "Pets: Pet-friendly place, we welcome small pets, but please note that we can only accommodate pets up to 15 kg. Due to cleaning and other expenses, an additional fee of 7,000 HUF will be charged.",
         "i7": "Contact: For any questions, call Krisztian Orbán at 0036703928177 (24/7)",
         "i8": "Cancellation: Free up to 30 days before arrival, 1-29 days before arrival the cancellation fee is 50% of the booking fee, on the day of arrival or after, the fee is 100% of the booking fee",
-        "i9": "Breakfast: The price includes our breakfast for 2 people (delivery between 7:45 and 8:15). Please notify us in advance of any food allergies!",
+        "i9": "Our Breakfast: The price includes a breakfast voucher worth 3,000 HUF for Hoffer Cukrászda, a local gastronomic experience we highly recommend. Alternatively, you can choose a special extra breakfast platter for two people for 10,990 HUF, prepared by Kovászüzem with a selection of delicacies. Please inform us in advance of any food allergies.",
         "i10": "Long stay: Extra cleaning, linen and towel change can be requested (fee 6.000,-Ft)"
       },
       "faq": {
@@ -218,7 +218,7 @@
           },
           "q5": {
             "title": "Do you accept pets?",
-            "answer": "Of course! Our log cabin is dog-friendly, we also welcome pets. Please notify us in advance if you are bringing a pet so we can prepare for its arrival."
+            "answer": "Yes, we are a pet-friendly place and welcome small pets, but please note that we can only accommodate pets up to 15 kg. An additional fee of 7,000 HUF will be charged for cleaning and other expenses. Please inform us in advance if you are bringing a pet."
           }
         }
       },
@@ -241,23 +241,26 @@
           "price": "Price"
         },
         "tablebody": {
-          "woodhouse1": "Luxury cabin, Fakopáncs",
-          "description": "Can be booked for up to 3 people (2 adults, 1 child)"
+          "woodhouse1": "Luxury cabin, Red Spruce"
         },
         "selectguest": {
           "title": "Select the number of guests",
-          "value1": "1 person (adult)",
-          "value2": "2 people (adults)",
-          "value3": "3 people (adult + child)"
+          "value1": "1 person",
+          "value2": "2 people"
         },
         "breakfast": {
-          "title": "Would you like extra breakfast? (+5.000HUF) By: Kovászüzem",
+          "title": "Would you like to indulge in an extra breakfast for two, prepared by Kovászüzem? (+10,990 HUF)",
           "answer1": "Yes, please!",
-          "answer2": "The breakfast included in the price is fine!"
+          "answer2": "No, thank you!"
         },
         "fullhalfpriceselect": {
           "fullprice": "Pay full amount",
           "halfprice": "Pay deposit"
+        },
+        "petQuestion": {
+          "title": "Are you bringing a pet?",
+          "true": "Yes, I am!",
+          "false": "No, I am not!"
         }
       },
       "page2": {
@@ -272,6 +275,11 @@
         },
         "guests": {
           "title": "Number of guests:"
+        },
+        "pet": {
+          "title": "I take my pet with me:",
+          "true": "Yes",
+          "false": "No"
         },
         "form": {
           "name": "Full name",

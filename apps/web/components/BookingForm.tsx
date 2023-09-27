@@ -85,6 +85,7 @@ const formSchema = z.object({
   breakfast: z.string({
     required_error: required_breakfastError_message,
   }),
+  pet: z.string(),
 });
 
 interface ProfileFormProps {
@@ -105,7 +106,8 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
     resolver: zodResolver(formSchema),
   });
 
-  const { endDate, startDate, totalCost, setBreakfast } = useDateSelector();
+  const { endDate, startDate, totalCost, setBreakfast, setPet } =
+    useDateSelector();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -166,9 +168,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                       <FormLabel>
                         {t("booking.bookingmodal.page1.tablebody.woodhouse1")}
                       </FormLabel>
-                      <FormDescription>
-                        {t("booking.bookingmodal.page1.tablebody.description")}
-                      </FormDescription>
                     </div>
                   </FormItem>
                 </TableCell>
@@ -176,7 +175,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                   {totalCost.amount.deposit}HUF
                 </TableCell>
               </TableRow>
-              <TableRow className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full">
+              <TableRow className="flex flex-col items-center justify-center sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 w-full">
                 <TableCell className="w-full sm:flex-1">
                   <FormField
                     control={form.control}
@@ -188,7 +187,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="border-2 border-main-theme/75 sm:w-5/6 xl:w-3/6 h-[5rem]">
+                            <SelectTrigger className="border-2 border-main-theme/75  h-[7rem]">
                               <SelectValue
                                 placeholder={t(
                                   "booking.bookingmodal.page1.selectguest.title"
@@ -205,11 +204,6 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                             <SelectItem value="2">
                               {t(
                                 "booking.bookingmodal.page1.selectguest.value2"
-                              )}
-                            </SelectItem>
-                            <SelectItem value="3">
-                              {t(
-                                "booking.bookingmodal.page1.selectguest.value3"
                               )}
                             </SelectItem>
                           </SelectContent>
@@ -233,7 +227,7 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                           defaultValue={field.value}
                         >
                           <FormControl>
-                            <SelectTrigger className="border-2 border-main-theme/75 h-[5rem]">
+                            <SelectTrigger className="border-2 border-main-theme/75 h-[7rem]">
                               <SelectValue
                                 placeholder={t(
                                   "booking.bookingmodal.page1.breakfast.title"
@@ -250,6 +244,48 @@ export const ProfileForm: React.FC<ProfileFormProps> = ({
                             <SelectItem value="false">
                               {t(
                                 "booking.bookingmodal.page1.breakfast.answer2"
+                              )}
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </TableCell>
+                <TableCell className="w-full sm:flex-1">
+                  <FormField
+                    control={form.control}
+                    name="pet"
+                    render={({ field }) => (
+                      <FormItem>
+                        <Select
+                          onValueChange={(value) => {
+                            field.onChange(value);
+                            setPet(value === "true");
+                            console.log(
+                              "Pet value set in frontend:",
+                              value === "true"
+                            );
+                          }}
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="border-2 border-main-theme/75 h-[7rem]">
+                              <SelectValue
+                                placeholder={t(
+                                  "booking.bookingmodal.page1.petQuestion.title"
+                                )}
+                              />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="true">
+                              {t("booking.bookingmodal.page1.petQuestion.true")}
+                            </SelectItem>
+                            <SelectItem value="false">
+                              {t(
+                                "booking.bookingmodal.page1.petQuestion.false"
                               )}
                             </SelectItem>
                           </SelectContent>
@@ -345,11 +381,13 @@ const formSchemaPage2 = z.object({
 type ProfileFormPage2Props = {
   onPrevPage: () => void;
   guests: number;
+  pet: boolean;
 };
 
 export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
   onPrevPage,
   guests,
+  pet,
 }) => {
   const locale = useLocale();
   const t = useTranslations();
@@ -380,6 +418,7 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
         email,
         locale: locale as "en" | "de" | "hu",
         breakfast,
+        pet,
       });
 
       const stripe = await loadStripe(
@@ -426,6 +465,14 @@ export const ProfileFormPage2: React.FC<ProfileFormPage2Props> = ({
           <div className="flex flex-col rounded-md bg-gray-300 p-3 sm:w-1/3">
             <h2>{t("booking.bookingmodal.page2.guests.title")}</h2>
             <span>{guests}</span>
+          </div>
+          <div className="flex flex-col rounded-md bg-gray-300 p-3 sm:w-1/3">
+            <h2>{t("booking.bookingmodal.page2.pet.title")}</h2>
+            <span>
+              {pet
+                ? `${t("booking.bookingmodal.page2.pet.true")}`
+                : `${t("booking.bookingmodal.page2.pet.false")}`}
+            </span>
           </div>
         </div>
 

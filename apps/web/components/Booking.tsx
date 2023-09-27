@@ -73,6 +73,7 @@ export const BookingMain = () => {
   const [showModalPage, setShowModalPage] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [guests, setGuests] = useState(3);
+  const { pet } = useDateSelector();
 
   const handleNextPage = () => setCurrentPage((prev) => prev + 1);
   const handlePreviousPage = () => setCurrentPage((prev) => prev - 1);
@@ -81,7 +82,7 @@ export const BookingMain = () => {
     <AnimatePresence>
       <div className="relative flex flex-col items-center bg-[url('/bookingbg.webp')] bg-cover bg-top pt-[80px]">
         <div className="absolute inset-0 bg-black bg-opacity-20" />
-        <div className="relative flex h-[35vh] w-11/12 justify-center sm:h-[40vh] md:h-[60vh] 2xl:h-[80vh]">
+        <div className="relative flex h-[35vh] w-10/12 justify-center sm:h-[40vh] md:h-[60vh] 2xl:h-[80vh]">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -93,7 +94,7 @@ export const BookingMain = () => {
               src={bookingherobg}
               alt="Book Termin Now"
               fill
-              className="rounded-xl object-cover drop-shadow-[0px_7px_2px_rgba(0,0,0,0.4)]"
+              className="rounded-xl object-fill drop-shadow-[0px_7px_2px_rgba(0,0,0,0.4)]"
             />
           </motion.div>
           <div className="absolute inset-0 rounded-xl bg-black bg-opacity-40" />
@@ -177,6 +178,7 @@ export const BookingMain = () => {
                   <ProfileFormPage2
                     onPrevPage={handlePreviousPage}
                     guests={guests}
+                    pet={pet}
                   />
                 )}
               </DialogContent>

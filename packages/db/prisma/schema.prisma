@@ -45,5 +45,6 @@ model Booking {
   updatedAt       DateTime      @updatedAt
   sessionId       String?       @unique @map("session_id")
   paymentIntentId String?       @unique @map("payment_intent_id")
-  breakfast Boolean?
+  breakfast       Boolean?
+  pet             Boolean?
 }

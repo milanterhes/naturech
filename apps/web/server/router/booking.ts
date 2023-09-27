@@ -45,7 +45,7 @@ const createCheckoutSession = async ({
         price_data: {
           currency: "huf",
           product_data: {
-            name: "Luxus Faház, Fakopáncs",
+            name: "Luxus Faház, Vörösfenyő",
             description: `Foglalás: ${start} - ${end}. ${guests} Vendég`,
           },
           unit_amount: amount * 100,
@@ -80,6 +80,7 @@ const book = t.procedure
       guests: z.number(),
       locale: z.enum(i18n.locales),
       breakfast: z.boolean(),
+      pet: z.boolean(),
     })
   )
   .mutation(
@@ -92,6 +93,7 @@ const book = t.procedure
         email,
         locale,
         breakfast,
+        pet,
       },
       ctx,
     }) => {
@@ -119,7 +121,8 @@ const book = t.procedure
         moment(startDate),
         moment(endDate),
         paymentKind,
-        breakfast
+        breakfast,
+        pet
       ); // todo use moment
 
       const session = await createCheckoutSession({
@@ -139,6 +142,7 @@ const book = t.procedure
         email,
         sessionId: session.id,
         breakfast,
+        pet,
       });
 
       return session.id;
@@ -147,43 +151,47 @@ const book = t.procedure
 
 const getQuote = t.procedure
   .input(GetQuoteSchema)
-  .query(async ({ input: { startDate, endDate, paymentKind, breakfast } }) => {
-    const bookings = await prisma.booking.findMany({
-      where: {
-        status: { not: BookingStatus.CANCELLED },
-      },
-      select: {
-        endDate: true,
-        startDate: true,
-        status: true,
-        id: true,
-      },
-    });
+  .query(
+    async ({ input: { startDate, endDate, paymentKind, breakfast, pet } }) => {
+      const bookings = await prisma.booking.findMany({
+        where: {
+          status: { not: BookingStatus.CANCELLED },
+        },
+        select: {
+          endDate: true,
+          startDate: true,
+          status: true,
+          id: true,
+        },
+      });
 
-    validateDateRange(
-      { from: new Date(startDate), to: new Date(endDate) },
-      bookings
-    );
+      validateDateRange(
+        { from: new Date(startDate), to: new Date(endDate) },
+        bookings
+      );
 
-    const totalCost = BookingService.calculateTotalCost(
-      moment(startDate),
-      moment(endDate),
-      paymentKind,
-      breakfast
-    );
+      const totalCost = BookingService.calculateTotalCost(
+        moment(startDate),
+        moment(endDate),
+        paymentKind,
+        breakfast,
+        pet
+      );
 
-    console.log({
-      amount: totalCost,
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      paymentKind,
-      breakfast,
-    });
+      console.log({
+        amount: totalCost,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
+        paymentKind,
+        breakfast,
+        pet,
+      });
 
-    return {
-      amount: totalCost,
-    };
-  });
+      return {
+        amount: totalCost,
+      };
+    }
+  );
 
 const bookingRouter = t.router({
   getBookings,

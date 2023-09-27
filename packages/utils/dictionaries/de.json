@@ -181,15 +181,15 @@
       },
       "important": {
         "title": "Wichtige Informationen!",
-        "i1": "Mindestaufenthalt: 2 Nächte",
+        "i1": "Buchung: 1 Nacht - 60.000 HUF/2 Personen, 2+ Nächte - 50.000 HUF/2 Personen. Bei längeren Aufenthalten: individuelles Angebot, telefonische Absprache erforderlich.",
         "i2": "Check-in: zwischen 15:00 und 19:00 Uhr",
         "i3": "Check-out: spätestens um 10:00 Uhr",
-        "i4": "Kapazität: Das Blockhaus ist geeignet für max. 2 Erwachsene und 1 Kind",
+        "i4": "Kapazität: Die Hütte ist für maximal 2 Erwachsene geeignet. Bei mehr Personen bitten wir um telefonische Absprache für ein individuelles Angebot.",
         "i5": "Preise: Unsere Preise können auf anderen Portalen und bei Aktionen variieren",
-        "i6": "Haustiere: Hundefreundlicher Ort, wir freuen uns auf Haustiere",
+        "i6": "Haustiere: Wir sind ein tierfreundlicher Ort und begrüßen kleine Haustiere gerne. Bitte beachten Sie jedoch, dass wir nur Haustiere bis zu einem Gewicht von maximal 15 kg aufnehmen können. Aufgrund von Reinigungs- und anderen Kosten wird ein Aufpreis von 7.000 HUF berechnet.",
         "i7": "Kontakt: Bei Fragen wenden Sie sich bitte an Kristian Orbán unter der Nummer 0036703928177 (24/7)",
         "i8": "Stornierung: Kostenlos bis 30 Tage vor Anreise, 1-29 Tage vor Anreise beträgt die Stornogebühr 50% des Buchungspreises, am Anreisetag oder danach beträgt die Gebühr 100% des Buchungspreises",
-        "i9": "Frühstück: Der Preis beinhaltet unser Frühstück für 2 Personen (Lieferung zwischen 7:45 und 8:15 Uhr). Bitte melden Sie Lebensmittelallergien im Voraus!",
+        "i9": "Unser Frühstück: Im Preis inbegriffen ist ein Frühstücksgutschein im Wert von 3.000 HUF für die Hoffer Konditorei, ein von uns bevorzugtes lokales gastronomisches Erlebnis. Alternativ können Sie sich für ein exquisites Zusatzfrühstück für zwei Personen für 10.990 HUF entscheiden, das von Kovászüzem mit einer Auswahl an Delikatessen zubereitet wird. Bitte teilen Sie uns im Voraus eventuelle Lebensmittelallergien mit.",
         "i10": "Längere Aufenthalte: Extra Reinigung, Bettwäsche und Handtuchwechsel können angefordert werden (Gebühr 6.000,-Ft)"
       },
       "faq": {
@@ -218,7 +218,7 @@
           },
           "q5": {
             "title": "Akzeptieren Sie Haustiere?",
-            "answer": "Natürlich! Unser Blockhaus ist hundefreundlich, wir freuen uns auch auf Haustiere. Bitte geben Sie im Voraus Bescheid, wenn Sie ein Haustier mitbringen, damit wir uns auf seine Ankunft vorbereiten können."
+            "answer": "Ja, wir sind ein tierfreundlicher Ort und begrüßen kleine Haustiere gerne. Bitte beachten Sie jedoch, dass wir nur Haustiere bis zu einem Gewicht von maximal 15 kg aufnehmen können. Aufgrund von Reinigungs- und anderen Kosten wird ein Aufpreis von 7.000 HUF berechnet. Bitte teilen Sie uns im Voraus mit, wenn Sie ein Haustier mitbringen"
           }
         }
       },
@@ -241,23 +241,26 @@
           "price": "Preis"
         },
         "tablebody": {
-          "woodhouse1": "Luxushütte, Fakopáncs",
-          "description": "Buchbar für bis zu 3 Personen (2 Erwachsene, 1 Kind)"
+          "woodhouse1": "Luxushütte, Rote Fichte"
         },
         "selectguest": {
           "title": "Wählen Sie die Anzahl der Gäste",
-          "value1": "1 Person (Erwachsener)",
-          "value2": "2 Personen (Erwachsene)",
-          "value3": "3 Personen (Erwachsener + Kind)"
+          "value1": "1 Person",
+          "value2": "2 Personen"
         },
         "breakfast": {
-          "title": "Möchten Sie ein zusätzliches Frühstück? (+5.000HUF) Von: Kovászüzem",
+          "title": "Möchten Sie sich ein exquisites Zusatzfrühstück für zwei Personen von Kovászüzem gönnen? (+10.990 HUF)",
           "answer1": "Ja, bitte!",
-          "answer2": "Das im Preis inbegriffene Frühstück ist gut!"
+          "answer2": "Nein, danke!"
         },
         "fullhalfpriceselect": {
           "fullprice": "Gesamtbetrag bezahlen",
           "halfprice": "Anzahlung leisten"
+        },
+        "petQuestion": {
+          "title": "Bringen Sie ein Haustier mit?",
+          "true": "Ja, tue ich!",
+          "false": "Nein, tue ich nicht!"
         }
       },
       "page2": {
@@ -273,6 +276,11 @@
         },
         "guests": {
           "title": "Anzahl der Gäste:"
+        },
+        "pet": {
+          "title": "Ich bringe mein Tier mit:",
+          "true": "Ja",
+          "false": "Nein"
         },
         "form": {
           "name": "Vollständiger Name",

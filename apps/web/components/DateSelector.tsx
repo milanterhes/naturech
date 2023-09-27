@@ -14,6 +14,8 @@ interface IDateSelectorContext {
   setDates: (start: moment.Moment | null, end: moment.Moment | null) => void;
   breakfast: boolean;
   setBreakfast: (value: boolean) => void;
+  pet: boolean;
+  setPet: (value: boolean) => void;
 }
 
 const zeroCost: TotalCost = {
@@ -30,6 +32,8 @@ const DateSelectorContext = React.createContext<IDateSelectorContext>({
   totalCost: zeroCost,
   breakfast: false,
   setBreakfast: () => {},
+  pet: false,
+  setPet: () => {},
 });
 
 type TotalCost = RouterOutput["booking"]["getQuote"];
@@ -37,6 +41,7 @@ type TotalCost = RouterOutput["booking"]["getQuote"];
 export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
   children,
 }) => {
+  const [pet, setPet] = useState<boolean>(false);
   const [breakfast, setBreakfast] = useState<boolean>(false);
   const [startDate, setStartDate] =
     useState<IDateSelectorContext["startDate"]>(null);
@@ -47,6 +52,7 @@ export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
       startDate: startDate?.valueOf() ?? 0,
       paymentKind: "CARD",
       breakfast,
+      pet,
     },
     {
       enabled: Boolean(startDate && endDate),
@@ -62,6 +68,8 @@ export const DateSelectorProvider: React.FC<PropsWithChildren> = ({
     <DateSelectorContext.Provider
       value={{
         startDate,
+        pet,
+        setPet,
         endDate,
         setDates,
         breakfast,

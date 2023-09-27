@@ -43,7 +43,7 @@ export function DatePickerWithRange({
       const differenceInDays = Math.abs(
         moment.duration(start.hour(0).diff(moment(range.to))).asDays()
       );
-      if (differenceInDays < 2) {
+      if (differenceInDays < 1) {
         setDates(start, null);
         return;
       }
@@ -51,7 +51,6 @@ export function DatePickerWithRange({
       const days = enumerateDaysBetweenDates(start, end);
 
       if (days.some((day) => tileDisabled(day, bookings))) {
-        console.log("lol rekt");
         return;
       }
     }
